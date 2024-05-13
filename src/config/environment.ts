@@ -12,23 +12,37 @@ const backendUrl =
 		: 'https://backend.demo.lens.samply.de/prod/';
 
 const uiSiteMap: string[][] = [
+	['brno', 'Brno'],
 	['berlin', 'Berlin'],
-	['berlin-test', 'Berlin'],
-	['bonn', 'Bonn'],
-	['dresden', 'Dresden'],
-	['essen', 'Essen'],
-	['frankfurt', 'Frankfurt'],
-	['freiburg', 'Freiburg'],
-	['hannover', 'Hannover'],
-	['mainz', 'Mainz'],
-	['muenchen-lmu', 'München(LMU)'],
-	['muenchen-tum', 'München(TUM)'],
-	['ulm', 'Ulm'],
-	['wuerzburg', 'Würzburg'],
+	['aachen', 'Aachen'],
+	['cyprus', 'Cyprus'],
+	['leipzig', 'Leipzig'],
+	['muenchen-hmgu', 'München-HMGU'],
+	['pilsen', 'Pilsen'],
+	['olomouc', 'Olomouc'],
+	['prague-ffm', 'Prague-FFM'],
+	['prague-ior', 'Prague-IoR'],
 	['mannheim', 'Mannheim'],
-	['dktk-test', 'DKTK-Test'],
-	['hamburg', 'Hamburg']
+	['heidelberg', 'Heidelberg'],
+	['rome', 'Rome-BBIRE'],
+	['essen', 'Essen'],
+	['goettingen', 'Göttingen'],
+	['frankfurt', 'Frankfurt'],
+	['dresden', 'Dresden'],
+	['wuerzburg', 'Würzburg'],
+	['regensburg', 'Regensburg'],
+	['luebeck', 'Lübeck'],
+	['augsburg', 'Augsburg'],
+	['marburg', 'Marburg'],
+	['goettingen', 'Göttingen'],
+	['hannover', 'Hannover'],
+	['muenster', 'Münster'],
+	['uppsala', 'Uppsala'],
+	['luebeck', 'Lübeck'],
+	
 ];
+
+
 
 export const genderHeaders: Map<string, string> = new Map<string, string>()
 	.set('male', 'männlich')
@@ -40,29 +54,34 @@ const catalogueKeyToResponseKeyMap = [
 	['gender', 'Gender'],
 	['age_at_diagnosis', 'Age'],
 	['diagnosis', 'diagnosis'],
-	['medicationStatements', 'MedicationType'],
 	['sample_kind', 'sample_kind'],
-	['therapy_of_tumor', 'ProcedureType'],
-	['75186-7', '75186-7']
-	// ["encounter", "Encounter"],
 ];
 
 export const backendConfig = {
 	url: import.meta.env.PROD ? backendUrl : 'http://localhost:8055',
 	backends: [
-		'mannheim',
-		'freiburg',
-		'muenchen-tum',
-		'hamburg',
-		'frankfurt',
-		'berlin-test',
+		'aachen',
+		'berlin',
+		'brno',
+		'cyprus',
 		'dresden',
-		'mainz',
-		'muenchen-lmu',
-		'essen',
-		'ulm',
+//        'essen',
+		'frankfurt',
+		'goettingen',
+		'heidelberg',
+		'hannover',
+		'luebeck',
+		'muenchen-hmgu',
+		'mannheim',
+		'marburg',
+//        'muenster',
+		'olomouc',
+		'regensburg',
+		'pilsen',
+		'prague-ffm',
+		'prague-ior',
+		'rome',
 		'wuerzburg',
-		'hannover'
 	],
 	uiSiteMap: uiSiteMap,
 	catalogueKeyToResponseKeyMap: catalogueKeyToResponseKeyMap
