@@ -1,4 +1,10 @@
 {
+    "iconOptions": {
+        "infoUrl": "info-circle-svgrepo-com.svg",
+        "selectAll": {
+            "text": "Add all"
+        }
+    },
     "chartOptions": {
         "patients": {
             "legendMapping": {
@@ -22,28 +28,11 @@
         },
         "gender": {
             "legendMapping": {
-                "male": "Männlich",
-                "female": "Weiblich",
-                "unknown": "Unbekannt",
-                "other": "Divers / intersexuell"
+                "male": "Male",
+                "female": "Female",
+                "unknown": "Unknown",
+                "other": "Divers / intersex"
             }
-        },
-        "diagnosis": {
-            "hintText": [
-                "Bei Patienten mit mehreren onkologischen Diagnosen werden auch Einträge angezeigt, die ggfs. nicht den ausgewählten Suchkriterien entsprechen."
-            ]
-        },
-        "age_at_diagnosis": {
-            "hintText": [
-                "Bei Patienten mit mehreren Erstdiagnosen werden auch Einträge angezeigt, die ggfs. außerhalb der Suchkriterien liegen. "
-            ]
-        },
-        "75186-7": {
-            "hintText": [
-                "\"verstorben\": ein Todesdatum ist dokumentiert oder das aktuelle Lebensalter ist größer 123 Jahre.",
-                "\"lebend\": wird angenommen, wenn kein Todesdatum dokumentiert ist oder das aktuelle Lebensalter nicht 123 Jahre überschritten hat.",
-                "\"unbekannt\": kein Geburtsdatum oder Todesdatum bekannt."
-            ]
         },
         "therapy_of_tumor": {
             "aggregations": [
@@ -56,9 +45,6 @@
             }
         },
         "medicationStatements": {
-            "hintText": [
-                "Art der systemischen oder abwartenden Therapie (ADT Basisdatensatz Versionen 2014, 2021)"
-            ],
             "tooltips": {
                 "CH": "Chemotherapie",
                 "HO": "Hormontherapie",
@@ -77,9 +63,6 @@
             }
         },
         "sample_kind": {
-            "hintText": [
-                "Verteilung der Probentypen die mit den identifizierten Patienten verbunden sind."
-            ],
             "tooltips": {
                 "tissue-ffpe": "Gewebe FFPE",
                 "tissue-frozen": "Gewebe schockgefroren",
@@ -129,15 +112,15 @@
     "tableOptions": {
         "headerData": [
             {
-                "title": "Standorte",
+                "title": "Sites",
                 "dataKey": "site"
             },
             {
-                "title": "Patienten",
+                "title": "Patients",
                 "dataKey": "patients"
             },
             {
-                "title": "Bioproben*",
+                "title": "Specimen",
                 "aggregatedDataKeys": [
                     {
                         "groupCode": "specimen"
@@ -153,16 +136,19 @@
         ]
     },
     "resultSummaryOptions": {
-        "title": "Ergebnisse",
-        "infoButtonText": "Um eine Re-Identifizierung zu erschweren, werden Standortergebnisse modifiziert und auf Zehnerstellen gerundet. Meldet ein Standort keinen Treffer, wird für diesen null angezeigt.",
+        "title": "Results",
         "dataTypes": [
             {
-                "title": "Standorte",
+                "title": "Sites",
                 "dataKey": "collections"
             },
             {
-                "title": "Patienten",
+                "title": "Patients",
                 "dataKey": "patients"
+            },
+            {
+                "title": "Specimen",
+                "dataKey": "specimen"
             }
         ]
     }
