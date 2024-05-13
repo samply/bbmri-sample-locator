@@ -66,21 +66,6 @@
 					>Diagramme repräsentieren nicht mehr die aktuelle Suche!</lens-search-modified-display
 				>
 			</div>
-			<div class="chart-wrapper chart-diagnosis">
-				<lens-chart
-					title="Diagnose"
-					catalogueGroupCode="diagnosis"
-					chartType="bar"
-					indexAxis="y"
-					groupingDivider="."
-					groupingLabel=".%"
-					filterRegex="^[CD].*"
-					xAxisTitle="Anzahl der Diagnosen"
-					yAxisTitle="ICD-10-Codes"
-					backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
-				></lens-chart>
-			</div>
-
 			<div class="chart-wrapper result-table">
 				<lens-result-table pageSize="10">
 					<div slot="above-pagination" class="result-table-hint-text">
@@ -121,6 +106,20 @@
 					backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
 				>
 				</lens-chart>
+			</div>
+			<div class="chart-wrapper">
+				<lens-chart
+					title="Diagnose"
+					catalogueGroupCode="diagnosis"
+					chartType="bar"
+					indexAxis="x"
+					groupingDivider="."
+					groupingLabel=".%"
+					filterRegex=".*"
+					xAxisTitle="Anzahl der Diagnosen"
+					yAxisTitle="ICD-10-Codes"
+					backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
+				></lens-chart>
 			</div>
 		</div>
 	</div>

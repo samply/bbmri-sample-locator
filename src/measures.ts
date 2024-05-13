@@ -1,4 +1,3 @@
-
 export const patientsMeasureBbmri = {
 	key: 'bbmri-patients',
 	measure: {
