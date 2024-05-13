@@ -13,15 +13,15 @@
 	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-example.json');
 </script>
 
-<header>
-	<div>
-		<!-- Add logo here -->
-	</div>
-	<h1>Lens2 Example (Title Here)</h1>
-	<div>
-		<!-- Add logo here -->
-	</div>
-</header>
+<header class="row line">
+	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px"/>
+	<menu class="menu">
+	  <a href="https://www.bbmri-eric.eu/about/">About Us</a>
+	  <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
+	  <a href="https://www.bbmri-eric.eu/bbmri-sample-and-data-portal/">Logout</a>
+	</menu>
+  </header>
+  
 
 <main>
 	<div class="search">
@@ -127,14 +127,14 @@
 	</div>
 </main>
 
-<footer>
-	<div class="made_with">
-		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens-core</a>
-	</div>
-	<div class="logo">
-		<img src="../Deutsches_Krebsforschungszentrum_Logo.svg" alt="Logo des DKFZ" />
-	</div>
+<footer class="row line">
+    <a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
+    <div> Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens">samply/lens-core</a>.</div>
+    <img src="../german-cancer-research-center-dkfz-logo-vector.svg" alt="German Cancer Research Center" height="40"/>
+    <img src="../GBN_logo.svg" alt="German Biobank Node" height="60"/>
+    <img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60"/>
 </footer>
+
 
 {#await catalogueDataPromise}
 	Loading catalogue...

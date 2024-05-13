@@ -1,4 +1,4 @@
-@import "../node_modules/@samply/lens/dist/style.css";
+@import '../node_modules/@samply/lens/dist/style.css';
 
 @font-face {
 	font-family: 'Open Sans';
@@ -228,12 +228,12 @@ footer a {
 }
 
 .made_with {
-  margin-top: 12px;
-  margin-right: 12px;
+	margin-top: 12px;
+	margin-right: 12px;
 }
 
 .made_with a {
-  margin-left: -8px;
+	margin-left: -8px;
 }
 
 .imprint {
@@ -260,18 +260,18 @@ lens-search-bar-multiple::part(lens-searchbar-chip) {
 
 lens-search-bar-multiple::part(lens-searchbar-add-button) {
 	border-color: green;
-  background-color: #9bb199;
-	transform: scale(.85);
+	background-color: #9bb199;
+	transform: scale(0.85);
 	position: relative;
-  color: var(--white);
+	color: var(--white);
 	padding: 0;
-  border-width: 1px;
-  border-style: solid;
+	border-width: 1px;
+	border-style: solid;
 }
 
 lens-search-bar-multiple::part(lens-searchbar-add-button):hover {
 	background-color: green;
-	transform: scale(.95);
+	transform: scale(0.95);
 	cursor: pointer;
 }
 
@@ -296,7 +296,8 @@ lens-search-bar-multiple::part(info-button-icon) {
 
 lens-search-bar::part(info-button-icon):hover,
 lens-search-bar-multiple::part(info-button-icon):hover {
-	filter: invert(38%) sepia(78%) saturate(1321%) hue-rotate(352deg) brightness(92%) contrast(99%);
+	filter: invert(38%) sepia(78%) saturate(1321%) hue-rotate(352deg) brightness(92%)
+		contrast(99%);
 	transform: scale(1.1);
 	cursor: pointer;
 }
@@ -394,7 +395,8 @@ lens-catalogue::part(data-tree-element-toggle-icon) {
 	transform: rotate(0deg);
 	left: -15px;
 	top: 0px;
-	filter: invert(29%) sepia(17%) saturate(327%) hue-rotate(163deg) brightness(92%) contrast(85%);
+	filter: invert(29%) sepia(17%) saturate(327%) hue-rotate(163deg) brightness(92%)
+		contrast(85%);
 }
 
 lens-catalogue::part(data-tree-element-toggle-icon-open) {
@@ -402,7 +404,8 @@ lens-catalogue::part(data-tree-element-toggle-icon-open) {
 }
 
 lens-catalogue::part(query-add-button-icon) {
-	filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(213deg) brightness(100%) contrast(100%);
+	filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(213deg) brightness(100%)
+		contrast(100%);
 	width: 21px;
 }
 
@@ -468,4 +471,127 @@ lens-info-button::part(info-button-dialogue):active {
 	padding-top: 20px;
 	display: flex;
 	align-items: end;
+}
+
+:root {
+	--color-gray: #3c3c3d;
+	--color-orange: #e95713;
+	--color-blue: #003674;
+	--color-site-background: #fff;
+	--color-border-light: #ced4da;
+	--color-background-light-gray: #c5cfd5;
+	--color-progressbar-success: var(--color-blue);
+	--color-progressbar-failed: var(--color-orange);
+}
+
+@font-face {
+	font-family: SourceSansPro;
+	src: url(/assets/SourceSansPro-Black.ttf);
+}
+
+body {
+	color: var(--color-gray);
+	margin: 0;
+}
+
+* {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Selects the app root */
+:host {
+	/* background: rgb(174, 174, 182);  TODO: Discuss background */
+	background-color: var(--color-site-background);
+	/* background: ghostwhite; */
+
+	display: grid;
+	/* Angulars Router Outlet is an anchor for inserting components. It will stay, even if component is inserted */
+	grid-template-rows: auto 0 1fr auto;
+	grid-gap: 1.5rem;
+	height: 100vh;
+}
+
+header img {
+	height: 60px;
+}
+
+.line {
+	padding: 16px;
+	background: white;
+	border: 1px solid #dee2e6;
+	/* display: flex;
+	flex-flow: row;
+	align-items: end;
+	justify-content: space-between; */
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-gap: 40px;
+	align-items: center;
+}
+
+.column {
+	overflow: auto; /* scrollable */
+}
+
+.sidebar {
+	flex: 1 1 25%;
+}
+
+.content {
+	flex: 1 1 75%;
+}
+
+::ng-deep .line > p-image > span > img {
+	max-height: 100px;
+	min-height: 40px;
+}
+
+.menu {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	grid-column: 1/3;
+}
+
+.menu a {
+	color: var(--color-gray);
+	text-decoration: none;
+	cursor: pointer;
+	margin: 0 10px;
+}
+
+@media screen and (min-width: 1100px) {
+	.line {
+		grid-template-columns: auto 1fr auto;
+	}
+	.menu {
+		grid-column: 3/4;
+	}
+}
+
+:host a:hover {
+	color: var(--color-orange);
+}
+
+footer.line {
+	flex: 1;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 3rem;
+}
+
+footer a {
+	color: var(--color-gray);
+	cursor: pointer;
+}
+
+::ng-deep .p-card {
+	box-shadow: none !important;
+	border: 1px solid var(--color-border-light);
+}
+
+::ng-deep lens-result-renderer-grid {
+	grid-auto-rows: auto 500px 500px !important;
 }
