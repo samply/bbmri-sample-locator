@@ -10,18 +10,17 @@
 	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
 
 	let catalogueopen = false;
-	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-example.json');
+	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-bbmri.json');
 </script>
 
 <header class="row line">
-	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px"/>
+	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
 	<menu class="menu">
-	  <a href="https://www.bbmri-eric.eu/about/">About Us</a>
-	  <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-	  <a href="https://www.bbmri-eric.eu/bbmri-sample-and-data-portal/">Logout</a>
+		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
+		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
+		<a href="https://www.bbmri-eric.eu/bbmri-sample-and-data-portal/">Logout</a>
 	</menu>
-  </header>
-  
+</header>
 
 <main>
 	<div class="search">
@@ -128,13 +127,20 @@
 </main>
 
 <footer class="row line">
-    <a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
-    <div> Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens">samply/lens-core</a>.</div>
-    <img src="../german-cancer-research-center-dkfz-logo-vector.svg" alt="German Cancer Research Center" height="40"/>
-    <img src="../GBN_logo.svg" alt="German Biobank Node" height="60"/>
-    <img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60"/>
+	<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
+	<div>
+		Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens"
+			>samply/lens-core</a
+		>.
+	</div>
+	<img
+		src="../german-cancer-research-center-dkfz-logo-vector.svg"
+		alt="German Cancer Research Center"
+		height="40"
+	/>
+	<img src="../GBN_logo.svg" alt="German Biobank Node" height="60" />
+	<img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
 </footer>
-
 
 {#await catalogueDataPromise}
 	Loading catalogue...

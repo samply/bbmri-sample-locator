@@ -1,12 +1,9 @@
 // VITE_TARGET_ENVIRONMENT should be set by the ci pipeline
 
 import {
-	dktkDiagnosisMeasure,
-	dktkMedicationStatementsMeasure,
-	dktkPatientsMeasure,
-	dktkProceduresMeasure,
-	dktkSpecimenMeasure,
-	dktkHistologyMeasure
+	patientsMeasureBbmriProd,
+	specimenMeasureBbmriProd,
+	diagnosisMeasureBbmriProd
 } from '../measures';
 
 const backendUrl =
@@ -71,15 +68,24 @@ export const backendConfig = {
 	catalogueKeyToResponseKeyMap: catalogueKeyToResponseKeyMap
 };
 
-export const barChartBackgroundColors: string[] = ['#4dc9f6', '#3da4c7'];
-
-export const measures = [
-	dktkPatientsMeasure,
-	dktkDiagnosisMeasure,
-	dktkSpecimenMeasure,
-	dktkProceduresMeasure,
-	dktkMedicationStatementsMeasure,
-	dktkHistologyMeasure
+export const barChartBackgroundColors: string[] = [
+	'#003674',
+	'#1a4a82',
+	'#335e90',
+	'#4d729e',
+	'#6686ac',
+	'#809bba',
+	'#99afc7'
 ];
 
-export const backendMeasures = `DKTK_STRAT_DEF_IN_INITIAL_POPULATION`;
+export const barChartHoverColors: string[] = [
+	'#e95713'
+]
+
+export const measures = [
+	patientsMeasureBbmriProd,
+	specimenMeasureBbmriProd,
+	diagnosisMeasureBbmriProd
+];
+
+export const backendMeasures = `BBMRI_STRAT_DEF_IN_INITIAL_POPULATION`;
