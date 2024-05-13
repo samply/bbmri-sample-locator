@@ -15,7 +15,7 @@
 	let catalogue: HTMLElement;
 	let catalogueButtonIcon: HTMLImageElement;
 	let catalogueopen = false;
-	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-example.json');
+	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-bbmri.json');
 </script>
 
 <header class="row line">
@@ -26,12 +26,10 @@
 		<a href="https://www.bbmri-eric.eu/bbmri-sample-and-data-portal/">Logout</a>
 	</menu>
 </header>
-
 <div class="banner">
 	<h1>BBMRI-ERIC Locator</h1>
 	<h2>Search for human biospecimens across European biobanks</h2>
 </div>
-
 <main>
 	<div class="search-wrapper">
 		<div class="search">
@@ -86,7 +84,6 @@
 				>Diagramme repräsentieren nicht mehr die aktuelle Suche!</lens-search-modified-display
 			> -->
 		</div>
-
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<!-- <div slot="above-pagination" class="result-table-hint-text">
@@ -147,7 +144,7 @@
 	<div>
 		Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens"
 			>samply/lens-core</a
-		>
+		>.
 	</div>
 	<img
 		src="../german-cancer-research-center-dkfz-logo-vector.svg"
