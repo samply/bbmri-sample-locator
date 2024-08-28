@@ -1,5 +1,5 @@
 {
-	"name": "lens-demo",
+	"name": "bbmri-sample-locator",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -43,6 +43,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@samply/lens": "^0.0.4"
+		"@samply/lens": "^0.2.2"
 	}
 }

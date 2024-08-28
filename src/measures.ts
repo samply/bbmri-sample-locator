@@ -361,5 +361,7 @@ export const specimenMeasureBbmriProd = {
 BBMRI_STRAT_SAMPLE_TYPE_STRATIFIER
 
 BBMRI_STRAT_DEF_SPECIMEN
+    if InInitialPopulation then [Specimen] else {} as List<Specimen>
+
 `
 };

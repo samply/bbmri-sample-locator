@@ -1,24 +1,50 @@
 <script lang="ts">
-	import libraryOptions from './config/options.json';
+	import type { LensDataPasser, QueryEvent } from '@samply/lens';
 	import {
-		backendConfig,
 		barChartBackgroundColors,
+		barChartHoverColors,
 		genderHeaders,
-		measures,
-		backendMeasures
+		measures
 	} from './config/environment';
+	import options from './config/options.json';
 	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
+	import { requestBackend } from './services/backends/backend.service';
+
+	let catalogueDataPromise = getStaticCatalogue(
+		'/src/services/catalogues/catalogue-bbmri.json'
+	);
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
+
 	let catalogue: HTMLElement;
 	let catalogueButtonIcon: HTMLImageElement;
 	let catalogueopen = false;
-	let catalogueDataPromise = getStaticCatalogue('catalogues/catalogue-bbmri.json');
+
+	let dataPasser: LensDataPasser;
+
+	const getResponse = (): void => {
+		if (!dataPasser) return;
+		console.log('getResponse()', dataPasser.getResponseAPI());
+	};
+
+	window.addEventListener('emit-lens-query', (e) => {
+		if (!dataPasser) return;
+
+		setTimeout(() => {
+			getResponse();
+		}, 6000);
+
+		const event = e as QueryEvent;
+		const { ast, updateResponse, abortController } = event.detail;
+		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+
+		requestBackend(ast, updateResponse, abortController, measures, criteria);
+	});
 </script>
 
-<header class="row line">
+<header class="header">
 	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
@@ -35,10 +61,10 @@
 		<div class="search">
 			{#await catalogueDataPromise}
 				Loading catalogue...
-			{:then catalogueData}
+			{:then catalogueDataPromise}
 				<lens-search-bar-multiple
 					noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
-					treeData="{catalogueData}"
+					treeData="{catalogueDataPromise}"
 				></lens-search-bar-multiple>
 			{:catch someError}
 				System error: {someError.message}.
@@ -48,8 +74,7 @@
 				noQueryMessage="Leere Suchanfrage: Sucht nach allen Ergebnissen."
 				showQuery="{true}"
 			></lens-info-button>
-			<lens-search-button title="Search" {measures} {backendConfig} {backendMeasures}
-			></lens-search-button>
+			<lens-search-button title="Search"></lens-search-button>
 		</div>
 	</div>
 
@@ -80,17 +105,9 @@
 	<div class="charts">
 		<div class="chart-wrapper result-summary">
 			<lens-result-summary></lens-result-summary>
-			<!-- <lens-search-modified-display
-				>Diagramme repräsentieren nicht mehr die aktuelle Suche!</lens-search-modified-display
-			> -->
 		</div>
 		<div class="chart-wrapper result-table">
-			<lens-result-table pageSize="10">
-				<!-- <div slot="above-pagination" class="result-table-hint-text">
-					* Umfasst Gewebe- und flüssige Proben. Die Anzahl der FFPE-Proben (Schätzung)
-					entspricht der Zahl der Diagnosen.
-				</div> -->
-			</lens-result-table>
+			<lens-result-table pageSize="10"> </lens-result-table>
 		</div>
 
 		<div class="chart-wrapper">
@@ -100,6 +117,8 @@
 				chartType="pie"
 				displayLegends="{true}"
 				headers="{genderHeaders}"
+				backgroundColor="{barChartBackgroundColors}"
+				backgroundHoverColor="{barChartHoverColors}"
 			></lens-chart>
 		</div>
 
@@ -110,7 +129,8 @@
 				chartType="bar"
 				groupRange="{10}"
 				filterRegex="^(1*[12]*[0-9])"
-				backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
+				backgroundColor="{barChartBackgroundColors}"
+				backgroundHoverColor="{barChartHoverColors}"
 			></lens-chart>
 		</div>
 
@@ -120,7 +140,8 @@
 				catalogueGroupCode="sample_kind"
 				chartType="bar"
 				filterRegex="^(?!(tissue-other|buffy-coat|peripheral-blood-cells|dried-whole-blood|swab|ascites|stool-faeces|saliva|liquid-other|derivative-other))"
-				backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
+				backgroundColor="{barChartBackgroundColors}"
+				backgroundHoverColor="{barChartHoverColors}"
 			>
 			</lens-chart>
 		</div>
@@ -133,7 +154,8 @@
 				groupingDivider="."
 				groupingLabel=".%"
 				filterRegex="^[CD].*"
-				backgroundColor="{JSON.stringify(barChartBackgroundColors)}"
+				backgroundColor="{barChartBackgroundColors}"
+				backgroundHoverColor="{barChartHoverColors}"
 			></lens-chart>
 		</div>
 	</div>
@@ -158,7 +180,9 @@
 {#await catalogueDataPromise}
 	Loading catalogue...
 {:then catalogueData}
-	<lens-options options="{libraryOptions}" {catalogueData}></lens-options>
+	<lens-options {options} {catalogueData} {measures}></lens-options>
 {:catch someError}
 	System error: {someError.message}.
 {/await}
+
+<lens-data-passer bind:this="{dataPasser}"></lens-data-passer>

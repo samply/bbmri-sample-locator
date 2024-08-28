@@ -2,7 +2,7 @@
   <meta charset='utf-8'>
   <link rel="icon" type="image/svg+xml" href="/favicon-dktk.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DKTK/CCP Explorer (Title Here)</title>
+  <title>BBMRI-ERIC Locator</title>
 </head>
 <body>
   <div id="app"></div>

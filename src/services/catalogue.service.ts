@@ -2,7 +2,7 @@
 
 // Use this function to get the catalogue from this project
 export async function getStaticCatalogue(path: string){
-  await fetch(path)
+
     const response = await fetch(path);
     const data = await response.json();
     return data;

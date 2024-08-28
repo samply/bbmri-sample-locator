@@ -5,6 +5,30 @@
             "text": "Add all"
         }
     },
+    "siteMappings": {
+        "brno": "Brno",
+        "berlin": "Berlin",
+        "aachen": "Aachen",
+        "cyprus": "Cyprus",
+        "leipzig": "Leipzig",
+        "muenchen-hmgu": "München-HMGU",
+        "Pilsen": "Pilsen",
+        "olomouc": "Olomouc",
+        "prague-ffm": "Prague-FFM",
+        "prague-ior": "Prague-IoR",
+        "mannheim": "Mannheim",
+        "heidelberg": "Heidelberg",
+        "frankfurt": "Frankfurt",
+        "dresden": "Dresden",
+        "wuerzburg": "Würzburg",
+        "regensburg": "Regensburg",
+        "luebeck": "Lübeck",
+        "augsburg": "Augsburg",
+        "marburg": "Marburg",
+        "goettingen": "Göttingen",
+        "hannover": "Hannover",
+        "rome": "Rome-BBIRE"
+    },
     "chartOptions": {
         "patients": {
             "legendMapping": {
@@ -121,17 +145,7 @@
             },
             {
                 "title": "Specimen",
-                "aggregatedDataKeys": [
-                    {
-                        "groupCode": "specimen"
-                    },
-                    {
-                        "stratifierCode": "Histlogoies",
-                        "stratumCode": "1"
-                    },
-                    {
-                    }
-                ]
+                "dataKey": "specimen"
             }
         ]
     },
@@ -149,6 +163,46 @@
             {
                 "title": "Specimen",
                 "dataKey": "specimen"
+            }
+        ]
+    },
+    "backends": {
+        "spots": [
+            {
+                "name": "BBMRI",
+                "backendMeasures": "DKTK_STRAT_DEF_IN_INITIAL_POPULATION",
+                "url": "https://backend.demo.lens.samply.de/prod/",
+                "sites": [],
+                "catalogueKeyToResponseKeyMap": [
+                    [
+                        "gender",
+                        "Gender"
+                    ],
+                    [
+                        "age_at_diagnosis",
+                        "Age"
+                    ],
+                    [
+                        "diagnosis",
+                        "diagnosis"
+                    ],
+                    [
+                        "medicationStatements",
+                        "MedicationType"
+                    ],
+                    [
+                        "sample_kind",
+                        "sample_kind"
+                    ],
+                    [
+                        "therapy_of_tumor",
+                        "ProcedureType"
+                    ],
+                    [
+                        "75186-7",
+                        "75186-7"
+                    ]
+                ]
             }
         ]
     }
