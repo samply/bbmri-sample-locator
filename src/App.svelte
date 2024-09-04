@@ -86,14 +86,15 @@
 		/>
 		<span>Full Parameter Search</span>
 	</button>
-
-	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
+	<div class="catalogue-info-button">
 		<lens-info-button
 			message="{[
-				`Bei Patienten mit mehreren onkologischen Diagnosen, können sich ausgewählte Suchkriterien nicht nur auf eine Erkrankung beziehen, sondern auch auf Weitere.`,
-				`Innerhalb einer Kategorie werden verschiedene Ausprägungen mit einer „Oder-Verknüpfung“ gesucht; bei der Suche über mehrere Kategorien mit einer „Und-Verknüpfung“.`
+				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
 			]}"
 		></lens-info-button>
+	</div>
+
+	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
 		<lens-catalogue
 			toggleIconUrl="right-arrow-svgrepo-com.svg"
 			addIconUrl="long-right-arrow-svgrepo-com.svg"
@@ -107,7 +108,9 @@
 			<lens-result-summary></lens-result-summary>
 		</div>
 		<div class="chart-wrapper result-table">
-			<lens-result-table pageSize="10"> </lens-result-table>
+			<lens-result-table pageSize="10">
+				<div slot="beneath-pagination">here goes negotiate button</div>
+			</lens-result-table>
 		</div>
 
 		<div class="chart-wrapper">

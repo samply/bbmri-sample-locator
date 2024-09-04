@@ -517,32 +517,22 @@ lens-info-button::part(info-button) {
 	justify-content: center;
 }
 
-.catalogue lens-info-button::part(info-button) {
+.catalogue-info-button {
+	display: inline-flex;
+}
+
+.catalogue-info-button lens-info-button::part(info-button) {
 	height: 38px;
+	width: 38px;
 	padding: 0;
-	top: var(--gap-xs);
-	right: var(--gap-xs);
 	border: none;
-	position: absolute;
 }
-
-.catalogue lens-info-button::part(info-button-dialogue) {
-	max-width: 300px;
-	text-align: left;
+.catalogue-info-button lens-info-button::part(info-button-dialogue) {
+	max-width: 200px;
 }
-
-lens-info-button::part(info-button):hover {
-	background-color: var(--lightest-gray);
-}
-
-lens-info-button::part(info-button):active {
-	background-color: #585958;
-	transform: translateX(1px);
-}
-
-lens-info-button::part(info-button-dialogue):active {
-	background-color: #585958;
-	transform: translateX(1px);
+lens-catalogue::part(info-button-dialogue) {
+	max-width: 200px;
+	border: solid 1px var(--blue);
 }
 
 .result-table-hint-text {

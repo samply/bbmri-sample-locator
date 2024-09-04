@@ -9,6 +9,9 @@
                 "system": "",
                 "fieldType": "single-select",
                 "type": "EQUALS",
+                "infoButtonText": [
+                    "The gender search criterion represents the administrative gender of the patient. "
+                ],
                 "criteria": [
                     {
                         "key": "male",
@@ -38,6 +41,9 @@
                 "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
                 "fieldType": "autocomplete",
                 "type": "EQUALS",
+                "infoButtonText": [
+                    "If diagnosis is selected, the search returns all specimens from all patients who have at least one Condition resource OR Specimen resource with one of the selected diagnoses."
+                ],
                 "criteria": [
                     {
                         "key": "A00",
@@ -47362,6 +47368,9 @@
                 "system": "",
                 "fieldType": "number",
                 "type": "BETWEEN",
+                "infoButtonText": [
+                    "The donor age at diagnosis criterion represents the age of the patient at the time of diagnosis, calculated as the difference between the date of disease onset and the patient's date of birth. That's why the age stratifier, which shows today's age, also shows some ages that are outside the selected range."
+                ],
                 "criteria": []
             },
             {
@@ -47370,6 +47379,9 @@
                 "system": "",
                 "fieldType": "number",
                 "type": "BETWEEN",
+                "infoButtonText": [
+                    "Date of diagnosis represents the date when the donor was diagnosed."
+                ],
                 "criteria": []
             }
         ]
@@ -47384,6 +47396,9 @@
                 "system": "",
                 "fieldType": "number",
                 "type": "BETWEEN",
+                "infoButtonText": [
+                    "The donor age criterion represents the patient's age today"
+                ],
                 "criteria": []
             },
             {
@@ -47392,6 +47407,9 @@
                 "system": "",
                 "fieldType": "single-select",
                 "type": "EQUALS",
+                "infoButtonText": [
+                    "If sample types are selected, only samples of those types will be displayed"
+                ],
                 "criteria": [
                     {
                         "key": "blood-serum",
@@ -47501,6 +47519,9 @@
                 "system": "",
                 "fieldType": "number",
                 "type": "BETWEEN",
+                "infoButtonText": [
+                    "If a sampling date range is selected, only those samples collected within that date range will be displayed. Samples that don't have this information will not be displayed."
+                ],
                 "criteria": []
             },
             {
@@ -47509,6 +47530,9 @@
                 "system": "",
                 "fieldType": "single-select",
                 "type": "EQUALS",
+                "infoButtonText": [
+                    "If storage temperatures are selected, only those samples stored at one of those temperatures will be displayed. Samples that don't have this information will not be displayed."
+                ],
                 "criteria": [
                     {
                         "key": "temperatureRoom",
