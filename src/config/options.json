@@ -29,6 +29,28 @@
         "hannover": "Hannover",
         "rome": "Rome-BBIRE"
     },
+    "catalogueKeyToResponseKeyMap": [
+        [
+            "gender",
+            "Gender"
+        ],
+        [
+            "age_at_diagnosis",
+            "Age"
+        ],
+        [
+            "diagnosis",
+            "diagnosis"
+        ],
+        [
+            "medicationStatements",
+            "MedicationType"
+        ],
+        [
+            "therapy_of_tumor",
+            "ProcedureType"
+        ]
+    ],
     "chartOptions": {
         "patients": {
             "legendMapping": {
@@ -68,48 +90,8 @@
                 "medicationStatements": "Systemische Therapien"
             }
         },
-        "medicationStatements": {
-            "tooltips": {
-                "CH": "Chemotherapie",
-                "HO": "Hormontherapie",
-                "IM": "Immun-/Antikörpertherapie",
-                "KM": "Knochenmarktransplantation",
-                "ZS": "zielgerichtete Substanzen",
-                "CI": "Chemo- + Immun-/Antikörpertherapie",
-                "CZ": "Chemotherapie + zielgerichtete Substanzen",
-                "CIZ": "Chemo- + Immun-/Antikörpertherapie + zielgerichtete Substanzen",
-                "IZ": "Immun-/Antikörpertherapie + zielgerichtete Substanzen",
-                "SZ": "Stammzelltransplantation (inklusive Knochenmarktransplantation)",
-                "AS": "Active Surveillance",
-                "WS": "Wait and see",
-                "WW": "Watchful Waiting",
-                "SO": "Sonstiges"
-            }
-        },
         "sample_kind": {
             "tooltips": {
-                "tissue-ffpe": "Gewebe FFPE",
-                "tissue-frozen": "Gewebe schockgefroren",
-                "tissue-other": "Gewebe, Andere Konservierungsart",
-                "whole-blood": "Vollblut",
-                "blood-serum": "Serum",
-                "blood-plasma": "Plasma",
-                "buffy-coat": "Buffy Coat",
-                "peripheral-blood-cells": "Periphere mononukleäre Blutzellen (PBMC)",
-                "dried-whole-blood": "Blutkarten",
-                "swab": "Abstrich",
-                "ascites": "Aszites",
-                "stool-faeces": "Stuhl",
-                "urine": "Urin",
-                "csf-liquor": "Liquor",
-                "bone-marrow": "Knochenmark",
-                "saliva": "Speichel",
-                "liquid-other": "Flüssigprobe, Andere",
-                "dna": "DNA",
-                "rna": "RNA",
-                "derivative-other": "Derivat, Andere"
-            },
-            "legendMapping":{
                 "tissue-ffpe": "Gewebe FFPE",
                 "tissue-frozen": "Gewebe schockgefroren",
                 "tissue-other": "Gewebe, Andere Konservierungsart",
@@ -144,7 +126,7 @@
                 "dataKey": "patients"
             },
             {
-                "title": "Specimen",
+                "title": "Specimens",
                 "dataKey": "specimen"
             }
         ]
@@ -161,49 +143,99 @@
                 "dataKey": "patients"
             },
             {
-                "title": "Specimen",
+                "title": "Specimens",
                 "dataKey": "specimen"
             }
         ]
     },
-    "backends": {
-        "spots": [
+    "negotiateOptions": {
+        "negotiateApp": "negotiator",
+        "newProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "editProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "siteMapping": [
             {
-                "name": "BBMRI",
-                "backendMeasures": "DKTK_STRAT_DEF_IN_INITIAL_POPULATION",
-                "url": "https://backend.demo.lens.samply.de/prod/",
-                "sites": [],
-                "catalogueKeyToResponseKeyMap": [
-                    [
-                        "gender",
-                        "Gender"
-                    ],
-                    [
-                        "age_at_diagnosis",
-                        "Age"
-                    ],
-                    [
-                        "diagnosis",
-                        "diagnosis"
-                    ],
-                    [
-                        "medicationStatements",
-                        "MedicationType"
-                    ],
-                    [
-                        "sample_kind",
-                        "sample_kind"
-                    ],
-                    [
-                        "therapy_of_tumor",
-                        "ProcedureType"
-                    ],
-                    [
-                        "75186-7",
-                        "75186-7"
-                    ]
-                ]
+                "site": "Dresden",
+                "collection": "dresden"
+            },
+            {
+                "site": "Frankfurt",
+                "collection": "bbmri-eric:ID:DE_iBDF:collection:UCT"
+            },
+            {
+                "site": "Berlin",
+                "collection": "bbmri-eric:ID:DE_ZeBanC:collection:Onoloy"
+            },
+            {
+                "site": "Würzburg",
+                "collection": "bbmri-eric:ID:DE_ibdw:collection:bc"
+            },
+            {
+                "site": "Brno",
+                "collection": "bbmri-eric:ID:CZ_MMCI:collection:LTS"
+            },
+            {
+                "site": "Aachen",
+                "collection": "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC"
+            },
+            {
+                "site": "Leipzig",
+                "collection": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT"
+            },
+            {
+                "site": "München (HMGU)",
+                "collection": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA"
+            },
+            {
+                "site": "Pilsen",
+                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma"
+            },
+            {
+                "site": "Regensburg",
+                "collection": "bbmri-eric:ID:DE_ZBR:collection:Tissue"
+            },
+            {
+                "site": "Heidelberg",
+                "collection": "bbmri-eric:ID:DE_BMBH:collection:Lungenbiobank",
+                "name": "heidelberg",
+                "biobankId": "bbmri-eric:ID:DE_BMBH"
+            },
+            {
+                "site": "Lübeck",
+                "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL"
+            },
+            {
+                "site": "Augsburg",
+                "collection": "bbmri-eric:ID:DE_ACBB:collection:TISSUE"
+            },
+            {
+                "site": "Mannheim",
+                "collection": "bbmri-eric:ID:DE_BioPsy:collection:Main_collecion"
+            },
+            {
+                "site": "Marburg",
+                "collection": "bbmri-eric:ID:DE_CBBMR:collection:main"
+            },
+            {
+                "site": "Göttingen",
+                "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy"
+            },
+            {
+                "site": "Hanover",
+                "collection": "bbmri-eric:ID:DE_HUB:collection:ProBase"
+            },
+            {
+                "site": "Olomouc",
+                "collection": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples"
+            },
+            {
+                "site": "Prague (FFM)",
+                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma"
+            },
+            {
+                "site": "Prague (IOR)",
+                "collection": "bbmri-eric:ID:CZ_CUNI_LF1:collection"
             }
+
         ]
     }
 }

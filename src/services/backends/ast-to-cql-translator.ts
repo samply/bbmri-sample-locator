@@ -113,12 +113,14 @@ const getSingleton = (criterion: AstBottomLayerValue): string => {
         const myCQL = cqltemplate.get(myCriterion.type);
         if (myCQL) {
             switch (myCriterion.type) {
+                case "storageTemperature":
                 case "gender":
                 case "BBMRI_gender":
                 case "histology":
                 case "conditionValue":
                 case "BBMRI_conditionValue":
                 case "BBMRI_conditionSampleDiagnosis":
+                case "conditionSampleDiagnosis":
                 case "conditionBodySite":
                 case "conditionLocalization":
                 case "observation":
@@ -221,8 +223,21 @@ const getSingleton = (criterion: AstBottomLayerValue): string => {
 
                     break;
                 }
-
+                case "samplingDate":
                 case "conditionRangeDate": {
+                    if (!(
+                        typeof criterion.value === 'object' 
+                        && 'min' in criterion.value 
+                        && typeof criterion.value.min === "string" 
+                        && 'max' in criterion.value 
+                        && typeof criterion.value.max === 'string')) break
+
+                    /**
+                     * The bbmri/gba backend needs the date in the format "@YYYY-MM-DD"
+                     */
+                    criterion.value.min = "@" + criterion.value.min;
+                    criterion.value.max = "@" + criterion.value.max;
+
                     expression += substituteRangeCQLExpression(
                         criterion,
                         myCriterion,
@@ -244,6 +259,7 @@ const getSingleton = (criterion: AstBottomLayerValue): string => {
                     break;
                 }
 
+                case "age":
                 case "conditionRangeAge": {
                     expression += substituteRangeCQLExpression(
                         criterion,
@@ -284,38 +300,6 @@ const substituteRangeCQLExpression = (
             `Throwing away a ${criterionPrefix}Range${criterionSuffix} criterion, as it is not of type {min: number, max: number}!`,
         );
         return "";
-    }
-    if (input.min === 0 && input.max === 0) {
-        console.warn(
-            `Throwing away a ${criterionPrefix}Range${criterionSuffix} criterion, as both dates are undefined!`,
-        );
-        return "";
-    } else if (input.min === 0) {
-        const lowerThanDateTemplate = cqltemplate.get(
-            `${criterionPrefix}LowerThan${criterionSuffix}`,
-        );
-        if (lowerThanDateTemplate)
-            return substituteCQLExpression(
-                criterion.key,
-                myCriterion.alias,
-                lowerThanDateTemplate,
-                "",
-                input.min,
-                input.max,
-            );
-    } else if (input.max === 0) {
-        const greaterThanDateTemplate = cqltemplate.get(
-            `${criterionPrefix}GreaterThan${criterionSuffix}`,
-        );
-        if (greaterThanDateTemplate)
-            return substituteCQLExpression(
-                criterion.key,
-                myCriterion.alias,
-                greaterThanDateTemplate,
-                "",
-                input.min,
-                input.max,
-            );
     } else {
         return substituteCQLExpression(
             criterion.key,
@@ -326,7 +310,6 @@ const substituteRangeCQLExpression = (
             input.max,
         );
     }
-    return "";
 };
 
 const substituteCQLExpression = (
@@ -337,6 +320,7 @@ const substituteCQLExpression = (
     min?: number,
     max?: number,
 ): string => {
+
     let cqlString: string;
     if (value) {
         cqlString = cql.replace(/{{C}}/g, value);
