@@ -20,3 +20,5 @@ vite.config.js.timestamp-*
 symlink-from
 .idea/
 build
+docker-compose.override.yml
+rootcerts
