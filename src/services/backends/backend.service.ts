@@ -22,7 +22,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     const measure = buildMeasure(library.url, measures);
     const query = { lang: "cql", lib: library, measure: measure };
 
-    const backend = new Spot(new URL("http://localhost:8055"), [
+    const backend = new Spot(new URL("https://locator-dev.bbmri-eric.eu/backend"), [
         "brno",
         "berlin",
         "aachen",
