@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feat/docker-deploy
   pull_request:
     branches:
       - develop
@@ -20,7 +21,7 @@ jobs:
     # Visit: https://github.com/samply/github-workflows/blob/main/.github/workflows/docker-ci.yml, for more information
     uses: samply/github-workflows/.github/workflows/docker-ci.yml@main
     with:
-      image-name: "samply/lens"
+      image-name: "samply/bbmri-sample-locator"
       build-args: |
         TARGET_ENVIRONMENT=staging
       build-platforms: "linux/amd64"
