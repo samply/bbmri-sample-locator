@@ -12,5 +12,9 @@ export default defineConfig({
 	ssr: {
 		noExternal: ['@samply/lens'], // Mark package as noExternal if SSR issues
 	},
+	server: {
+		host: true,
+		port: 5173
+	}
 
 });
