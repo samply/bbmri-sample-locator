@@ -47377,7 +47377,7 @@
                 "key": "date_of_diagnosis",
                 "name": "Date of diagnosis",
                 "system": "",
-                "fieldType": "number",
+                "fieldType": "date",
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "Date of diagnosis represents the date when the donor was diagnosed."
@@ -47517,7 +47517,7 @@
                 "key": "sampling_date",
                 "name": "Sampling date",
                 "system": "",
-                "fieldType": "number",
+                "fieldType": "date",
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "If a sampling date range is selected, only those samples collected within that date range will be displayed. Samples that don't have this information will not be displayed."

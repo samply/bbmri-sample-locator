@@ -188,6 +188,10 @@ lens-search-bar-multiple {
 	position: relative;
 }
 
+.catalogue-toggle-button:hover {
+	background-color: var(--light-blue);
+}
+
 .catalogue-toggle-button img {
 	height: 30px;
 	filter: brightness(0) invert(1);

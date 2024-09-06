@@ -43,6 +43,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@samply/lens": "^0.2.2"
+		"@samply/lens": "file:samply-lens-0.3.0.tgz",
+		"uuid": "^10.0.0"
 	}
 }

@@ -9,11 +9,12 @@ export const alias = new Map<string, string>([
 ])
 
 export const cqltemplate = new Map<string, string>([
-    ["gender", "Patient.gender"],
+    ["gender", "Patient.gender = '{{C}}'"],
     ["conditionSampleDiagnosis", "((exists[Condition: Code '{{C}}' from {{A1}}]) or (exists[Condition: Code '{{C}}' from {{A2}}])) or (exists from [Specimen] S where (S.extension.where(url='https://fhir.bbmri.de/StructureDefinition/SampleDiagnosis').value.coding.code contains '{{C}}'))"],
     ["conditionValue", "exists [Condition: Code '{{C}}' from {{A1}}]"],
     ["conditionRangeDate", "exists from [Condition] C\nwhere FHIRHelpers.ToDateTime(C.onset) between {{D1}} and {{D2}}"],
     ["conditionRangeAge", "exists from [Condition] C\nwhere AgeInYearsAt(FHIRHelpers.ToDateTime(C.onset)) between Ceiling({{D1}}) and Ceiling({{D2}})"],
+    ["conditionGreaterThanAge", "exists from [Condition] C\nwhere AgeInYearsAt(FHIRHelpers.ToDateTime(C.onset)) between Ceiling({{D1}}) and Ceiling({{D2}})"],
     ["age", "AgeInYears() between Ceiling({{D1}}) and Ceiling({{D2}})"],
     ["observation", "exists from [Observation: Code '{{K}}' from {{A1}}] O\nwhere O.value.coding.code contains '{{C}}'"],
     ["observationRange", "exists from [Observation: Code '{{K}}' from {{A1}}] O\nwhere O.value between {{D1}} and {{D2}}"],

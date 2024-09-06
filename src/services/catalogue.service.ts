@@ -17,7 +17,7 @@ export const catalogueText = {
     collapseButtonTitle: 'Collapse Tree',
     expandButtonTitle: 'Expand Tree',
     numberInput: {
-        labelFrom: 'von',
-        labelTo: 'bis'
+        labelFrom: 'from',
+        labelTo: 'to'
     }
 };

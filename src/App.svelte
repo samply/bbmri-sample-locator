@@ -109,7 +109,9 @@
 		</div>
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
-				<div slot="beneath-pagination">here goes negotiate button</div>
+				<div slot="beneath-pagination">
+					<!-- <lens-negotiate-button /> -->
+				</div>
 			</lens-result-table>
 		</div>
 
