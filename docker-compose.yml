@@ -1,20 +1,6 @@
 version: '3.8'
 # TODO: BBMRI expects Traefik to already exist
 services:
-  traefik:
-    image: traefik:latest
-    command:
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --accesslog=true
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   traefik-forward-auth:
     image: quay.io/oauth2-proxy/oauth2-proxy:latest
     environment:
@@ -22,7 +8,7 @@ services:
       - https_proxy=${https_proxy}
       - OAUTH2_PROXY_PROVIDER=oidc
       - OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
-      - OAUTH2_PROXY_OIDC_ISSUER_URL=${OAUTH_ISSUER_URL}
+      - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.bbmri-eric.eu/oidc
       - OAUTH2_PROXY_CLIENT_ID=${OAUTH_CLIENT_ID}
       - OAUTH2_PROXY_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
       - OAUTH2_PROXY_COOKIE_SECRET=${AUTHENTICATION_SECRET}
@@ -32,9 +18,6 @@ services:
       - OAUTH2_PROXY_WHITELIST_DOMAINS=.${GUI_HOST}
       - OAUTH2_PROXY_UPSTREAMS=static://202
       - OAUTH2_PROXY_EMAIL_DOMAINS=*
-      - OAUTH2_PROXY_ALLOWED_GROUPS=${ALLOWED_GROUPS}
-      # For some reason, login.verbis.dkfz.de does not have a "groups" scope but this comes automatically through a
-      # scope called microprofile-jwt. Remove the following line once we have a "groups" scope.
       - OAUTH2_PROXY_SCOPE=openid profile email
       # Pass Authorization Header and some user information to spot
       - OAUTH2_PROXY_SET_AUTHORIZATION_HEADER=true
@@ -46,19 +29,23 @@ services:
       - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4180"
       - "traefik.http.routers.oauth2.rule=Host(`${GUI_HOST}`) && PathPrefix(`/oauth2/`)"
       - "traefik.http.routers.oauth2.tls=true"
+    networks:
+      - traefik
+      - default
 
-  lens-web-components:
-    image: samply/lens:main
-    build: .
+  lens:
+    image: samply/bbmri-sample-locator:feat-docker-deploy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`)"
       - "traefik.http.routers.lens.tls=true"
       - "traefik.http.routers.lens.middlewares=traefik-forward-auth"
+    networks:
+      - traefik
+      - default
 
   spot:
     image: samply/rustyspot:main
-    platform: linux/amd64
     ports:
       - "8055:8055"
     environment:
@@ -76,7 +63,6 @@ services:
       LOG_FILE: /requests.log
     volumes:
       - ./requests.log:/requests.log
-
     depends_on:
       - "beam-proxy"
     labels:
@@ -87,10 +73,13 @@ services:
       - "traefik.http.middlewares.corsheaders.headers.accesscontrolalloworiginlist=https://${GUI_HOST}"
       - "traefik.http.middlewares.corsheaders.headers.accesscontrolallowcredentials=true"
       - "traefik.http.middlewares.corsheaders.headers.accesscontrolmaxage=-1"
-      - "traefik.http.routers.spot.rule=Host(`backend.${GUI_HOST}`) && PathPrefix(`/prod`)"
-      - "traefik.http.middlewares.stripprefix_spot_prod.stripprefix.prefixes=/prod"
+      - "traefik.http.routers.spot.rule=Host(`${GUI_HOST}`) && PathPrefix(`/backend`)"
+      - "traefik.http.middlewares.spot-stripprefix.stripprefix.prefixes=/backend"
       - "traefik.http.routers.spot.tls=true"
-      - "traefik.http.routers.spot.middlewares=corsheaders,traefik-forward-auth,stripprefix_spot_prod"
+      - "traefik.http.routers.spot.middlewares=corsheaders,traefik-forward-auth,spot-stripprefix"
+    networks:
+      - traefik
+      - default
 
   beam-proxy:
     image: docker.verbis.dkfz.de/cache/samply/beam-proxy:develop
@@ -105,6 +94,9 @@ services:
     secrets:
       - proxy.pem
       - root.crt.pem
+    networks:
+      - traefik
+      - default
 
   prism:
     image: samply/prism:main
@@ -112,7 +104,7 @@ services:
       # TODO: Autogenerate this
       API_KEY: "${LOCAL_BEAM_SECRET_PRISM}"
       BEAM_PROXY_URL: http://beam-proxy:8081
-      BEAM_APP_ID_LONG: prism.${LOCAL_BEAM_ID}.${BROKER_HOST}
+      BEAM_APP_ID_LONG: ${LOCAL_BEAM_PRISM_ID_LONG}
       CORS_ORIGIN: "https://${GUI_HOST}"
       SITES: ${SITES}
       PROJECT: ${PROJECT}
@@ -127,6 +119,9 @@ services:
       - "traefik.http.routers.prism.tls=true"
       - "traefik.http.middlewares.prism-stripprefix.stripprefix.prefixes=/prism"
       - "traefik.http.routers.prism.middlewares=corsheaders,traefik-forward-auth,prism-stripprefix"
+    networks:
+      - traefik
+      - default
 
 secrets:
   proxy.pem:
@@ -134,3 +129,7 @@ secrets:
     file: /etc/lens/pki/${LOCAL_BEAM_ID}.priv.pem
   root.crt.pem:
     file: ./rootcerts/${BROKER_HOST}-root.crt.pem
+
+networks:
+  traefik:
+    external: true
