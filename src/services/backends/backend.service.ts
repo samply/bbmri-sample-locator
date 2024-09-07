@@ -25,13 +25,13 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     let backendUrl: string = ""
 
-    if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
+    // if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
+    //     backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+    // } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
         backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
-    } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
-    } else {
-        backendUrl = "http://localhost:8055";
-    }
+    // } else {
+    //     backendUrl = "http://localhost:8055";
+    // }
 
     // const backend = new Spot(new URL(backendUrl), [
     //     "aachen",
