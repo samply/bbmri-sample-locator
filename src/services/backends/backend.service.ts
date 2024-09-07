@@ -22,27 +22,42 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     const measure = buildMeasure(library.url, measures);
     const query = { lang: "cql", lib: library, measure: measure };
 
-    const backend = new Spot(new URL("https://locator-dev.bbmri-eric.eu/backend"), [
-        "brno",
-        "berlin",
+
+    let backendUrl: string = ""
+
+    if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+    } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+    } else {
+        backendUrl = "http://localhost:8055";
+    }
+
+    const backend = new Spot(new URL(backendUrl), [
         "aachen",
+        "berlin",
+        "brno",
+        "brno-recetox",
         "cyprus",
-        "rome",
-        "muenchen-hmgu",
-        "olomouc",
-        "prague-ffm",
-        "prague-ior",
-        "mannheim",
-        "heidelberg",
-        "frankfurt",
         "dresden",
-        "wuerzburg",
-        "regensburg",
-        "luebeck",
-        "marburg",
+        "frankfurt",
         "goettingen",
         "hannover",
+        "heidelberg",
+        "luebeck",
+        "mannheim",
+        "marburg",
+        "muenchen-hmgu",
+        "olomouc",
+        "pilsen",
+        "prague-ffm",
+        "prague-ior",
+        "regensburg",
+        "rome",
+        "wuerzburg",
     ]);
+
+
 
     backend.send(
         btoa(decodeURI(JSON.stringify(query))),
