@@ -25,6 +25,10 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     let backendUrl: string = ""
 
+    /**
+     * TODO: add different backend URLs for different environments
+     */
+
     // if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
     //     backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
     // } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {

@@ -28,7 +28,10 @@
         "marburg": "Marburg",
         "goettingen": "Göttingen",
         "hannover": "Hannover",
-        "rome": "Rome-BBIRE"
+        "rome": "Rome-BBIRE",
+        "uppsala-test": "Uppsala-Test",
+        "eric-test": "ERIC-Test",
+        "prague-uhkt-test": "Prague-UHKT-Test",
     },
     "catalogueKeyToResponseKeyMap": [
         [
