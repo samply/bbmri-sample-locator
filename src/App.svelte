@@ -59,17 +59,8 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			{#await catalogueDataPromise}
-				Loading catalogue...
-			{:then catalogueDataPromise}
-				<lens-search-bar-multiple
-					noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
-					treeData="{catalogueDataPromise}"
-				></lens-search-bar-multiple>
-			{:catch someError}
-				System error: {someError.message}.
-			{/await}
-
+			<lens-search-bar-multiple noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
+			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="Leere Suchanfrage: Sucht nach allen Ergebnissen."
 				showQuery="{true}"
@@ -93,7 +84,6 @@
 			]}"
 		></lens-info-button>
 	</div>
-
 	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
 		<lens-catalogue
 			toggleIconUrl="right-arrow-svgrepo-com.svg"
@@ -110,7 +100,8 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<!-- <lens-negotiate-button /> -->
+					<lens-negotiate-button disabled="true"></lens-negotiate-button>
+					<button class="negotiate">Negotiate with Biobanks</button>
 				</div>
 			</lens-result-table>
 		</div>
@@ -169,9 +160,7 @@
 <footer class="footer">
 	<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
 	<div>
-		Made with ♥ and <a href="https://github.com/samply/lens"
-			>samply/lens</a
-		>.
+		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
 	</div>
 	<img
 		src="../german-cancer-research-center-dkfz-logo-vector.svg"
@@ -191,3 +180,20 @@
 {/await}
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
+
+<style>
+	.negotiate {
+		margin-bottom: var(--gap-l);
+		padding: var(--gap-xs) var(--gap-s);
+		background-color: var(--blue);
+		color: var(--white);
+		border: none;
+		border-radius: var(--border-radius-small);
+		cursor: pointer;
+		font-size: var(--font-size-m);
+		position: relative;
+	}
+	.negotiate:hover {
+		background-color: var(--light-blue);
+	}
+</style>
