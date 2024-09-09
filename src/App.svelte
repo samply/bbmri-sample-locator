@@ -169,8 +169,8 @@
 <footer class="footer">
 	<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
 	<div>
-		Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens"
-			>samply/lens-core</a
+		Made with ♥ and <a href="https://github.com/samply/lens"
+			>samply/lens</a
 		>.
 	</div>
 	<img
