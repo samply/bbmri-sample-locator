@@ -135,7 +135,6 @@
 				title="Specimens"
 				catalogueGroupCode="sample_kind"
 				chartType="bar"
-				filterRegex="^(?!(tissue-other|buffy-coat|peripheral-blood-cells|dried-whole-blood|swab|ascites|stool-faeces|saliva|liquid-other|derivative-other))"
 				backgroundColor="{barChartBackgroundColors}"
 				backgroundHoverColor="{barChartHoverColors}"
 			>
@@ -149,7 +148,6 @@
 				chartType="bar"
 				groupingDivider="."
 				groupingLabel=".%"
-				filterRegex="^[CD].*"
 				backgroundColor="{barChartBackgroundColors}"
 				backgroundHoverColor="{barChartHoverColors}"
 			></lens-chart>

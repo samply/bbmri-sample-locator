@@ -53,7 +53,12 @@
         [
             "therapy_of_tumor",
             "ProcedureType"
+        ],
+        [
+            "sample_kind",
+            "sample_kind"
         ]
+        
     ],
     "chartOptions": {
         "patients": {
