@@ -100,7 +100,7 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<lens-negotiate-button disabled="true"></lens-negotiate-button>
+					<!-- <lens-negotiate-button disabled="true"></lens-negotiate-button> -->
 					<button class="negotiate">Negotiate with Biobanks</button>
 				</div>
 			</lens-result-table>
