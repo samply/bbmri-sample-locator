@@ -1,5 +1,9 @@
 <script lang="ts">
-	import type { LensDataPasser, QueryEvent } from '@samply/lens';
+	import './app.css';
+	import { browser } from '$app/environment';
+
+	if (browser) import('@samply/lens');
+
 	import {
 		barChartBackgroundColors,
 		barChartHoverColors,
@@ -8,40 +12,39 @@
 	} from './config/environment';
 	import options from './config/options.json';
 	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
-	import { requestBackend } from './services/backends/backend.service';
+	// import { requestBackend } from './services/backends/backend.service';
+	import type { LensDataPasser } from '@samply/lens';
+	import { onMount } from 'svelte';
 
-	let catalogueDataPromise = getStaticCatalogue(
-		'/src/services/catalogues/catalogue-bbmri.json'
-	);
+	let catalogueDataPromise: Promise<unknown>;
 
-	const toggleCatalogue = () => {
-		catalogueopen = !catalogueopen;
-	};
+	onMount(async () => {
+		catalogueDataPromise = getStaticCatalogue('/catalogues/catalogue-bbmri.json');
+	});
 
 	let catalogue: HTMLElement;
 	let catalogueButtonIcon: HTMLImageElement;
 	let catalogueopen = false;
 
-	let dataPasser: LensDataPasser;
-
-	const getResponse = (): void => {
-		if (!dataPasser) return;
-		console.log('getResponse()', dataPasser.getResponseAPI());
+	const toggleCatalogue = () => {
+		catalogueopen = !catalogueopen;
 	};
 
-	window.addEventListener('emit-lens-query', (e) => {
-		if (!dataPasser) return;
+	let dataPasser: LensDataPasser;
 
-		setTimeout(() => {
-			getResponse();
-		}, 6000);
+	// window.addEventListener('emit-lens-query', (e) => {
+	// 	if (!dataPasser) return;
 
-		const event = e as QueryEvent;
-		const { ast, updateResponse, abortController } = event.detail;
-		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+	// 	setTimeout(() => {
+	// 		getResponse();
+	// 	}, 6000);
 
-		requestBackend(ast, updateResponse, abortController, measures, criteria);
-	});
+	// 	const event = e as QueryEvent;
+	// 	const { ast, updateResponse, abortController } = event.detail;
+	// 	const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+
+	// 	requestBackend(ast, updateResponse, abortController, measures, criteria);
+	// });
 </script>
 
 <header class="header">
@@ -63,7 +66,7 @@
 			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="Leere Suchanfrage: Sucht nach allen Ergebnissen."
-				showQuery="{true}"
+				showQuery="true"
 			></lens-info-button>
 			<lens-search-button title="Search"></lens-search-button>
 		</div>
@@ -78,19 +81,19 @@
 		<span>Full Parameter Search</span>
 	</button>
 	<div class="catalogue-info-button">
-		<lens-info-button
-			message="{[
+		<!-- <lens-info-button
+			message={[
 				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}"
-		></lens-info-button>
+			]}
+		></lens-info-button> -->
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
 		<lens-catalogue
 			toggleIconUrl="right-arrow-svgrepo-com.svg"
 			addIconUrl="long-right-arrow-svgrepo-com.svg"
 			infoIconUrl="info-circle-svgrepo-com.svg"
-			texts="{catalogueText}"
-			toggle="{{ collapsable: false, open: catalogueopen }}"
+			texts="{JSON.stringify(catalogueText)}"
+			toggle="{JSON.stringify({ collapsable: false, open: catalogueopen })}"
 		></lens-catalogue>
 	</div>
 	<div class="charts">
@@ -100,7 +103,6 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<!-- <lens-negotiate-button disabled="true"></lens-negotiate-button> -->
 					<button class="negotiate">Negotiate with Biobanks</button>
 				</div>
 			</lens-result-table>
