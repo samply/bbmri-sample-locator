@@ -2,6 +2,7 @@
 	import './app.css';
 	import { browser } from '$app/environment';
 
+	// conditional import for SSR
 	if (browser) import('@samply/lens');
 
 	import {
@@ -12,7 +13,7 @@
 	} from './config/environment';
 	import options from './config/options.json';
 	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
-	// import { requestBackend } from './services/backends/backend.service';
+	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
 	import { onMount } from 'svelte';
 
@@ -22,8 +23,6 @@
 		catalogueDataPromise = getStaticCatalogue('/catalogues/catalogue-bbmri.json');
 	});
 
-	let catalogue: HTMLElement;
-	let catalogueButtonIcon: HTMLImageElement;
 	let catalogueopen = false;
 
 	const toggleCatalogue = () => {
@@ -32,19 +31,17 @@
 
 	let dataPasser: LensDataPasser;
 
-	// window.addEventListener('emit-lens-query', (e) => {
-	// 	if (!dataPasser) return;
+	if (browser) {
+		window.addEventListener('emit-lens-query', (e) => {
+			if (!dataPasser) return;
 
-	// 	setTimeout(() => {
-	// 		getResponse();
-	// 	}, 6000);
+			const event = e as CustomEvent;
+			const { ast, updateResponse, abortController } = event.detail;
+			const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
 
-	// 	const event = e as QueryEvent;
-	// 	const { ast, updateResponse, abortController } = event.detail;
-	// 	const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
-
-	// 	requestBackend(ast, updateResponse, abortController, measures, criteria);
-	// });
+			requestBackend(ast, updateResponse, abortController, measures, criteria);
+		});
+	}
 </script>
 
 <header class="header">
@@ -74,20 +71,20 @@
 
 	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
 		<img
-			bind:this="{catalogueButtonIcon}"
+			class="{catalogueopen ? 'open' : ''}"
 			src="../right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
 		<span>Full Parameter Search</span>
 	</button>
 	<div class="catalogue-info-button">
-		<!-- <lens-info-button
-			message={[
+		<lens-info-button
+			message="{[
 				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}
-		></lens-info-button> -->
+			]}"
+		></lens-info-button>
 	</div>
-	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
+	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<lens-catalogue
 			toggleIconUrl="right-arrow-svgrepo-com.svg"
 			addIconUrl="long-right-arrow-svgrepo-com.svg"

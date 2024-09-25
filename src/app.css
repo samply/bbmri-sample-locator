@@ -220,7 +220,10 @@ lens-search-bar-multiple {
 	transition: max-height 0.5s cubic-bezier(0.74, 0.13, 1, 0.1);
 	max-height: 2000px;
 	padding-left: var(--gap-s);
+}
 
+.catalogue-toggle-button .open {
+	transform: rotate(-90deg);
 }
 
 .catalogue h2 {
