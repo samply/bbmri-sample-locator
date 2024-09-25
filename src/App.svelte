@@ -1,5 +1,10 @@
 <script lang="ts">
-	import type { LensDataPasser, QueryEvent } from '@samply/lens';
+	import './app.css';
+	import { browser } from '$app/environment';
+
+	// conditional import for SSR
+	if (browser) import('@samply/lens');
+
 	import {
 		barChartBackgroundColors,
 		barChartHoverColors,
@@ -9,39 +14,34 @@
 	import options from './config/options.json';
 	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
+	import type { LensDataPasser } from '@samply/lens';
+	import { onMount } from 'svelte';
 
-	let catalogueDataPromise = getStaticCatalogue(
-		'/src/services/catalogues/catalogue-bbmri.json'
-	);
+	let catalogueDataPromise: Promise<unknown>;
+
+	onMount(async () => {
+		catalogueDataPromise = getStaticCatalogue('/catalogues/catalogue-bbmri.json');
+	});
+
+	let catalogueopen = false;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
 
-	let catalogue: HTMLElement;
-	let catalogueButtonIcon: HTMLImageElement;
-	let catalogueopen = false;
-
 	let dataPasser: LensDataPasser;
 
-	const getResponse = (): void => {
-		if (!dataPasser) return;
-		console.log('getResponse()', dataPasser.getResponseAPI());
-	};
+	if (browser) {
+		window.addEventListener('emit-lens-query', (e) => {
+			if (!dataPasser) return;
 
-	window.addEventListener('emit-lens-query', (e) => {
-		if (!dataPasser) return;
+			const event = e as CustomEvent;
+			const { ast, updateResponse, abortController } = event.detail;
+			const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
 
-		setTimeout(() => {
-			getResponse();
-		}, 6000);
-
-		const event = e as QueryEvent;
-		const { ast, updateResponse, abortController } = event.detail;
-		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
-
-		requestBackend(ast, updateResponse, abortController, measures, criteria);
-	});
+			requestBackend(ast, updateResponse, abortController, measures, criteria);
+		});
+	}
 </script>
 
 <header class="header">
@@ -59,20 +59,11 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			{#await catalogueDataPromise}
-				Loading catalogue...
-			{:then catalogueDataPromise}
-				<lens-search-bar-multiple
-					noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
-					treeData="{catalogueDataPromise}"
-				></lens-search-bar-multiple>
-			{:catch someError}
-				System error: {someError.message}.
-			{/await}
-
+			<lens-search-bar-multiple noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
+			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="Leere Suchanfrage: Sucht nach allen Ergebnissen."
-				showQuery="{true}"
+				showQuery="true"
 			></lens-info-button>
 			<lens-search-button title="Search"></lens-search-button>
 		</div>
@@ -80,7 +71,7 @@
 
 	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
 		<img
-			bind:this="{catalogueButtonIcon}"
+			class="{catalogueopen ? 'open' : ''}"
 			src="../right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
@@ -93,14 +84,13 @@
 			]}"
 		></lens-info-button>
 	</div>
-
-	<div class="catalogue {catalogueopen ? 'open' : ''}" bind:this="{catalogue}">
+	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<lens-catalogue
 			toggleIconUrl="right-arrow-svgrepo-com.svg"
 			addIconUrl="long-right-arrow-svgrepo-com.svg"
 			infoIconUrl="info-circle-svgrepo-com.svg"
-			texts="{catalogueText}"
-			toggle="{{ collapsable: false, open: catalogueopen }}"
+			texts="{JSON.stringify(catalogueText)}"
+			toggle="{JSON.stringify({ collapsable: false, open: catalogueopen })}"
 		></lens-catalogue>
 	</div>
 	<div class="charts">
@@ -110,7 +100,7 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<!-- <lens-negotiate-button /> -->
+					<button class="negotiate">Negotiate with Biobanks</button>
 				</div>
 			</lens-result-table>
 		</div>
@@ -144,7 +134,6 @@
 				title="Specimens"
 				catalogueGroupCode="sample_kind"
 				chartType="bar"
-				filterRegex="^(?!(tissue-other|buffy-coat|peripheral-blood-cells|dried-whole-blood|swab|ascites|stool-faeces|saliva|liquid-other|derivative-other))"
 				backgroundColor="{barChartBackgroundColors}"
 				backgroundHoverColor="{barChartHoverColors}"
 			>
@@ -158,7 +147,6 @@
 				chartType="bar"
 				groupingDivider="."
 				groupingLabel=".%"
-				filterRegex="^[CD].*"
 				backgroundColor="{barChartBackgroundColors}"
 				backgroundHoverColor="{barChartHoverColors}"
 			></lens-chart>
@@ -169,9 +157,7 @@
 <footer class="footer">
 	<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
 	<div>
-		Made with ♥ and <a href="https://git.verbis.dkfz.de/torbens-prototypen/lens"
-			>samply/lens-core</a
-		>.
+		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
 	</div>
 	<img
 		src="../german-cancer-research-center-dkfz-logo-vector.svg"
@@ -191,3 +177,20 @@
 {/await}
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
+
+<style>
+	.negotiate {
+		margin-bottom: var(--gap-l);
+		padding: var(--gap-xs) var(--gap-s);
+		background-color: var(--blue);
+		color: var(--white);
+		border: none;
+		border-radius: var(--border-radius-small);
+		cursor: pointer;
+		font-size: var(--font-size-m);
+		position: relative;
+	}
+	.negotiate:hover {
+		background-color: var(--light-blue);
+	}
+</style>

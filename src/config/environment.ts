@@ -14,7 +14,7 @@ export const genderHeaders: Map<string, string> = new Map<string, string>()
 	.set('other', 'Divers, Intersexuell')
 	.set('unknown', 'unbekannt');
 
-export const barChartBackgroundColors: string[] = [
+export const barChartBackgroundColors: string = JSON.stringify([
     "#052c65",
     "#073d8b",
     "#094db1",
@@ -24,12 +24,11 @@ export const barChartBackgroundColors: string[] = [
     "#69a5fe",
 	"#97c1fe",
 	"#c5dcff",
+]);
 
-];
-
-export const barChartHoverColors: string[] = [
+export const barChartHoverColors: string = JSON.stringify([
 	'#E95713'
-]
+]);
 
 export const measures: MeasureGroup[] = [
 	{

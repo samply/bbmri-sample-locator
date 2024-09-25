@@ -1,6 +1,5 @@
-import '@samply/lens';
+// import '@samply/lens';
 
-import './app.css';
 import App from './App.svelte';
 
 const app = new App({

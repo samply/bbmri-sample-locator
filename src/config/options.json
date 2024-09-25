@@ -7,6 +7,7 @@
     },
     "siteMappings": {
         "brno": "Brno",
+        "brno-recetox": "Brno-RECETOX",
         "berlin": "Berlin",
         "aachen": "Aachen",
         "cyprus": "Cyprus",
@@ -27,7 +28,10 @@
         "marburg": "Marburg",
         "goettingen": "Göttingen",
         "hannover": "Hannover",
-        "rome": "Rome-BBIRE"
+        "rome": "Rome-BBIRE",
+        "uppsala-test": "Uppsala-Test",
+        "eric-test": "ERIC-Test",
+        "prague-uhkt-test": "Prague-UHKT-Test"
     },
     "catalogueKeyToResponseKeyMap": [
         [
@@ -49,7 +53,12 @@
         [
             "therapy_of_tumor",
             "ProcedureType"
+        ],
+        [
+            "sample_kind",
+            "sample_kind"
         ]
+        
     ],
     "chartOptions": {
         "patients": {
