@@ -142,6 +142,7 @@
     },
     "resultSummaryOptions": {
         "title": "Results",
+        "infoButtonText": "To make re-identification more difficult, results of each site are modified slightly and rounded. If a location reports no match, zero is displayed for that location.",
         "dataTypes": [
             {
                 "title": "Sites",

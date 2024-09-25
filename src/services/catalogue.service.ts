@@ -1,15 +1,10 @@
-// This file includes a function to the the catalogue
+// This file includes a function to get the catalogue
 
 // Use this function to get the catalogue from this project
-export async function getStaticCatalogue(path: string){
-
+export async function getStaticCatalogue(path: string): Promise<unknown> {
     const response = await fetch(path);
     const data = await response.json();
     return data;
-}
-
-export function getCatalogueFromServer() {
-    // TODO: Implement
 }
 
 export const catalogueText = {
