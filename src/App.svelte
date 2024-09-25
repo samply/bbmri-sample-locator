@@ -62,7 +62,7 @@
 			<lens-search-bar-multiple noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
 			></lens-search-bar-multiple>
 			<lens-info-button
-				noQueryMessage="Leere Suchanfrage: Sucht nach allen Ergebnissen."
+				noQueryMessage="An empty search will return all results"
 				showQuery="true"
 			></lens-info-button>
 			<lens-search-button title="Search"></lens-search-button>
