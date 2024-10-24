@@ -49,7 +49,9 @@
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-		<a href="/oauth2/sign_out?rd=https://login.bbmri-eric.eu/oidc/endsession">Logout</a>
+		<a href="/oauth2/sign_out?rd=https%3A%2F%2Flogin.bbmri-eric.eu%2Foidc%2Fendsession"
+			>Logout</a
+		>
 	</menu>
 </header>
 <div class="banner">
