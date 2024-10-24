@@ -11,23 +11,23 @@
 		genderHeaders,
 		measures
 	} from './config/environment';
-	import options from './config/options.json';
-	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
+	import { fetchData, catalogueText } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
-	import { onMount } from 'svelte';
-
-	let catalogueDataPromise: Promise<unknown>;
-
-	onMount(async () => {
-		catalogueDataPromise = getStaticCatalogue('/catalogues/catalogue-bbmri.json');
-	});
 
 	let catalogueopen = false;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
+
+	const catalogueUrl = 'catalogues/catalogue-bbmri.json';
+	const optionsFilePath = 'config/options.json';
+
+	const jsonPromises: Promise<{
+		catalogueJSON: string;
+		optionsJSON: string;
+	}> = fetchData(catalogueUrl, optionsFilePath);
 
 	let dataPasser: LensDataPasser;
 
@@ -170,12 +170,12 @@
 	<img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
 </footer>
 
-{#await catalogueDataPromise}
-	Loading catalogue...
-{:then catalogueData}
-	<lens-options {options} {catalogueData} {measures}></lens-options>
+{#await jsonPromises}
+	Loading data...
+{:then { optionsJSON, catalogueJSON }}
+	<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
 {:catch someError}
-	System error: {someError.message}.
+	System error: {someError.message}
 {/await}
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>

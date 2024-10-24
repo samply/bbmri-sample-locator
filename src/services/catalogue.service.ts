@@ -1,18 +1,34 @@
-// This file includes a function to get the catalogue
+/**
+ * fetches the catalogue and options file from the given urls
+ * @param catalogueUrl the url of the catalogue
+ * @param optionsUrl the path of the options file
+ * @returns a promise that resolves to an object containing the catalogue and options file as JSON strings
+ */
+export const fetchData = async (
+	catalogueUrl: string,
+	optionsUrl: string
+): Promise<{ catalogueJSON: string; optionsJSON: string }> => {
+	const cataloguePromise: string = await fetch(catalogueUrl).then((response) =>
+		response.text()
+	);
 
-// Use this function to get the catalogue from this project
-export async function getStaticCatalogue(path: string): Promise<unknown> {
-    const response = await fetch(path);
-    const data = await response.json();
-    return data;
-}
+	const optionsPromise: string = await fetch(optionsUrl).then((response) =>
+		response.text()
+	);
+
+	return Promise.all([cataloguePromise, optionsPromise]).then(
+		([catalogueJSON, optionsJSON]) => {
+			return { catalogueJSON, optionsJSON };
+		}
+	);
+};
 
 export const catalogueText = {
-    group: 'Group',
-    collapseButtonTitle: 'Collapse Tree',
-    expandButtonTitle: 'Expand Tree',
-    numberInput: {
-        labelFrom: 'from',
-        labelTo: 'to'
-    }
+	group: 'Group',
+	collapseButtonTitle: 'Collapse Tree',
+	expandButtonTitle: 'Expand Tree',
+	numberInput: {
+		labelFrom: 'von',
+		labelTo: 'bis'
+	}
 };
