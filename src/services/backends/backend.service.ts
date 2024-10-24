@@ -2,6 +2,7 @@ import type { MeasureItem, Measure, AstTopLayer, Site, MeasureGroup } from "@sam
 import { Spot } from "./spot";
 import { buildLibrary, buildMeasure } from "./cql-measure";
 import { translateAstToCql } from "./ast-to-cql-translator";
+import options from "../../config/options.json"
 
 
 export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<string, Site>) => void, abortController: AbortController, measureGroups: MeasureGroup[], criteria: string[]) => {
@@ -10,6 +11,9 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         (measureItem: MeasureItem) => measureItem.measure
     );
 
+    let query = {};
+
+    if (options.backendFormat === "cql") {
     const cql = translateAstToCql(
         ast,
         false,
@@ -20,7 +24,12 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     const library = buildLibrary(`${cql}`);
     const measure = buildMeasure(library.url, measures);
-    const query = { lang: "cql", lib: library, measure: measure };
+    query = { lang: "cql", lib: library, measure: measure };
+
+    // Fallback to AST
+    } else /*if (options.backendFormat === "ast")*/ {
+        query = { lang: "ast", payload: ast };
+    }
 
 
     let backendUrl: string = ""
