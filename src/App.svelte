@@ -45,7 +45,7 @@
 </script>
 
 <header class="header">
-	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
+	<img src="/search/BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
@@ -76,7 +76,7 @@
 	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
 		<img
 			class="{catalogueopen ? 'open' : ''}"
-			src="../right-arrow-svgrepo-com.svg"
+			src="/search/right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
 		<span>Full Parameter Search</span>
@@ -164,12 +164,12 @@
 		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
 	</div>
 	<img
-		src="../german-cancer-research-center-dkfz-logo-vector.svg"
+		src="/search/german-cancer-research-center-dkfz-logo-vector.svg"
 		alt="German Cancer Research Center"
 		height="40"
 	/>
-	<img src="../GBN_logo.svg" alt="German Biobank Node" height="60" />
-	<img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
+	<img src="/search/GBN_logo.svg" alt="German Biobank Node" height="60" />
+	<img src="/search/logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
 </footer>
 
 {#await jsonPromises}

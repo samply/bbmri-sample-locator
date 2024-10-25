@@ -33,11 +33,18 @@ services:
       - traefik
       - default
 
+  landing:
+    image: docker.verbis.dkfz.de/cache/bbmri-landingpage:manual-build
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`)"
+      - "traefik.http.routers.lens.tls=true"
+
   lens:
     image: samply/bbmri-sample-locator:feat-docker-deploy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`)"
+      - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`) && PathPrefix(`/search/`)"
       - "traefik.http.routers.lens.tls=true"
       - "traefik.http.routers.lens.middlewares=traefik-forward-auth"
     networks:
