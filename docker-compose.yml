@@ -37,8 +37,11 @@ services:
     image: docker.verbis.dkfz.de/cache/bbmri-landingpage:manual-build
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`)"
-      - "traefik.http.routers.lens.tls=true"
+      - "traefik.http.routers.landing.rule=Host(`${GUI_HOST}`)"
+      - "traefik.http.routers.landing.tls=true"
+    networks:
+      - traefik
+      - default
 
   lens:
     image: samply/bbmri-sample-locator:feat-docker-deploy
