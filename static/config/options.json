@@ -5,7 +5,6 @@
             "text": "Add all"
         }
     },
-    "backendFormat": "ast",
     "siteMappings": {
         "brno": "Brno",
         "brno-recetox": "Brno-RECETOX",
