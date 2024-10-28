@@ -10,6 +10,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         (measureItem: MeasureItem) => measureItem.measure
     );
 
+    const queryId = crypto.randomUUID();
     let query = {};
 
     if (import.meta.env.VITE_BACKEND_FORMAT === "cql") {
@@ -27,7 +28,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     // Fallback to AST
     } else /*if (import.meta.env.VITE_BACKEND_FORMAT === "ast")*/ {
-        query = { lang: "ast", payload: ast };
+        query = { lang: "ast", payload: {ast: ast, id: queryId } };
     }
 
 
@@ -73,7 +74,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         "uppsala-test",
         "eric-test",
         "prague-uhkt-test",
-    ]);
+    ], queryId);
 
 
 
