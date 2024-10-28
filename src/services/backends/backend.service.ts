@@ -28,7 +28,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     // Fallback to AST
     } else /*if (import.meta.env.VITE_BACKEND_FORMAT === "ast")*/ {
-        query = { lang: "ast", payload: {ast: ast, id: queryId } };
+        query = { lang: "ast", payload: {ast: ast, id: queryId.concat("__search__").concat(queryId) } };
     }
 
 
