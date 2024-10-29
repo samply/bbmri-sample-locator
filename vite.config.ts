@@ -7,7 +7,7 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	},
 	optimizeDeps: {
-		include: ['@samply/lens'], // Make sure the package is correctly included
+		exclude: ['@samply/lens'], // Ensure local linking works
 	},
 	ssr: {
 		noExternal: ['@samply/lens'], // Mark package as noExternal if SSR issues
