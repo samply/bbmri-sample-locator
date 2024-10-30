@@ -159,93 +159,32 @@
         ]
     },
     "negotiateOptions": {
-        "negotiateApp": "negotiator",
         "newProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
-        "editProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
-        "siteMapping": [
+        "siteMappings": [
             {
-                "site": "Dresden",
-                "collection": "dresden"
-            },
-            {
-                "site": "Frankfurt",
-                "collection": "bbmri-eric:ID:DE_iBDF:collection:UCT"
-            },
-            {
-                "site": "Berlin",
-                "collection": "bbmri-eric:ID:DE_ZeBanC:collection:Onoloy"
-            },
-            {
-                "site": "Würzburg",
-                "collection": "bbmri-eric:ID:DE_ibdw:collection:bc"
-            },
-            {
-                "site": "Brno",
-                "collection": "bbmri-eric:ID:CZ_MMCI:collection:LTS"
-            },
-            {
-                "site": "Aachen",
-                "collection": "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC"
-            },
-            {
-                "site": "Leipzig",
-                "collection": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT"
-            },
-            {
-                "site": "München (HMGU)",
-                "collection": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA"
-            },
-            {
-                "site": "Pilsen",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma"
-            },
-            {
-                "site": "Regensburg",
-                "collection": "bbmri-eric:ID:DE_ZBR:collection:Tissue"
-            },
-            {
-                "site": "Heidelberg",
-                "collection": "bbmri-eric:ID:DE_BMBH:collection:Lungenbiobank",
-                "name": "heidelberg",
-                "biobankId": "bbmri-eric:ID:DE_BMBH"
-            },
-            {
-                "site": "Lübeck",
-                "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL"
-            },
-            {
-                "site": "Augsburg",
-                "collection": "bbmri-eric:ID:DE_ACBB:collection:TISSUE"
+                "site": "ERIC-Test",
+                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+                "site_id": "bbmri-eric:ID:DE_IBM",
+                "collection_name": "Biostroke Collection"
             },
             {
                 "site": "Mannheim",
-                "collection": "bbmri-eric:ID:DE_BioPsy:collection:Main_collecion"
+                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+                "site_id": "bbmri-eric:ID:DE_IBM",
+                "collection_name": "Biostroke Collection"
             },
             {
-                "site": "Marburg",
-                "collection": "bbmri-eric:ID:DE_CBBMR:collection:main"
+                "site": "Prague-UHKT-Test",
+                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+                "site_id": "bbmri-eric:ID:CZ_IHBT",
+                "collection_name": "Oncohematology Plasma"
             },
             {
-                "site": "Göttingen",
-                "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy"
-            },
-            {
-                "site": "Hanover",
-                "collection": "bbmri-eric:ID:DE_HUB:collection:ProBase"
-            },
-            {
-                "site": "Olomouc",
-                "collection": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples"
-            },
-            {
-                "site": "Prague (FFM)",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma"
-            },
-            {
-                "site": "Prague (IOR)",
-                "collection": "bbmri-eric:ID:CZ_CUNI_LF1:collection"
+                "site": "Uppsala-Test",
+                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
+                "site_id": "bbmri-eric:ID:SE_827",
+                "collection_name": "HGCC"
             }
-
         ]
     }
 }

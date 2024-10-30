@@ -104,7 +104,7 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<button class="negotiate">Negotiate with Biobanks</button>
+					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
 				</div>
 			</lens-result-table>
 		</div>
@@ -181,20 +181,3 @@
 {/await}
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
-
-<style>
-	.negotiate {
-		margin-bottom: var(--gap-l);
-		padding: var(--gap-xs) var(--gap-s);
-		background-color: var(--blue);
-		color: var(--white);
-		border: none;
-		border-radius: var(--border-radius-small);
-		cursor: pointer;
-		font-size: var(--font-size-m);
-		position: relative;
-	}
-	.negotiate:hover {
-		background-color: var(--light-blue);
-	}
-</style>
