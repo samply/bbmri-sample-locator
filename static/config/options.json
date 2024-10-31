@@ -36,7 +36,7 @@
     "catalogueKeyToResponseKeyMap": [
         [
             "gender",
-            "Gender"
+            "gender"
         ],
         [
             "age_at_diagnosis",
@@ -132,7 +132,7 @@
             },
             {
                 "title": "Patients",
-                "dataKey": "patients"
+                "dataKey": "patient"
             },
             {
                 "title": "Specimens",
@@ -150,7 +150,7 @@
             },
             {
                 "title": "Patients",
-                "dataKey": "patients"
+                "dataKey": "patient"
             },
             {
                 "title": "Specimens",
