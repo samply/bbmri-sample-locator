@@ -159,7 +159,7 @@
         ]
     },
     "negotiateOptions": {
-        "newProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "newProjectUrl": "https://negotiator.acc.bbmri-eric.eu//api/v3/requests",
         "siteMappings": [
             {
                 "site": "ERIC-Test",
