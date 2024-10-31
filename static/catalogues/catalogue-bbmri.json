@@ -37,7 +37,7 @@
             },
             {
                 "key": "diagnosis",
-                "name": "Diagnose ICD-10",
+                "name": "Diagnosis ICD-10",
                 "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
                 "fieldType": "autocomplete",
                 "type": "EQUALS",
