@@ -342,6 +342,11 @@ footer a:hover {
 	align-items: end;
 }
 
+.warning {
+	color: #000000;
+	background-color: yellow;
+}
+
 /**
 * Overrides
 */
