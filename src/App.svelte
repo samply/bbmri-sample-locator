@@ -105,7 +105,11 @@
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
 					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
-					<lens-search-modified-display><div class="warning">Search has been modified!</div></lens-search-modified-display>
+					<lens-search-modified-display
+						><div class="warning">
+							Search has been modified!
+						</div></lens-search-modified-display
+					>
 				</div>
 			</lens-result-table>
 		</div>
