@@ -32,7 +32,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     }
 
 
-    let backendUrl: string = ""
+    let backendUrl: string = "";
 
     /**
      * TODO: add different backend URLs for different environments
