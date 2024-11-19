@@ -36,7 +36,7 @@
     "catalogueKeyToResponseKeyMap": [
         [
             "gender",
-            "Gender"
+            "gender"
         ],
         [
             "age_at_diagnosis",
@@ -132,7 +132,7 @@
             },
             {
                 "title": "Patients",
-                "dataKey": "patients"
+                "dataKey": "patient"
             },
             {
                 "title": "Specimens",
@@ -150,7 +150,7 @@
             },
             {
                 "title": "Patients",
-                "dataKey": "patients"
+                "dataKey": "patient"
             },
             {
                 "title": "Specimens",
@@ -159,7 +159,7 @@
         ]
     },
     "negotiateOptions": {
-        "newProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "newProjectUrl": "https://negotiator.acc.bbmri-eric.eu/api/v3/requests",
         "siteMappings": [
             {
                 "site": "ERIC-Test",
@@ -168,22 +168,16 @@
                 "collection_name": "Biostroke Collection"
             },
             {
-                "site": "Mannheim",
-                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
-                "site_id": "bbmri-eric:ID:DE_IBM",
-                "collection_name": "Biostroke Collection"
-            },
-            {
                 "site": "Prague-UHKT-Test",
-                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
                 "site_id": "bbmri-eric:ID:CZ_IHBT",
                 "collection_name": "Oncohematology Plasma"
             },
             {
                 "site": "Uppsala-Test",
-                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
+                "collection": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
                 "site_id": "bbmri-eric:ID:SE_827",
-                "collection_name": "HGCC"
+                "collection_name": "U-CAN"
             }
         ]
     }

@@ -63,7 +63,8 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			<lens-search-bar-multiple noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
+			<lens-search-bar-multiple
+				noMatchesFoundMessage="{"We couldn't find any matches for your search"}"
 			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="An empty search will return all results"
@@ -105,6 +106,11 @@
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
 					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
+					<lens-search-modified-display
+						><div class="warning">
+							Search has been modified!
+						</div></lens-search-modified-display
+					>
 				</div>
 			</lens-result-table>
 		</div>

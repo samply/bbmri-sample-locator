@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - feat/docker-deploy
+      - feature/send-ast
   pull_request:
     branches:
       - develop
