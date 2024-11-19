@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"release": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
@@ -45,7 +46,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@samply/lens": "^0.3.1",
+		"@samply/lens": "0.4.4-0",
 		"uuid": "^10.0.0"
 	}
 }

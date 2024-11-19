@@ -11,23 +11,23 @@
 		genderHeaders,
 		measures
 	} from './config/environment';
-	import options from './config/options.json';
-	import { catalogueText, getStaticCatalogue } from './services/catalogue.service';
+	import { fetchData, catalogueText } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
-	import { onMount } from 'svelte';
-
-	let catalogueDataPromise: Promise<unknown>;
-
-	onMount(async () => {
-		catalogueDataPromise = getStaticCatalogue('/catalogues/catalogue-bbmri.json');
-	});
 
 	let catalogueopen = false;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
+
+	const catalogueUrl = 'catalogues/catalogue-bbmri.json';
+	const optionsFilePath = 'config/options.json';
+
+	const jsonPromises: Promise<{
+		catalogueJSON: string;
+		optionsJSON: string;
+	}> = fetchData(catalogueUrl, optionsFilePath);
 
 	let dataPasser: LensDataPasser;
 
@@ -45,11 +45,15 @@
 </script>
 
 <header class="header">
-	<img src="../BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
+	<img src="/search/BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-		<a href="https://www.bbmri-eric.eu/bbmri-sample-and-data-portal/">Logout</a>
+		<!-- %26post%5Flogout%5Fredirect%5Furi%3Dhttps%3A%2F%2Fnegotiator%2Eacc%2Ebbmri%2Deric%2Eeu -->
+		<a
+			href="/oauth2/sign_out?rd=https%3A%2F%2Flogin%2Ebbmri%2Deric%2Eeu%2Foidc%2Fendsession"
+			>Logout</a
+		>
 	</menu>
 </header>
 <div class="banner">
@@ -59,7 +63,8 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			<lens-search-bar-multiple noMatchesFoundMessage="{'keine Ergebnisse gefunden'}"
+			<lens-search-bar-multiple
+				noMatchesFoundMessage="{"We couldn't find any matches for your search"}"
 			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="An empty search will return all results"
@@ -72,7 +77,7 @@
 	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
 		<img
 			class="{catalogueopen ? 'open' : ''}"
-			src="../right-arrow-svgrepo-com.svg"
+			src="/search/right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
 		<span>Full Parameter Search</span>
@@ -100,7 +105,12 @@
 		<div class="chart-wrapper result-table">
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
-					<button class="negotiate">Negotiate with Biobanks</button>
+					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
+					<lens-search-modified-display
+						><div class="warning">
+							Search has been modified!
+						</div></lens-search-modified-display
+					>
 				</div>
 			</lens-result-table>
 		</div>
@@ -160,37 +170,20 @@
 		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
 	</div>
 	<img
-		src="../german-cancer-research-center-dkfz-logo-vector.svg"
+		src="/search/german-cancer-research-center-dkfz-logo-vector.svg"
 		alt="German Cancer Research Center"
 		height="40"
 	/>
-	<img src="../GBN_logo.svg" alt="German Biobank Node" height="60" />
-	<img src="../logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
+	<img src="/search/GBN_logo.svg" alt="German Biobank Node" height="60" />
+	<img src="/search/logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
 </footer>
 
-{#await catalogueDataPromise}
-	Loading catalogue...
-{:then catalogueData}
-	<lens-options {options} {catalogueData} {measures}></lens-options>
+{#await jsonPromises}
+	Loading data...
+{:then { optionsJSON, catalogueJSON }}
+	<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
 {:catch someError}
-	System error: {someError.message}.
+	System error: {someError.message}
 {/await}
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
-
-<style>
-	.negotiate {
-		margin-bottom: var(--gap-l);
-		padding: var(--gap-xs) var(--gap-s);
-		background-color: var(--blue);
-		color: var(--white);
-		border: none;
-		border-radius: var(--border-radius-small);
-		cursor: pointer;
-		font-size: var(--font-size-m);
-		position: relative;
-	}
-	.negotiate:hover {
-		background-color: var(--light-blue);
-	}
-</style>

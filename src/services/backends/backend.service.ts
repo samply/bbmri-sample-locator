@@ -10,6 +10,10 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         (measureItem: MeasureItem) => measureItem.measure
     );
 
+    const queryId = crypto.randomUUID();
+    let query = {};
+
+    if (import.meta.env.VITE_BACKEND_FORMAT === "cql") {
     const cql = translateAstToCql(
         ast,
         false,
@@ -20,10 +24,15 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
     const library = buildLibrary(`${cql}`);
     const measure = buildMeasure(library.url, measures);
-    const query = { lang: "cql", lib: library, measure: measure };
+    query = { lang: "cql", lib: library, measure: measure };
+
+    // Fallback to AST
+    } else /*if (import.meta.env.VITE_BACKEND_FORMAT === "ast")*/ {
+        query = { lang: "ast", payload: btoa(decodeURI(JSON.stringify({ast: ast, id: queryId.concat("__search__").concat(queryId) }))) };
+    }
 
 
-    let backendUrl: string = ""
+    let backendUrl: string = "";
 
     /**
      * TODO: add different backend URLs for different environments
@@ -65,7 +74,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         "uppsala-test",
         "eric-test",
         "prague-uhkt-test",
-    ]);
+    ], queryId);
 
 
 

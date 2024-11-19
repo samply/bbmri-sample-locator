@@ -10,11 +10,11 @@ import type {
 } from "@samply/lens"
 
 export class Spot {
-    private currentTask!: string;
 
     constructor(
         private url: URL,
         private sites: Array<string>,
+        private currentTask: string,
     ) {}
 
     /**
@@ -29,7 +29,6 @@ export class Spot {
         controller: AbortController,
     ): Promise<void> {
         try {
-            this.currentTask = crypto.randomUUID();
             const beamTaskResponse = await fetch(
                 `${this.url}beam?sites=${this.sites.toString()}`,
                 {
@@ -37,7 +36,7 @@ export class Spot {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    credentials: import.meta.env.PROD ? "include" : "omit",
+                    credentials: "include",
                     body: JSON.stringify({
                         id: this.currentTask,
                         sites: this.sites,
