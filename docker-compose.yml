@@ -45,7 +45,7 @@ services:
       - default
 
   lens:
-    image: samply/bbmri-sample-locator:feat-docker-deploy
+    image: samply/bbmri-sample-locator:main
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`) && PathPrefix(`/search/`)"
