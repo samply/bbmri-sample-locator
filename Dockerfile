@@ -11,4 +11,15 @@ COPY ./static ./static
 
 RUN VITE_TARGET_ENVIRONMENT=${TARGET_ENVIRONMENT} VITE_BACKEND_FORMAT=${BACKEND_FORMAT} npm run build
 
-CMD ["npm", "run", "release"]
+FROM node:lts AS deploy
+
+WORKDIR /app
+
+COPY --from=build /usr/src/app/build build/
+COPY --from=build /usr/src/app/package.json .
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+
+CMD [ "node", "build" ]
