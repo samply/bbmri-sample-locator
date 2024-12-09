@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './app.css';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	// conditional import for SSR
 	if (browser) import('@samply/lens');
@@ -30,6 +31,7 @@
 	}> = fetchData(catalogueUrl, optionsFilePath);
 
 	let dataPasser: LensDataPasser;
+	let controller: AbortController = new AbortController();
 
 	if (browser) {
 		window.addEventListener('emit-lens-query', (e) => {
@@ -42,6 +44,19 @@
 			requestBackend(ast, updateResponse, abortController, measures, criteria);
 		});
 	}
+
+	onMount(async () => {
+		// Ensure dataPasser is initialized before using it's api
+		await import('@samply/lens');
+		const initialQuery = new CustomEvent('emit-lens-query', {
+			detail: {
+				ast: dataPasser.getAstAPI(),
+				updateResponse: dataPasser.getResponseAPI(),
+				abortController: controller
+			}
+		});
+		window.dispatchEvent(initialQuery);
+	});
 </script>
 
 <header class="header">
