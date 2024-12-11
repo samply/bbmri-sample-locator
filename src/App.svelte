@@ -42,10 +42,20 @@
 			requestBackend(ast, updateResponse, abortController, measures, criteria);
 		});
 	}
+
+	let color: string = '#e95713';
+	let unit: string = 'px';
+	let duration: string = '1.2s';
+	let size: string = '90';
+	let pause: boolean = false;
+	let durationUnit: string = duration.match('/[a-zA-Z]/')?.[0] ?? 's';
+	let durationNum: string = '1';
+	let range = (size: number, startAt = 0) =>
+		[...Array(size).keys()].map((i) => i + startAt);
 </script>
 
 <header class="header">
-	<img src="/search/BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="60px" />
+	<img src="/search/BBMRI-ERIC-gateway-for-health.svg" alt="BBMRI" height="34px" />
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
@@ -98,6 +108,28 @@
 			toggle="{JSON.stringify({ collapsable: false, open: catalogueopen })}"
 		></lens-catalogue>
 	</div>
+	{#await jsonPromises}
+		<div class="stretch-loading-animation">
+			<div
+				class="wrapper"
+				style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
+			>
+				{#each range(5, 1) as version}
+					<div
+						class="rect"
+						class:pause-animation="{pause}"
+						style="animation-delay: {(version - 1) * (+durationNum / 12)}{durationUnit}"
+					></div>
+				{/each}
+			</div>
+			<p>Loading data...</p>
+		</div>
+	{:then { optionsJSON, catalogueJSON }}
+		<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
+	{:catch someError}
+		System error: {someError.message}
+	{/await}
+
 	<div class="charts">
 		<div class="chart-wrapper result-summary">
 			<lens-result-summary></lens-result-summary>
@@ -106,11 +138,9 @@
 			<lens-result-table pageSize="10">
 				<div slot="beneath-pagination">
 					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
-					<lens-search-modified-display
-						><div class="warning">
-							Search has been modified!
-						</div></lens-search-modified-display
-					>
+					<lens-search-modified-display>
+						<div></div>
+					</lens-search-modified-display>
 				</div>
 			</lens-result-table>
 		</div>
@@ -164,26 +194,22 @@
 	</div>
 </main>
 
-<footer class="footer">
-	<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
-	<div>
-		Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
-	</div>
-	<img
-		src="/search/german-cancer-research-center-dkfz-logo-vector.svg"
-		alt="German Cancer Research Center"
-		height="40"
-	/>
-	<img src="/search/GBN_logo.svg" alt="German Biobank Node" height="60" />
-	<img src="/search/logo_ce-en-rvb-lr.jpg" alt="EU" height="60" />
-</footer>
-
-{#await jsonPromises}
-	Loading data...
-{:then { optionsJSON, catalogueJSON }}
-	<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
-{:catch someError}
-	System error: {someError.message}
-{/await}
-
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
+
+<footer class="footer">
+	<div>
+		<img
+			src="/search/german-cancer-research-center-dkfz-logo-vector.svg"
+			alt="German Cancer Research Center"
+			height="40"
+		/>
+		<img src="/search/GBN_logo.svg" alt="German Biobank Node" height="45" />
+		<img src="/search/logo_ce-en-rvb-lr.jpg" alt="EU" height="50" />
+	</div>
+	<div>
+		<a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
+		<div>
+			Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
+		</div>
+	</div>
+</footer>
