@@ -126,72 +126,71 @@
 		</div>
 	{:then { optionsJSON, catalogueJSON }}
 		<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
+		<div class="charts">
+			<div class="chart-wrapper result-summary">
+				<lens-result-summary></lens-result-summary>
+			</div>
+			<div class="chart-wrapper result-table">
+				<lens-result-table pageSize="10">
+					<div slot="beneath-pagination">
+						<lens-negotiate-button class="negotiate"></lens-negotiate-button>
+						<lens-search-modified-display>
+							<div>Search has been modified!</div>
+						</lens-search-modified-display>
+					</div>
+				</lens-result-table>
+			</div>
+
+			<div class="chart-wrapper">
+				<lens-chart
+					title="Gender Distribution"
+					catalogueGroupCode="gender"
+					chartType="pie"
+					displayLegends="{true}"
+					headers="{genderHeaders}"
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
+				></lens-chart>
+			</div>
+
+			<div class="chart-wrapper chart-age-distribution">
+				<lens-chart
+					title="Age Distribution"
+					catalogueGroupCode="age_at_diagnosis"
+					chartType="bar"
+					groupRange="{10}"
+					filterRegex="^(1*[12]*[0-9])"
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
+				></lens-chart>
+			</div>
+
+			<div class="chart-wrapper chart-sample-kind">
+				<lens-chart
+					title="Specimens"
+					catalogueGroupCode="sample_kind"
+					chartType="bar"
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
+				>
+				</lens-chart>
+			</div>
+
+			<div class="chart-wrapper chart-diagnosis">
+				<lens-chart
+					title="Diagnosis"
+					catalogueGroupCode="diagnosis"
+					chartType="bar"
+					groupingDivider="."
+					groupingLabel=".%"
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
+				></lens-chart>
+			</div>
+		</div>
 	{:catch someError}
 		System error: {someError.message}
 	{/await}
-
-	<div class="charts">
-		<div class="chart-wrapper result-summary">
-			<lens-result-summary></lens-result-summary>
-		</div>
-		<div class="chart-wrapper result-table">
-			<lens-result-table pageSize="10">
-				<div slot="beneath-pagination">
-					<lens-negotiate-button class="negotiate"></lens-negotiate-button>
-					<lens-search-modified-display>
-						<div></div>
-					</lens-search-modified-display>
-				</div>
-			</lens-result-table>
-		</div>
-
-		<div class="chart-wrapper">
-			<lens-chart
-				title="Gender Distribution"
-				catalogueGroupCode="gender"
-				chartType="pie"
-				displayLegends="{true}"
-				headers="{genderHeaders}"
-				backgroundColor="{barChartBackgroundColors}"
-				backgroundHoverColor="{barChartHoverColors}"
-			></lens-chart>
-		</div>
-
-		<div class="chart-wrapper chart-age-distribution">
-			<lens-chart
-				title="Age Distribution"
-				catalogueGroupCode="age_at_diagnosis"
-				chartType="bar"
-				groupRange="{10}"
-				filterRegex="^(1*[12]*[0-9])"
-				backgroundColor="{barChartBackgroundColors}"
-				backgroundHoverColor="{barChartHoverColors}"
-			></lens-chart>
-		</div>
-
-		<div class="chart-wrapper chart-sample-kind">
-			<lens-chart
-				title="Specimens"
-				catalogueGroupCode="sample_kind"
-				chartType="bar"
-				backgroundColor="{barChartBackgroundColors}"
-				backgroundHoverColor="{barChartHoverColors}"
-			>
-			</lens-chart>
-		</div>
-
-		<div class="chart-wrapper chart-diagnosis">
-			<lens-chart
-				title="Diagnosis"
-				catalogueGroupCode="diagnosis"
-				chartType="bar"
-				groupingDivider="."
-				groupingLabel=".%"
-				backgroundColor="{barChartBackgroundColors}"
-				backgroundHoverColor="{barChartHoverColors}"
-			></lens-chart>
-		</div>
-	</div>
 </main>
 
 <lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
