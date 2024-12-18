@@ -180,6 +180,54 @@
                 "collection_name": "U-CAN"
             },
             {
+                "site": "aachen",
+                "collection": "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC",
+                "site_id": "bbmri-eric:ID:DE_RWTHCBMB",
+                "collection_name": "Collection of RWTH cBMB Broad Consent Aachen"
+            },
+            {
+                "site": "augsburg",
+                "collection": "bbmri-eric:ID:DE_ACBB:collection:LIQUID",
+                "site_id": "bbmri-eric:ID:DE_ACBB",
+                "collection_name": "ACBB collection Liquid"
+            },
+            {
+                "site": "berlin",
+                "collection": "bbmri-eric:ID:DE_ZeBanC:collection:COVID19",
+                "site_id": "bbmri-eric:ID:DE_ZeBanC",
+                "collection_name": "Existing collection of COVID-19 cases"
+            },
+            {
+                "site": "brno",
+                "collection": "bbmri-eric:ID:CZ_MMCI:collection:LTS",
+                "site_id": "bbmri-eric:ID:CZ_MMCI",
+                "collection_name": ""
+            },
+            {
+                "site": "cyprus",
+                "collection": "bbmri-eric:ID:CY_cybiobank:collection:General_Biobanking_cohort",
+                "site_id": "bbmri-eric:ID:CY_cybiobank",
+                "collection_name": "General Biobanking cohort"
+            },
+            {
+                "site": "dresden",
+                "collection": "bbmri-eric:ID:DE_BBD:collection:DILB",
+                "site_id": "bbmri-eric:ID:DE_BBD",
+                "collection_name": "Dresden Integrated Liquid Biobank"
+            },
+            {
+                "site": "essen",
+                "collection": "bbmri-eric:ID:DE_BMBN:collection:Main_collection",
+                "site_id": "bbmri-eric:ID:DE_BMBN",
+                "collection_name": "Main Collection of the BioMaterial Bank Nord"
+            },
+            {
+                "site": "goettingen",
+                "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy",
+                "site_id": "bbmri-eric:ID:DE_UMGB:collection",
+                "collection_name": ""
+            }
+            {
                 "site": "frankfurt",
                 "collection": "bbmri-eric:ID:DE_iBDF",
                 "site_id": "bbmri-eric:ID:DE_iBDF:collection:UCT",
