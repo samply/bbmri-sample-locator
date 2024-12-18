@@ -41,40 +41,42 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     // if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
     //     backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
     // } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend/";
+        backendUrl = "https://locator.bbmri-eric.eu/backend/";
     // } else {
     //     backendUrl = "http://localhost:8055";
     // }
 
-    // const backend = new Spot(new URL(backendUrl), [
-    //     "aachen",
-    //     "berlin",
-    //     "brno",
-    //     "brno-recetox",
-    //     "cyprus",
-    //     "dresden",
-    //     "frankfurt",
-    //     "goettingen",
-    //     "hannover",
-    //     "heidelberg",
-    //     "luebeck",
-    //     "mannheim",
-    //     "marburg",
-    //     "muenchen-hmgu",
-    //     "olomouc",
-    //     "pilsen",
-    //     "prague-ffm",
-    //     "prague-ior",
-    //     "regensburg",
-    //     "rome",
-    //     "wuerzburg",
-    // ]);
-
     const backend = new Spot(new URL(backendUrl), [
-        "uppsala-test",
-        "eric-test",
-        "prague-uhkt-test",
+        "aachen",
+        "berlin",
+        "brno",
+        "brno-recetox",
+        "cyprus",
+        "dresden",
+        "frankfurt",
+        "goettingen",
+        "hannover",
+        "heidelberg",
+        "luebeck",
+        "mannheim",
+        "marburg",
+        "muenchen-hmgu",
+        "olomouc",
+        "pilsen",
+        "prague-ffm",
+        "prague-ior",
+        "regensburg",
+        "rome",
+        "rome-opbg",
+        "uppsala",
+        "wuerzburg",
     ], queryId);
+
+    // const backend = new Spot(new URL(backendUrl), [
+    //     "uppsala-test",
+    //     "eric-test",
+    //     "prague-uhkt-test",
+    // ], queryId);
 
 
 
