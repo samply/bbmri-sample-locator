@@ -41,7 +41,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     // if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
     //     backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
     // } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend/";
+        backendUrl = "https://locator.bbmri-eric.eu/backend/";
     // } else {
     //     backendUrl = "http://localhost:8055";
     // }
