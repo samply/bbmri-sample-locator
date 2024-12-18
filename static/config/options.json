@@ -252,6 +252,12 @@
                 "collection_name": "LIFE-Adult-Study Basis Leipzig"
             },
             {
+                "site": "luebeck",
+                "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL",
+                "site_id": "bbmri-eric:ID:DE_ICBL",
+                "collection_name": "Main Collection ICB-Lübeck"
+            },
+            {
                 "site": "muenchen-hmgu",
                 "collection": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank",
                 "site_id": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA",
@@ -294,6 +300,12 @@
                 "collection_name": "Tissue Samples"
             },
             {
+                "site": "olomouc",
+                "collection": "bbmri-eric:ID:CZ_UPOL_LF",
+                "site_id": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples",
+                "collection_name": "Olomouc main collection"
+            },
+            {
                 "site": "pilsen",
                 "collection": "bbmri-eric:ID:CZ_CUNI_PILS",
                 "site_id": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
@@ -328,12 +340,6 @@
                 "collection": "bbmri-eric:ID:DE_ibdw",
                 "site_id": "bbmri-eric:ID:DE_ibdw:collection:bc",
                 "collection_name": "Collection Broad Consent Würzburg"
-            },
-            {
-                "site": "luebeck",
-                "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL",
-                "site_id": "bbmri-eric:ID:DE_ICBL",
-                "collection_name": "Main Collection ICB-Lübeck"
             }
         ]
     }
