@@ -199,9 +199,9 @@
             },
             {
                 "site": "brno",
-                "collection": "bbmri-eric:ID:CZ_MMCI:collection:LTS",
+                "collection": "bbmri-eric:ID:CZ_MMCI:collection:DNA",
                 "site_id": "bbmri-eric:ID:CZ_MMCI",
-                "collection_name": ""
+                "collection_name": "DNA"
             },
             {
                 "site": "cyprus",
