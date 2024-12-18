@@ -46,35 +46,37 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     //     backendUrl = "http://localhost:8055";
     // }
 
-    // const backend = new Spot(new URL(backendUrl), [
-    //     "aachen",
-    //     "berlin",
-    //     "brno",
-    //     "brno-recetox",
-    //     "cyprus",
-    //     "dresden",
-    //     "frankfurt",
-    //     "goettingen",
-    //     "hannover",
-    //     "heidelberg",
-    //     "luebeck",
-    //     "mannheim",
-    //     "marburg",
-    //     "muenchen-hmgu",
-    //     "olomouc",
-    //     "pilsen",
-    //     "prague-ffm",
-    //     "prague-ior",
-    //     "regensburg",
-    //     "rome",
-    //     "wuerzburg",
-    // ]);
-
     const backend = new Spot(new URL(backendUrl), [
-        "uppsala-test",
-        "eric-test",
-        "prague-uhkt-test",
+        "aachen",
+        "berlin",
+        "brno",
+        "brno-recetox",
+        "cyprus",
+        "dresden",
+        "frankfurt",
+        "goettingen",
+        "hannover",
+        "heidelberg",
+        "luebeck",
+        "mannheim",
+        "marburg",
+        "muenchen-hmgu",
+        "olomouc",
+        "pilsen",
+        "prague-ffm",
+        "prague-ior",
+        "regensburg",
+        "rome",
+        "rome-opbg",
+        "uppsala",
+        "wuerzburg",
     ], queryId);
+
+    // const backend = new Spot(new URL(backendUrl), [
+    //     "uppsala-test",
+    //     "eric-test",
+    //     "prague-uhkt-test",
+    // ], queryId);
 
 
 
