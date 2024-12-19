@@ -1,0 +1,161 @@
+{
+    "iconOptions": {
+        "infoUrl": "info-circle-svgrepo-com.svg",
+        "selectAll": {
+            "text": "Add all"
+        }
+    },
+    "siteMappings": {
+        "uppsala-test": "Uppsala-Test",
+        "eric-test": "ERIC-Test",
+        "prague-uhkt-test": "Prague-UHKT-Test"
+    },
+    "catalogueKeyToResponseKeyMap": [
+        [
+            "gender",
+            "gender"
+        ],
+        [
+            "age_at_diagnosis",
+            "Age"
+        ],
+        [
+            "diagnosis",
+            "diagnosis"
+        ],
+        [
+            "medicationStatements",
+            "MedicationType"
+        ],
+        [
+            "therapy_of_tumor",
+            "ProcedureType"
+        ],
+        [
+            "sample_kind",
+            "sample_kind"
+        ]
+        
+    ],
+    "chartOptions": {
+        "patients": {
+            "legendMapping": {
+                "berlin": "Berlin",
+                "berlin-test": "Berlin",
+                "bonn": "Bonn",
+                "dresden": "Dresden",
+                "essen": "Essen",
+                "frankfurt": "Frankfurt",
+                "freiburg": "Freiburg",
+                "hannover": "Hannover",
+                "mainz": "Mainz",
+                "muenchen-lmu": "München(LMU)",
+                "muenchen-tum": "München(TUM)",
+                "ulm": "Ulm",
+                "wuerzburg": "Würzburg",
+                "mannheim": "Mannheim",
+                "dktk-test": "DKTK-Test",
+                "hamburg": "Hamburg"
+            }
+        },
+        "gender": {
+            "legendMapping": {
+                "male": "Male",
+                "female": "Female",
+                "unknown": "Unknown",
+                "other": "Divers / intersex"
+            }
+        },
+        "therapy_of_tumor": {
+            "aggregations": [
+                "medicationStatements"
+            ],
+            "tooltips": {
+                "OP": "Operationen",
+                "ST": "Strahlentherapien",
+                "medicationStatements": "Systemische Therapien"
+            }
+        },
+        "sample_kind": {
+            "tooltips": {
+                "tissue-ffpe": "Gewebe FFPE",
+                "tissue-frozen": "Gewebe schockgefroren",
+                "tissue-other": "Gewebe, Andere Konservierungsart",
+                "whole-blood": "Vollblut",
+                "blood-serum": "Serum",
+                "blood-plasma": "Plasma",
+                "buffy-coat": "Buffy Coat",
+                "peripheral-blood-cells": "Periphere mononukleäre Blutzellen (PBMC)",
+                "dried-whole-blood": "Blutkarten",
+                "swab": "Abstrich",
+                "ascites": "Aszites",
+                "stool-faeces": "Stuhl",
+                "urine": "Urin",
+                "csf-liquor": "Liquor",
+                "bone-marrow": "Knochenmark",
+                "saliva": "Speichel",
+                "liquid-other": "Flüssigprobe, Andere",
+                "dna": "DNA",
+                "rna": "RNA",
+                "derivative-other": "Derivat, Andere"
+            }
+        }
+    },
+    "tableOptions": {
+        "headerData": [
+            {
+                "title": "Sites",
+                "dataKey": "site"
+            },
+            {
+                "title": "Patients",
+                "dataKey": "patient"
+            },
+            {
+                "title": "Specimens",
+                "dataKey": "specimen"
+            }
+        ]
+    },
+    "resultSummaryOptions": {
+        "title": "Results",
+        "infoButtonText": "To make re-identification more difficult, results of each site are modified slightly and rounded. If a location reports no match, zero is displayed for that location.",
+        "dataTypes": [
+            {
+                "title": "Sites",
+                "dataKey": "collections"
+            },
+            {
+                "title": "Patients",
+                "dataKey": "patient"
+            },
+            {
+                "title": "Specimens",
+                "dataKey": "specimen"
+            }
+        ]
+    },
+    "negotiateOptions": {
+        "newProjectUrl": "https://negotiator.acc.bbmri-eric.eu/api/v3/requests",
+        "siteMappings": [
+            {
+                "site": "ERIC-Test",
+                "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+                "site_id": "bbmri-eric:ID:DE_IBM",
+                "collection_name": "Biostroke Collection"
+            },
+            {
+                "site": "Prague-UHKT-Test",
+                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
+                "site_id": "bbmri-eric:ID:CZ_IHBT",
+                "collection_name": "Oncohematology Plasma"
+            },
+            {
+                "site": "Uppsala-Test",
+                "collection": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
+                "site_id": "bbmri-eric:ID:SE_827",
+                "collection_name": "U-CAN"
+            }
+        ]
+    }
+}
