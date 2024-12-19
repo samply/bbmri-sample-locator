@@ -7,19 +7,24 @@
     },
     "siteMappings": {
         "aachen": "Aachen",
+        "augsburg": "Augsburg",
         "berlin": "Berlin",
         "brno": "Brno",
         "brno-recetox": "Brno-RECETOX",
         "cyprus": "Cyprus",
         "dresden": "Dresden",
+        "essen": "Essen",
         "frankfurt": "Frankfurt",
         "goettingen": "Göttingen",
         "hannover": "Hannover",
         "heidelberg": "Heidelberg",
+        "leipzig": "Leipzig",
         "luebeck": "Lübeck",
         "mannheim": "Mannheim",
         "marburg": "Marburg",
         "muenchen-hmgu": "München-HMGU",
+        "muenster": "Münster",
+        "naples-pascale": "Naples-Pascale",
         "olomouc": "Olomouc",
         "pilsen": "Pilsen",
         "prague-ffm": "Prague-FFM",
@@ -28,7 +33,7 @@
         "rome": "Rome-BBIRE",
         "rome-opbg": "Rome-OPBG",
         "uppsala": "Uppsala",
-        "wuerzburg": "Würzburg",
+        "wuerzburg": "Würzburg"
     },
     "catalogueKeyToResponseKeyMap": [
         [
@@ -44,40 +49,12 @@
             "diagnosis"
         ],
         [
-            "medicationStatements",
-            "MedicationType"
-        ],
-        [
-            "therapy_of_tumor",
-            "ProcedureType"
-        ],
-        [
             "sample_kind",
             "sample_kind"
         ]
         
     ],
     "chartOptions": {
-        "patients": {
-            "legendMapping": {
-                "berlin": "Berlin",
-                "berlin-test": "Berlin",
-                "bonn": "Bonn",
-                "dresden": "Dresden",
-                "essen": "Essen",
-                "frankfurt": "Frankfurt",
-                "freiburg": "Freiburg",
-                "hannover": "Hannover",
-                "mainz": "Mainz",
-                "muenchen-lmu": "München(LMU)",
-                "muenchen-tum": "München(TUM)",
-                "ulm": "Ulm",
-                "wuerzburg": "Würzburg",
-                "mannheim": "Mannheim",
-                "dktk-test": "DKTK-Test",
-                "hamburg": "Hamburg"
-            }
-        },
         "gender": {
             "legendMapping": {
                 "male": "Male",
@@ -86,38 +63,28 @@
                 "other": "Divers / intersex"
             }
         },
-        "therapy_of_tumor": {
-            "aggregations": [
-                "medicationStatements"
-            ],
-            "tooltips": {
-                "OP": "Operationen",
-                "ST": "Strahlentherapien",
-                "medicationStatements": "Systemische Therapien"
-            }
-        },
         "sample_kind": {
             "tooltips": {
-                "tissue-ffpe": "Gewebe FFPE",
-                "tissue-frozen": "Gewebe schockgefroren",
-                "tissue-other": "Gewebe, Andere Konservierungsart",
-                "whole-blood": "Vollblut",
+                "tissue-ffpe": "Tissue (FFPE)",
+                "tissue-frozen": "Tissue snap frozen",
+                "tissue-other": "Other tissue storage",
+                "whole-blood": "Whole blood",
                 "blood-serum": "Serum",
                 "blood-plasma": "Plasma",
-                "buffy-coat": "Buffy Coat",
-                "peripheral-blood-cells": "Periphere mononukleäre Blutzellen (PBMC)",
-                "dried-whole-blood": "Blutkarten",
-                "swab": "Abstrich",
-                "ascites": "Aszites",
-                "stool-faeces": "Stuhl",
-                "urine": "Urin",
-                "csf-liquor": "Liquor",
-                "bone-marrow": "Knochenmark",
-                "saliva": "Speichel",
-                "liquid-other": "Flüssigprobe, Andere",
+                "buffy-coat": "Buffy coat",
+                "peripheral-blood-cells": "Peripheral blood cells",
+                "dried-whole-blood": "Dried whole blood",
+                "swab": "Swab",
+                "ascites": "Ascites",
+                "stool-faeces": "Faeces",
+                "urine": "Urine",
+                "csf-liquor": "Liquor/CSF",
+                "bone-marrow": "Bone marrow",
+                "saliva": "Saliva",
+                "liquid-other": "Other liquid biosample",
                 "dna": "DNA",
                 "rna": "RNA",
-                "derivative-other": "Derivat, Andere"
+                "derivative-other": "Other derivative"
             }
         }
     },
@@ -195,6 +162,12 @@
                 "collection_name": "Dresden Integrated Liquid Biobank"
             },
             {
+                "site": "essen",
+                "collection": "bbmri-eric:ID:DE_BMBN:collection:Main_collection",
+                "site_id": "bbmri-eric:ID:DE_BMBN",
+                "collection_name": "Main Collection of the BioMaterial Bank Nord"
+            },
+            {
                 "site": "Göttingen",
                 "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy",
                 "site_id": "bbmri-eric:ID:DE_UMGB:collection",
@@ -219,6 +192,12 @@
                 "collection_name": "Collection Probase Hannover"
             },
             {
+                "site": "leipzig",
+                "collection": "bbmri-eric:ID:DE_LMB",
+                "site_id": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT",
+                "collection_name": "LIFE-Adult-Study Basis Leipzig"
+            },
+            {
                 "site": "luebeck",
                 "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL",
                 "site_id": "bbmri-eric:ID:DE_ICBL",
@@ -241,6 +220,18 @@
                 "collection": "bbmri-eric:ID:DE_CBBMR",
                 "site_id": "bbmri-eric:ID:DE_CBBMR:collection:main",
                 "collection_name": "Main Collectiion CBBMR"
+            },
+            {
+                "site": "muenster",
+                "collection": "bbmri-eric:ID:DE_CBBMR",
+                "site_id": "bbmri-eric:ID:DE_CBBMR:collection:main",
+                "collection_name": "Main Collectiion CBBMR"
+            },
+            {
+                "site": "naples-pascale",
+                "collection": "bbmri-eric:ID:IT_1384167838447460",
+                "site_id": "bbmri-eric:ID:IT_1384167838447460:collection:1b5e16d30bc64e2",
+                "collection_name": "BioBanca Istituzionale"
             },
             {
                 "site": "Uppsala",

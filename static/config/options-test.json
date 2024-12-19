@@ -24,40 +24,12 @@
             "diagnosis"
         ],
         [
-            "medicationStatements",
-            "MedicationType"
-        ],
-        [
-            "therapy_of_tumor",
-            "ProcedureType"
-        ],
-        [
             "sample_kind",
             "sample_kind"
         ]
         
     ],
     "chartOptions": {
-        "patients": {
-            "legendMapping": {
-                "berlin": "Berlin",
-                "berlin-test": "Berlin",
-                "bonn": "Bonn",
-                "dresden": "Dresden",
-                "essen": "Essen",
-                "frankfurt": "Frankfurt",
-                "freiburg": "Freiburg",
-                "hannover": "Hannover",
-                "mainz": "Mainz",
-                "muenchen-lmu": "München(LMU)",
-                "muenchen-tum": "München(TUM)",
-                "ulm": "Ulm",
-                "wuerzburg": "Würzburg",
-                "mannheim": "Mannheim",
-                "dktk-test": "DKTK-Test",
-                "hamburg": "Hamburg"
-            }
-        },
         "gender": {
             "legendMapping": {
                 "male": "Male",
@@ -66,38 +38,28 @@
                 "other": "Divers / intersex"
             }
         },
-        "therapy_of_tumor": {
-            "aggregations": [
-                "medicationStatements"
-            ],
-            "tooltips": {
-                "OP": "Operationen",
-                "ST": "Strahlentherapien",
-                "medicationStatements": "Systemische Therapien"
-            }
-        },
         "sample_kind": {
             "tooltips": {
-                "tissue-ffpe": "Gewebe FFPE",
-                "tissue-frozen": "Gewebe schockgefroren",
-                "tissue-other": "Gewebe, Andere Konservierungsart",
-                "whole-blood": "Vollblut",
+                "tissue-ffpe": "Tissue (FFPE)",
+                "tissue-frozen": "Tissue snap frozen",
+                "tissue-other": "Other tissue storage",
+                "whole-blood": "Whole blood",
                 "blood-serum": "Serum",
                 "blood-plasma": "Plasma",
-                "buffy-coat": "Buffy Coat",
-                "peripheral-blood-cells": "Periphere mononukleäre Blutzellen (PBMC)",
-                "dried-whole-blood": "Blutkarten",
-                "swab": "Abstrich",
-                "ascites": "Aszites",
-                "stool-faeces": "Stuhl",
-                "urine": "Urin",
-                "csf-liquor": "Liquor",
-                "bone-marrow": "Knochenmark",
-                "saliva": "Speichel",
-                "liquid-other": "Flüssigprobe, Andere",
+                "buffy-coat": "Buffy coat",
+                "peripheral-blood-cells": "Peripheral blood cells",
+                "dried-whole-blood": "Dried whole blood",
+                "swab": "Swab",
+                "ascites": "Ascites",
+                "stool-faeces": "Faeces",
+                "urine": "Urine",
+                "csf-liquor": "Liquor/CSF",
+                "bone-marrow": "Bone marrow",
+                "saliva": "Saliva",
+                "liquid-other": "Other liquid biosample",
                 "dna": "DNA",
                 "rna": "RNA",
-                "derivative-other": "Derivat, Andere"
+                "derivative-other": "Other derivative"
             }
         }
     },
