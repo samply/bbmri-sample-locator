@@ -21,8 +21,14 @@
 		catalogueopen = !catalogueopen;
 	};
 
-	const catalogueUrl = 'catalogues/catalogue-bbmri.json';
-	const optionsFilePath = 'config/options.json';
+	const catalogueUrl: string = 'catalogues/catalogue-bbmri.json';
+	let optionsFilePath: string = '';
+
+	if (import.meta.env.VITE_TARGET_ENVIRONMENT === 'production') {
+		optionsFilePath = 'config/options.json';
+	} else {
+		optionsFilePath = 'config/options-test.json';
+	}
 
 	const jsonPromises: Promise<{
 		catalogueJSON: string;
