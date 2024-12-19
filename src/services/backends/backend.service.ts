@@ -33,58 +33,55 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
 
     let backendUrl: string = "";
+    let siteList: string[] = [];
 
     if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
         backendUrl = "https://locator.bbmri-eric.eu/backend/";
+        siteList = [
+            "aachen",
+            "augsburg",
+            "berlin",
+            "brno",
+            "brno-recetox",
+            "cyprus",
+            "dresden",
+            "essen",
+            "frankfurt",
+            "goettingen",
+            "hannover",
+            "heidelberg",
+            "leipzig",
+            "luebeck",
+            "mannheim",
+            "marburg",
+            "muenchen-hmgu",
+            "muenster",
+            "naples-pascale",
+            "olomouc",
+            "pilsen",
+            "prague-ffm",
+            "prague-ior",
+            "regensburg",
+            "rome",
+            "rome-opbg",
+            "uppsala",
+            "wuerzburg",
+        ];
     } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator.bbmri-eric.eu/backend/";
-        // TODO: Turn this back on after merging to main
-        // backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+        siteList = [
+            "uppsala-test",
+            "eric-test",
+            "prague-uhkt-test",
+        ];
     } else {
         backendUrl = "http://localhost:8055";
+        siteList = [
+            // TODO: Provide proper dev configuration
+        ];
     }
 
-    const backend = new Spot(new URL(backendUrl), [
-        "aachen",
-        "augsburg",
-        "berlin",
-        "brno",
-        "brno-recetox",
-        "cyprus",
-        "dresden",
-        "essen",
-        "frankfurt",
-        "goettingen",
-        "hannover",
-        "heidelberg",
-        "leipzig",
-        "luebeck",
-        "mannheim",
-        "marburg",
-        "muenchen-hmgu",
-        "muenster",
-        "naples-pascale",
-        "olomouc",
-        "pilsen",
-        "prague-ffm",
-        "prague-ior",
-        "regensburg",
-        "rome",
-        "rome-opbg",
-        "uppsala",
-        "wuerzburg",
-    ], queryId);
-
-    // TODO: Reactivate for test environment
-    // const backend = new Spot(new URL(backendUrl), [
-    //     "uppsala-test",
-    //     "eric-test",
-    //     "prague-uhkt-test",
-    // ], queryId);
-
-
-
-
+    const backend = new Spot(new URL(backendUrl), siteList, queryId);
 
     backend.send(
         btoa(decodeURI(JSON.stringify(query))),

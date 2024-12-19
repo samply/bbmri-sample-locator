@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - develop
-      - feat/production-collections
+      # TODO: Remove me after merge to develop
+      - refactor/splitInTestAndProdConfig
   pull_request:
     branches:
       - develop
