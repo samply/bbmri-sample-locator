@@ -50,7 +50,6 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "goettingen",
             "hannover",
             "heidelberg",
-            "leipzig",
             "luebeck",
             "mannheim",
             "marburg",

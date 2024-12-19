@@ -162,7 +162,7 @@
                 "collection_name": "Dresden Integrated Liquid Biobank"
             },
             {
-                "site": "essen",
+                "site": "Essen",
                 "collection": "bbmri-eric:ID:DE_BMBN:collection:Main_collection",
                 "site_id": "bbmri-eric:ID:DE_BMBN",
                 "collection_name": "Main Collection of the BioMaterial Bank Nord"
@@ -192,13 +192,13 @@
                 "collection_name": "Collection Probase Hannover"
             },
             {
-                "site": "leipzig",
+                "site": "Leipzig",
                 "collection": "bbmri-eric:ID:DE_LMB",
                 "site_id": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT",
                 "collection_name": "LIFE-Adult-Study Basis Leipzig"
             },
             {
-                "site": "luebeck",
+                "site": "Lübeck",
                 "collection": "bbmri-eric:ID:DE_ICBL:collection:ICBL",
                 "site_id": "bbmri-eric:ID:DE_ICBL",
                 "collection_name": "Main Collection ICB-Lübeck"
@@ -222,13 +222,13 @@
                 "collection_name": "Main Collectiion CBBMR"
             },
             {
-                "site": "muenster",
+                "site": "Münster",
                 "collection": "bbmri-eric:ID:DE_CBBMR",
                 "site_id": "bbmri-eric:ID:DE_CBBMR:collection:main",
                 "collection_name": "Main Collectiion CBBMR"
             },
             {
-                "site": "naples-pascale",
+                "site": "Naples-Pascale",
                 "collection": "bbmri-eric:ID:IT_1384167838447460",
                 "site_id": "bbmri-eric:ID:IT_1384167838447460:collection:1b5e16d30bc64e2",
                 "collection_name": "BioBanca Istituzionale"
