@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - develop
+      - refactor/updateDiscoveryUrl
 jobs:
   build:
     # Necessary after this repository was renamed from samply/lens-web-components to samply/lens
