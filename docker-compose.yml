@@ -8,7 +8,7 @@ services:
       - https_proxy=${https_proxy}
       - OAUTH2_PROXY_PROVIDER=oidc
       - OAUTH2_PROXY_SKIP_PROVIDER_BUTTON=true
-      - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.bbmri-eric.eu/oidc/
+      - OAUTH2_PROXY_OIDC_ISSUER_URL=https://login.aai.lifescience-ri.eu/oidc/
       - OAUTH2_PROXY_CLIENT_ID=${OAUTH_CLIENT_ID}
       - OAUTH2_PROXY_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
       - OAUTH2_PROXY_COOKIE_SECRET=${AUTHENTICATION_SECRET}
