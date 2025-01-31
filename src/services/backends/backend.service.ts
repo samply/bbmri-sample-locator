@@ -33,52 +33,52 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
 
 
     let backendUrl: string = "";
+    let siteList: string[] = [];
 
-    /**
-     * TODO: add different backend URLs for different environments
-     */
+    if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
+        backendUrl = "https://locator.bbmri-eric.eu/backend/";
+        siteList = [
+            "aachen",
+            "augsburg",
+            "berlin",
+            "brno",
+            "brno-recetox",
+            "cyprus",
+            "dresden",
+            "frankfurt",
+            "goettingen",
+            "hannover",
+            "heidelberg",
+            "luebeck",
+            "mannheim",
+            "marburg",
+            "muenchen-hmgu",
+            "naples-pascale",
+            "olomouc",
+            "pilsen",
+            "prague-ffm",
+            "prague-ior",
+            "regensburg",
+            "rome",
+            "rome-opbg",
+            "uppsala",
+            "wuerzburg",
+        ];
+    } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+        siteList = [
+            "uppsala-test",
+            "eric-test",
+            "prague-uhkt-test",
+        ];
+    } else {
+        backendUrl = "http://localhost:8055";
+        siteList = [
+            // TODO: Provide proper dev configuration
+        ];
+    }
 
-    // if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
-    //     backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
-    // } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend/";
-    // } else {
-    //     backendUrl = "http://localhost:8055";
-    // }
-
-    // const backend = new Spot(new URL(backendUrl), [
-    //     "aachen",
-    //     "berlin",
-    //     "brno",
-    //     "brno-recetox",
-    //     "cyprus",
-    //     "dresden",
-    //     "frankfurt",
-    //     "goettingen",
-    //     "hannover",
-    //     "heidelberg",
-    //     "luebeck",
-    //     "mannheim",
-    //     "marburg",
-    //     "muenchen-hmgu",
-    //     "olomouc",
-    //     "pilsen",
-    //     "prague-ffm",
-    //     "prague-ior",
-    //     "regensburg",
-    //     "rome",
-    //     "wuerzburg",
-    // ]);
-
-    const backend = new Spot(new URL(backendUrl), [
-        "uppsala-test",
-        "eric-test",
-        "prague-uhkt-test",
-    ], queryId);
-
-
-
-
+    const backend = new Spot(new URL(backendUrl), siteList, queryId);
 
     backend.send(
         btoa(decodeURI(JSON.stringify(query))),
