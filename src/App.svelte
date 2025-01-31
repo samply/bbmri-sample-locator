@@ -16,6 +16,9 @@
 	import type { LensDataPasser } from '@samply/lens';
 
 	let catalogueopen = false;
+	let logoutUrl = browser
+		? `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`
+		: '';
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
@@ -65,11 +68,7 @@
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-		<!-- %26post%5Flogout%5Fredirect%5Furi%3Dhttps%3A%2F%2Fnegotiator%2Eacc%2Ebbmri%2Deric%2Eeu -->
-		<a
-			href="/oauth2/sign_out?rd=https%3A%2F%2Flogin%2Ebbmri%2Deric%2Eeu%2Foidc%2Fendsession"
-			>Logout</a
-		>
+		<a href="{logoutUrl}">Logout</a>
 	</menu>
 </header>
 <div class="banner">

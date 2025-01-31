@@ -35,7 +35,7 @@ services:
       - default
 
   landing:
-    image: docker.verbis.dkfz.de/cache/bbmri-landingpage:manual-build
+    image: samply/bbmri-landingpage:main
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.landing.rule=Host(`${GUI_HOST}`)"

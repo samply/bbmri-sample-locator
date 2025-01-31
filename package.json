@@ -1,6 +1,6 @@
 {
 	"name": "bbmri-sample-locator",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -17,7 +17,8 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"prepare": "husky install",
-		"security:check": "npm audit"
+		"security:check": "npm audit",
+		"version": "npm version -m \"build: release version %s\""
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.1.0",
