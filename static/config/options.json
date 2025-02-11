@@ -175,26 +175,26 @@
             },
             {
                 "site": "Frankfurt",
-                "collection": "bbmri-eric:ID:DE_iBDF",
-                "site_id": "bbmri-eric:ID:DE_iBDF:collection:UCT",
+                "site_id": "bbmri-eric:ID:DE_iBDF",
+                "collection": "bbmri-eric:ID:DE_iBDF:collection:UCT",
                 "collection_name": "UCT Biobank Frankfurt"
             },
             {
                 "site": "Heidelberg",
-                "collection": "bbmri-eric:ID:DE_BMBH",
-                "site_id": "bbmri-eric:ID:DE_BMBH:collection:Lungenbiobank",
+                "site_id": "bbmri-eric:ID:DE_BMBH",
+                "collection": "bbmri-eric:ID:DE_BMBH:collection:Lungenbiobank",
                 "collection_name": "Lungenbiobank Heidelberg"
             },
             {
                 "site": "Hannover",
-                "collection": "bbmri-eric:ID:DE_HUB",
-                "site_id": "bbmri-eric:ID:DE_HUB:collection:ProBase",
+                "site_id": "bbmri-eric:ID:DE_HUB",
+                "collection": "bbmri-eric:ID:DE_HUB:collection:ProBase",
                 "collection_name": "Collection Probase Hannover"
             },
             {
                 "site": "Leipzig",
-                "collection": "bbmri-eric:ID:DE_LMB",
-                "site_id": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT",
+                "site_id": "bbmri-eric:ID:DE_LMB",
+                "collection": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT",
                 "collection_name": "LIFE-Adult-Study Basis Leipzig"
             },
             {
@@ -205,86 +205,86 @@
             },
             {
                 "site": "München-HMGU",
-                "collection": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank",
-                "site_id": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA",
+                "site_id": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank",
+                "collection": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA",
                 "collection_name": "Cooperative Health Research in the Region of Augsburg"
             },
             {
                 "site": "Mannheim",
-                "collection": "bbmri-eric:ID:DE_BioPsy",
-                "site_id": "bbmri-eric:ID:DE_BioPsy:collection:Main_collecion",
+                "site_id": "bbmri-eric:ID:DE_BioPsy",
+                "collection": "bbmri-eric:ID:DE_BioPsy:collection:Main_collecion",
                 "collection_name": "Biobank of the Center for Innovative Psychiatric and Psychotherapeutic Research"
             },
             {
                 "site": "Marburg",
-                "collection": "bbmri-eric:ID:DE_CBBMR",
-                "site_id": "bbmri-eric:ID:DE_CBBMR:collection:main",
+                "site_id": "bbmri-eric:ID:DE_CBBMR",
+                "collection": "bbmri-eric:ID:DE_CBBMR:collection:main",
                 "collection_name": "Main Collectiion CBBMR"
             },
             {
                 "site": "Münster",
-                "collection": "bbmri-eric:ID:DE_CBBMR",
-                "site_id": "bbmri-eric:ID:DE_CBBMR:collection:main",
+                "site_id": "bbmri-eric:ID:DE_CBBMR",
+                "collection": "bbmri-eric:ID:DE_CBBMR:collection:main",
                 "collection_name": "Main Collectiion CBBMR"
             },
             {
                 "site": "Naples-Pascale",
-                "collection": "bbmri-eric:ID:IT_1384167838447460",
-                "site_id": "bbmri-eric:ID:IT_1384167838447460:collection:1b5e16d30bc64e2",
+                "site_id": "bbmri-eric:ID:IT_1384167838447460",
+                "collection": "bbmri-eric:ID:IT_1384167838447460:collection:1b5e16d30bc64e2",
                 "collection_name": "BioBanca Istituzionale"
             },
             {
                 "site": "Uppsala",
-                "collection": "bbmri-eric:ID:SE_827",
-                "site_id": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
+                "site_id": "bbmri-eric:ID:SE_827",
+                "collection": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
                 "collection_name": "U-CAN (Uppsala-Umeå Comprehensive Cancer Consortium), section Uppsala"
             },
             {
                 "site": "Regensburg",
-                "collection": "bbmri-eric:ID:DE_ZBR",
-                "site_id": "bbmri-eric:ID:DE_ZBR:collection:Tissue",
+                "site_id": "bbmri-eric:ID:DE_ZBR",
+                "collection": "bbmri-eric:ID:DE_ZBR:collection:Tissue",
                 "collection_name": "Tissue Samples"
             },
             {
                 "site": "Olomouc",
-                "collection": "bbmri-eric:ID:CZ_UPOL_LF",
-                "site_id": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples",
+                "site_id": "bbmri-eric:ID:CZ_UPOL_LF",
+                "collection": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples",
                 "collection_name": "Main collection of UPOL biobank"
             },
             {
                 "site": "Pilsen",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS",
-                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
+                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS",
+                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
                 "collection_name": "Serum and plasma samples of the Pilsen biobank"
             },
             {
                 "site": "Prague-FFM",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS",
-                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
+                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS",
+                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
                 "collection_name": "Serum and plasma samples of the Pilsen biobank"
             },
             {
                 "site": "Prague-IoR",
-                "collection": "bbmri-eric:ID:IT_1504858990324590",
-                "site_id": "bbmri-eric:id:CZ_REVMA:collection:M45",
+                "site_id": "bbmri-eric:ID:IT_1504858990324590",
+                "collection": "bbmri-eric:id:CZ_REVMA:collection:M45",
                 "collection_name": "Main collection of samples for ankylosing spondylitis (AS) from Institute of Rheumatology in Prague"
             },
             {
                 "site": "Rome-BBIRE",
-                "collection": "bbmri-eric:ID:IT_1504858990324590",
-                "site_id": "bbmri-eric:ID:IT_1504858990324590:collection:1606752281669494",
+                "site_id": "bbmri-eric:ID:IT_1504858990324590",
+                "collection": "bbmri-eric:ID:IT_1504858990324590:collection:1606752281669494",
                 "collection_name": "Biobanca Tessuti e Liquidi Biologici IRE"
             },
             {
                 "site": "Rome-OPBG",
-                "collection": "bbmri-eric:ID:IT_1547222650173780",
-                "site_id": "bbmri-eric:ID:IT_1547222650173780:collection:1548666951181832",
+                "site_id": "bbmri-eric:ID:IT_1547222650173780",
+                "collection": "bbmri-eric:ID:IT_1547222650173780:collection:1548666951181832",
                 "collection_name": "Rare and Ultra Rare Diseases"
             },
             {
                 "site": "Würzburg",
-                "collection": "bbmri-eric:ID:DE_ibdw",
-                "site_id": "bbmri-eric:ID:DE_ibdw:collection:bc",
+                "site_id": "bbmri-eric:ID:DE_ibdw",
+                "collection": "bbmri-eric:ID:DE_ibdw:collection:bc",
                 "collection_name": "Collection Broad Consent Würzburg"
             }
         ]
