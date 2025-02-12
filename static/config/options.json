@@ -123,7 +123,7 @@
         ]
     },
     "negotiateOptions": {
-        "url": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "newProjectUrl": "https://negotiator.bbmri-eric.eu/api/v3/requests",
         "siteMappings": [
             {
                 "site": "Aachen",
