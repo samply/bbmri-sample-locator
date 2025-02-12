@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - develop
+  schedule:
+    # Build every night at 1am
+    - cron: '0 1 * * *'
 jobs:
   build:
     # Necessary after this repository was renamed from samply/lens-web-components to samply/lens
@@ -20,10 +23,10 @@ jobs:
     # Visit: https://github.com/samply/github-workflows/blob/main/.github/workflows/docker-ci.yml, for more information
     uses: samply/github-workflows/.github/workflows/docker-ci.yml@main
     with:
-      image-name: "samply/bbmri-sample-locator"
+      image-name: 'samply/bbmri-sample-locator'
       build-args: |
         TARGET_ENVIRONMENT=staging
-      build-platforms: "linux/amd64"
+      build-platforms: 'linux/amd64'
       push-to: dockerhub
     # This passes the secrets from calling workflow to the called workflow
     secrets:
