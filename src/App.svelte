@@ -138,7 +138,7 @@
 			<div class="chart-wrapper result-table">
 				<lens-result-table pageSize="10">
 					<div slot="beneath-pagination">
-						<lens-negotiate-button class="negotiate"></lens-negotiate-button>
+						<lens-negotiate-button class="negotiate" type="bbmri"></lens-negotiate-button>
 						<lens-search-modified-display>
 							<div>Search has been modified!</div>
 						</lens-search-modified-display>
