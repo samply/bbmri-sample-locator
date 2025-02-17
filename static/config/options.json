@@ -270,6 +270,12 @@
                 "collection_name": "Main collection of samples for ankylosing spondylitis (AS) from Institute of Rheumatology in Prague"
             },
             {
+                "site": "Brno-RECETOX",
+                "site_id": "bbmri-eric:ID:CZ_CELSPAC",
+                "collection": "bbmri-eric:ID:CZ_CELSPAC:collection:CELSPAC_TNG",
+                "collection_name": "CELSPAC: TNG (The Next Generation)"
+            },
+            {
                 "site": "Rome-BBIRE",
                 "site_id": "bbmri-eric:ID:IT_1504858990324590",
                 "collection": "bbmri-eric:ID:IT_1504858990324590:collection:1606752281669494",
