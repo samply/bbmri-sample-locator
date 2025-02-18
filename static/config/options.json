@@ -9,7 +9,7 @@
         "aachen": "Aachen",
         "augsburg": "Augsburg",
         "berlin": "Berlin",
-        "brno": "Brno",
+        "brno": "Brno-MMCI",
         "brno-recetox": "Brno-RECETOX",
         "cyprus": "Cyprus",
         "dresden": "Dresden",
@@ -144,7 +144,7 @@
                 "collection_name": "Existing collection of COVID-19 cases"
             },
             {
-                "site": "Brno",
+                "site": "Brno-MMCI",
                 "collection": "bbmri-eric:ID:CZ_MMCI:collection:DNA",
                 "site_id": "bbmri-eric:ID:CZ_MMCI",
                 "collection_name": "DNA"
