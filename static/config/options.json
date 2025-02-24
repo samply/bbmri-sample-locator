@@ -259,9 +259,9 @@
             },
             {
                 "site": "Prague-FFM",
-                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
-                "collection_name": "Serum and plasma samples of the Pilsen biobank"
+                "site_id": "bbmri-eric:ID:CZ_CUNI_LF1",
+                "collection": "bbmri-eric:ID:CZ_CUNI_LF1:collection:all_samples",
+                "collection_name": "Main collection"
             },
             {
                 "site": "Prague-IoR",
