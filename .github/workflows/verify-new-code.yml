@@ -31,3 +31,4 @@ jobs:
       #   run: npm run check
       # for now disable linting, will be activated later
       # run: npm run lint
+      - run: npm run schemavalid

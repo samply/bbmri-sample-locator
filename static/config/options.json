@@ -171,7 +171,7 @@
                 "site": "Göttingen",
                 "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy",
                 "site_id": "bbmri-eric:ID:DE_UMGB:collection",
-                "collection_name": ""
+                "collection_name": "blub"
             },
             {
                 "site": "Frankfurt",
@@ -265,7 +265,7 @@
             },
             {
                 "site": "Prague-IoR",
-                "site_id": ""bbmri-eric:id:CZ_REVMA",
+                "site_id": "bbmri-eric:id:CZ_REVMA",
                 "collection": "bbmri-eric:id:CZ_REVMA:collection:M45",
                 "collection_name": "Main collection of samples for ankylosing spondylitis (AS) from Institute of Rheumatology in Prague"
             },
