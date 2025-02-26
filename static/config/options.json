@@ -124,6 +124,7 @@
     },
     "negotiateOptions": {
         "url": "https://negotiator.bbmri-eric.eu/api/v3/requests",
+        "authorizationHeader": "Basic YmJtcmktZGlyZWN0b3J5Omw5RFJLVUROcTBTbDAySXhaUGQ2",
         "siteMappings": [
             {
                 "site": "Aachen",
