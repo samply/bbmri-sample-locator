@@ -1,7 +1,7 @@
 import type { MeasureItem, Measure, AstTopLayer, Site, MeasureGroup } from "@samply/lens";
-import { Spot } from "./spot";
 import { buildLibrary, buildMeasure } from "./cql-measure";
 import { translateAstToCql } from "./ast-to-cql-translator";
+import { Spot } from "./spot";
 
 
 export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<string, Site>) => void, abortController: AbortController, measureGroups: MeasureGroup[], criteria: string[]) => {
