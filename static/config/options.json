@@ -9,7 +9,7 @@
         "aachen": "Aachen",
         "augsburg": "Augsburg",
         "berlin": "Berlin",
-        "brno": "Brno",
+        "brno": "Brno-MMCI",
         "brno-recetox": "Brno-RECETOX",
         "cyprus": "Cyprus",
         "dresden": "Dresden",
@@ -144,7 +144,7 @@
                 "collection_name": "Existing collection of COVID-19 cases"
             },
             {
-                "site": "Brno",
+                "site": "Brno-MMCI",
                 "collection": "bbmri-eric:ID:CZ_MMCI:collection:DNA",
                 "site_id": "bbmri-eric:ID:CZ_MMCI",
                 "collection_name": "DNA"
@@ -259,15 +259,21 @@
             },
             {
                 "site": "Prague-FFM",
-                "site_id": "bbmri-eric:ID:CZ_CUNI_PILS",
-                "collection": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma",
-                "collection_name": "Serum and plasma samples of the Pilsen biobank"
+                "site_id": "bbmri-eric:ID:CZ_CUNI_LF1",
+                "collection": "bbmri-eric:ID:CZ_CUNI_LF1:collection:all_samples",
+                "collection_name": "Main collection"
             },
             {
                 "site": "Prague-IoR",
-                "site_id": ""bbmri-eric:id:CZ_REVMA",
-                "collection": "bbmri-eric:id:CZ_REVMA:collection:M45",
+                "site_id": "bbmri-eric:ID:CZ_REVMA",
+                "collection": "bbmri-eric:ID:CZ_REVMA:collection:M45",
                 "collection_name": "Main collection of samples for ankylosing spondylitis (AS) from Institute of Rheumatology in Prague"
+            },
+            {
+                "site": "Brno-RECETOX",
+                "site_id": "bbmri-eric:ID:CZ_CELSPAC",
+                "collection": "bbmri-eric:ID:CZ_CELSPAC:collection:CELSPAC_TNG",
+                "collection_name": "CELSPAC: TNG (The Next Generation)"
             },
             {
                 "site": "Rome-BBIRE",
