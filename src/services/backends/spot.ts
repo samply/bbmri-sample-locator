@@ -79,7 +79,7 @@ export class Spot {
                     data: body,
                 });
                 updateResponse(parsedResponse);
-            });            
+            });
 
             // read error events from beam
             eventSource.addEventListener("error", (message) => {
