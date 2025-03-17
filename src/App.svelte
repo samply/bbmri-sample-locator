@@ -1,9 +1,5 @@
 <script lang="ts">
 	import './app.css';
-	import { browser } from '$app/environment';
-
-	// conditional import for SSR
-	if (browser) import('@samply/lens');
 
 	import {
 		barChartBackgroundColors,
@@ -16,9 +12,7 @@
 	import type { LensDataPasser } from '@samply/lens';
 
 	let catalogueopen = false;
-	let logoutUrl = browser
-		? `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`
-		: '';
+	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
@@ -40,17 +34,15 @@
 
 	let dataPasser: LensDataPasser;
 
-	if (browser) {
-		window.addEventListener('emit-lens-query', (e) => {
-			if (!dataPasser) return;
+	window.addEventListener('emit-lens-query', (e) => {
+		if (!dataPasser) return;
 
-			const event = e as CustomEvent;
-			const { ast, updateResponse, abortController } = event.detail;
-			const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+		const event = e as CustomEvent;
+		const { ast, updateResponse, abortController } = event.detail;
+		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
 
-			requestBackend(ast, updateResponse, abortController, measures, criteria);
-		});
-	}
+		requestBackend(ast, updateResponse, abortController, measures, criteria);
+	});
 
 	let color: string = '#e95713';
 	let unit: string = 'px';
