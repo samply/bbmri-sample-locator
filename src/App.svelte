@@ -100,9 +100,6 @@
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<lens-catalogue
-			toggleIconUrl="right-arrow-svgrepo-com.svg"
-			addIconUrl="long-right-arrow-svgrepo-com.svg"
-			infoIconUrl="info-circle-svgrepo-com.svg"
 			texts={JSON.stringify(catalogueText)}
 			toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
 		></lens-catalogue>
