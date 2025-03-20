@@ -10,6 +10,7 @@
 	import { fetchData, catalogueText } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
+	import { env } from '$env/dynamic/public';
 
 	let catalogueopen = false;
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
@@ -21,10 +22,11 @@
 	const catalogueUrl: string = 'catalogues/catalogue-bbmri.json';
 	let optionsFilePath: string = '';
 
-	if (import.meta.env.VITE_TARGET_ENVIRONMENT === 'production') {
-		optionsFilePath = 'config/options.json';
-	} else {
+	if (env.PUBLIC_ENVIRONMENT === 'staging') {
 		optionsFilePath = 'config/options-test.json';
+	} else {
+		// production
+		optionsFilePath = 'config/options.json';
 	}
 
 	const jsonPromises: Promise<{
