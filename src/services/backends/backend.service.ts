@@ -2,7 +2,7 @@ import type { MeasureItem, Measure, AstTopLayer, Site, MeasureGroup } from "@sam
 import { buildLibrary, buildMeasure } from "./cql-measure";
 import { translateAstToCql } from "./ast-to-cql-translator";
 import { Spot } from "./spot";
-
+import { env } from '$env/dynamic/public';
 
 export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<string, Site>) => void, abortController: AbortController, measureGroups: MeasureGroup[], criteria: string[]) => {
 
@@ -13,21 +13,20 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     const queryId = crypto.randomUUID();
     let query = {};
 
-    if (import.meta.env.VITE_BACKEND_FORMAT === "cql") {
-    const cql = translateAstToCql(
-        ast,
-        false,
-        "BBMRI_STRAT_DEF_IN_INITIAL_POPULATION",
-        measureGroups[0].measures,
-        criteria,
-    );
+    if (env.PUBLIC_BACKEND_FORMAT === "cql") {
+        const cql = translateAstToCql(
+            ast,
+            false,
+            "BBMRI_STRAT_DEF_IN_INITIAL_POPULATION",
+            measureGroups[0].measures,
+            criteria,
+        );
 
-    const library = buildLibrary(`${cql}`);
-    const measure = buildMeasure(library.url, measures);
-    query = { lang: "cql", lib: library, measure: measure };
-
-    // Fallback to AST
-    } else /*if (import.meta.env.VITE_BACKEND_FORMAT === "ast")*/ {
+        const library = buildLibrary(`${cql}`);
+        const measure = buildMeasure(library.url, measures);
+        query = { lang: "cql", lib: library, measure: measure };
+    } else {
+        // Fallback to AST
         query = { lang: "ast", payload: btoa(decodeURI(JSON.stringify({ast: ast, id: queryId.concat("__search__").concat(queryId) }))) };
     }
 
@@ -35,7 +34,14 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     let backendUrl: string = "";
     let siteList: string[] = [];
 
-    if (import.meta.env.VITE_TARGET_ENVIRONMENT === "production") {
+    if (env.PUBLIC_ENVIRONMENT === 'staging') {
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+        siteList = [
+            "uppsala-test",
+            "eric-test",
+            "prague-uhkt-test",
+        ];
+    } else { // production
         backendUrl = "https://locator.bbmri-eric.eu/backend/";
         siteList = [
             "aachen",
@@ -65,18 +71,10 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "uppsala",
             "wuerzburg",
         ];
-    } else if (import.meta.env.VITE_TARGET_ENVIRONMENT === "staging") {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
-        siteList = [
-            "uppsala-test",
-            "eric-test",
-            "prague-uhkt-test",
-        ];
-    } else {
-        backendUrl = "http://localhost:8055";
-        siteList = [
-            // TODO: Provide proper dev configuration
-        ];
+    }
+
+    if (env.PUBLIC_BACKEND_URL) {
+        backendUrl = env.PUBLIC_BACKEND_URL;
     }
 
     const backend = new Spot(new URL(backendUrl), siteList, queryId);
