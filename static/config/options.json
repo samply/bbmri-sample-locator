@@ -1,9 +1,8 @@
 {
     "iconOptions": {
         "infoUrl": "info-circle-svgrepo-com.svg",
-        "selectAll": {
-            "text": "Add all"
-        }
+        "toggleIconUrl": "right-arrow-svgrepo-com.svg",
+        "addIconUrl": "long-right-arrow-svgrepo-com.svg"
     },
     "siteMappings": {
         "aachen": "Aachen",
@@ -172,7 +171,7 @@
                 "site": "Göttingen",
                 "collection": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy",
                 "site_id": "bbmri-eric:ID:DE_UMGB:collection",
-                "collection_name": ""
+                "collection_name": "UMGöttingen Collection"
             },
             {
                 "site": "Frankfurt",

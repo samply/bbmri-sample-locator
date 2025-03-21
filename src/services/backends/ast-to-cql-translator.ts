@@ -73,7 +73,7 @@ const resolveOperation = (operation: AstElement): string => {
         expression += "(";
     }
 
-    "children" in operation &&
+    if ("children" in operation) {
         operation.children.forEach((element: AstElement, index) => {
             if ("children" in element) {
                 expression += resolveOperation(element);
@@ -95,6 +95,7 @@ const resolveOperation = (operation: AstElement): string => {
                 }
             }
         });
+    }
 
     return expression;
 };
