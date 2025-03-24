@@ -191,6 +191,8 @@
 	{/await}
 </main>
 
+<error-toasts></error-toasts>
+
 <lens-data-passer bind:this={dataPasser}></lens-data-passer>
 
 <footer class="footer">
