@@ -3,6 +3,7 @@ import { buildLibrary, buildMeasure } from "./cql-measure";
 import { translateAstToCql } from "./ast-to-cql-translator";
 import { Spot } from "./spot";
 import { env } from '$env/dynamic/public';
+import { v4 as uuidv4 } from "uuid";
 
 export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<string, Site>) => void, abortController: AbortController, measureGroups: MeasureGroup[], criteria: string[]) => {
 
@@ -10,7 +11,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         (measureItem: MeasureItem) => measureItem.measure
     );
 
-    const queryId = crypto.randomUUID();
+    const queryId = uuidv4();
     let query = {};
 
     if (env.PUBLIC_BACKEND_FORMAT === "cql") {
