@@ -18,6 +18,7 @@
         "goettingen": "Göttingen",
         "hannover": "Hannover",
         "heidelberg": "Heidelberg",
+        "hradec-kralove": "Hradec Králové",
         "leipzig": "Leipzig",
         "luebeck": "Lübeck",
         "mannheim": "Mannheim",
@@ -181,16 +182,22 @@
                 "collection_name": "UCT Biobank Frankfurt"
             },
             {
+                "site": "Hannover",
+                "site_id": "bbmri-eric:ID:DE_HUB",
+                "collection": "bbmri-eric:ID:DE_HUB:collection:ProBase",
+                "collection_name": "Collection Probase Hannover"
+            },           
+            {
                 "site": "Heidelberg",
                 "site_id": "bbmri-eric:ID:DE_BMBH",
                 "collection": "bbmri-eric:ID:DE_BMBH:collection:Lungenbiobank",
                 "collection_name": "Lungenbiobank Heidelberg"
             },
             {
-                "site": "Hannover",
-                "site_id": "bbmri-eric:ID:DE_HUB",
-                "collection": "bbmri-eric:ID:DE_HUB:collection:ProBase",
-                "collection_name": "Collection Probase Hannover"
+                "site": "Hradec Králové",
+                "site_id": "bbmri-eric:ID:CZ_CUNI_HK",
+                "collection": "bbmri-eric:ID:CZ_CUNI_HK:collection:all_samples",
+                "collection_name": "Main collection of HK biobank"
             },
             {
                 "site": "Leipzig",
