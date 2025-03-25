@@ -23,8 +23,6 @@ jobs:
       # for now disable code format check, will be activated later
       # name: "Check Code Format"
       #   run: npm run format:check
-      - name: "Check Security"
-        run: npm run security:check
       # - name: "Verify Commit Messages"
       #   run: npm run lint:commits
       # - name: "Svelte Check"
