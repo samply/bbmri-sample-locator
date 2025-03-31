@@ -25,7 +25,7 @@ jobs:
     with:
       image-name: 'samply/bbmri-sample-locator'
       build-args: |
-        TARGET_ENVIRONMENT=staging
+        TARGET_ENVIRONMENT=test
       build-platforms: 'linux/amd64'
       push-to: dockerhub
     # This passes the secrets from calling workflow to the called workflow

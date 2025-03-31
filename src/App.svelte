@@ -22,7 +22,7 @@
 	const catalogueUrl: string = 'catalogues/catalogue-bbmri.json';
 	let optionsFilePath: string = '';
 
-	if (env.PUBLIC_ENVIRONMENT === 'staging') {
+	if (env.PUBLIC_ENVIRONMENT === 'test') {
 		optionsFilePath = 'config/options-test.json';
 	} else {
 		// production
