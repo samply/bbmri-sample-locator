@@ -10,9 +10,11 @@ on:
   pull_request:
     branches:
       - main
-  schedule:
+  # The nightly build is deactivated for now, as it overwrites the TARGET_ENV=staging builds, potentially leading to
+  # production data in the staging environment. This is a quickfix and the CI action needs to be modified.
+  # schedule:
     # Build every night at 1am
-    - cron: '0 1 * * *'
+    # - cron: '0 1 * * *'
 jobs:
   build:
     # Necessary after this repository was renamed from samply/lens-web-components to samply/lens
