@@ -1,39 +1,35 @@
-name: Build and Push Image samply/lens
+# This workflow builds a Docker image from the Dockerfile and publishes the
+# image to Docker Hub. How the image tags are chosen is documented here:
+# https://github.com/samply/github-workflows/blob/main/.github/workflows/docker-ci.yml
+#
+# This file is copied and adapted from:
+# https://github.com/samply/.github/blob/main/workflow-templates/docker-ci-template.yml
+
+name: Docker CI
 
 on:
-  push:
-    branches:
-      - main
-    # Build then a new version is tagged
-    tags:
-      - 'v*.*.*'
-  pull_request:
-    branches:
-      - main
-  # The nightly build is deactivated for now, as it overwrites the TARGET_ENV=staging builds, potentially leading to
-  # production data in the staging environment. This is a quickfix and the CI action needs to be modified.
-  # schedule:
-    # Build every night at 1am
-    # - cron: '0 1 * * *'
+    push:
+        branches:
+            - main
+            - develop
+        # Build when a new version is tagged
+        tags:
+            - "v*.*.*"
+    pull_request:
+        branches:
+            - main
+            - develop
 jobs:
-  build:
-    # Necessary after this repository was renamed from samply/lens-web-components to samply/lens
-    permissions:
-      contents: read
-      packages: write
-      pull-requests: read
-      security-events: write
-      statuses: read
-    # This workflow defines how a samply docker image is built, tested and published.
-    # Visit: https://github.com/samply/github-workflows/blob/main/.github/workflows/docker-ci.yml, for more information
-    uses: samply/github-workflows/.github/workflows/docker-ci.yml@main
-    with:
-      image-name: "samply/bbmri-sample-locator"
-      build-args: |
-        TARGET_ENVIRONMENT=production
-      build-platforms: "linux/amd64"
-      push-to: dockerhub
-    # This passes the secrets from calling workflow to the called workflow
-    secrets:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    build:
+        # This workflow defines how a samply docker image is built, tested and published.
+        # Visit: https://github.com/samply/github-workflows/blob/main/.github/workflows/docker-ci.yml, for more information
+        uses: samply/github-workflows/.github/workflows/docker-ci.yml@main
+        with:
+            # The Docker Hub Repository you want eventually push to, e.g samply/share-client
+            image-name: "samply/bbmri-sample-locator"
+            # Where to push your images ("dockerhub", "ghcr", "both" or "none")
+            push-to: dockerhub
+        # This passes the secrets from calling workflow to the called workflow
+        secrets:
+            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

@@ -1,9 +1,5 @@
 <script lang="ts">
 	import './app.css';
-	import { browser } from '$app/environment';
-
-	// conditional import for SSR
-	if (browser) import('@samply/lens');
 
 	import {
 		barChartBackgroundColors,
@@ -14,11 +10,10 @@
 	import { fetchData, catalogueText } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
+	import { env } from '$env/dynamic/public';
 
 	let catalogueopen = false;
-	let logoutUrl = browser
-		? `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`
-		: '';
+	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
@@ -27,10 +22,13 @@
 	const catalogueUrl: string = 'catalogues/catalogue-bbmri.json';
 	let optionsFilePath: string = '';
 
-	if (import.meta.env.VITE_TARGET_ENVIRONMENT === 'production') {
-		optionsFilePath = 'config/options.json';
-	} else {
+	if (env.PUBLIC_ENVIRONMENT === 'test') {
 		optionsFilePath = 'config/options-test.json';
+	} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+		optionsFilePath = 'config/options-acceptance.json';
+	} else {
+		// production
+		optionsFilePath = 'config/options.json';
 	}
 
 	const jsonPromises: Promise<{
@@ -40,17 +38,15 @@
 
 	let dataPasser: LensDataPasser;
 
-	if (browser) {
-		window.addEventListener('emit-lens-query', (e) => {
-			if (!dataPasser) return;
+	window.addEventListener('emit-lens-query', (e) => {
+		if (!dataPasser) return;
 
-			const event = e as CustomEvent;
-			const { ast, updateResponse, abortController } = event.detail;
-			const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+		const event = e as CustomEvent;
+		const { ast, updateResponse, abortController } = event.detail;
+		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
 
-			requestBackend(ast, updateResponse, abortController, measures, criteria);
-		});
-	}
+		requestBackend(ast, updateResponse, abortController, measures, criteria);
+	});
 
 	let color: string = '#e95713';
 	let unit: string = 'px';
@@ -68,7 +64,7 @@
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-		<a href="{logoutUrl}">Logout</a>
+		<a href={logoutUrl}>Logout</a>
 	</menu>
 </header>
 <div class="banner">
@@ -79,7 +75,7 @@
 	<div class="search-wrapper">
 		<div class="search">
 			<lens-search-bar-multiple
-				noMatchesFoundMessage="{"We couldn't find any matches for your search"}"
+				noMatchesFoundMessage="We couldn't find any matches for your search"
 			></lens-search-bar-multiple>
 			<lens-info-button
 				noQueryMessage="An empty search will return all results"
@@ -89,9 +85,9 @@
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
+	<button class="catalogue-toggle-button" on:click={toggleCatalogue}>
 		<img
-			class="{catalogueopen ? 'open' : ''}"
+			class={catalogueopen ? 'open' : ''}
 			src="/search/right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
@@ -99,18 +95,15 @@
 	</button>
 	<div class="catalogue-info-button">
 		<lens-info-button
-			message="{[
+			message={[
 				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}"
+			]}
 		></lens-info-button>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<lens-catalogue
-			toggleIconUrl="right-arrow-svgrepo-com.svg"
-			addIconUrl="long-right-arrow-svgrepo-com.svg"
-			infoIconUrl="info-circle-svgrepo-com.svg"
-			texts="{JSON.stringify(catalogueText)}"
-			toggle="{JSON.stringify({ collapsable: false, open: catalogueopen })}"
+			texts={JSON.stringify(catalogueText)}
+			toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
 		></lens-catalogue>
 	</div>
 	{#await jsonPromises}
@@ -119,10 +112,11 @@
 				class="wrapper"
 				style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
 			>
+				<!-- eslint-disable-next-line svelte/require-each-key -->
 				{#each range(5, 1) as version}
 					<div
 						class="rect"
-						class:pause-animation="{pause}"
+						class:pause-animation={pause}
 						style="animation-delay: {(version - 1) * (+durationNum / 12)}{durationUnit}"
 					></div>
 				{/each}
@@ -138,7 +132,8 @@
 			<div class="chart-wrapper result-table">
 				<lens-result-table pageSize="10">
 					<div slot="beneath-pagination">
-						<lens-negotiate-button class="negotiate" type="Negotiator"></lens-negotiate-button>
+						<lens-negotiate-button class="negotiate" type="Negotiator"
+						></lens-negotiate-button>
 						<lens-search-modified-display>
 							<div>Search has been modified!</div>
 						</lens-search-modified-display>
@@ -151,10 +146,10 @@
 					title="Gender Distribution"
 					catalogueGroupCode="gender"
 					chartType="pie"
-					displayLegends="{true}"
-					headers="{genderHeaders}"
-					backgroundColor="{barChartBackgroundColors}"
-					backgroundHoverColor="{barChartHoverColors}"
+					displayLegends={true}
+					headers={genderHeaders}
+					backgroundColor={barChartBackgroundColors}
+					backgroundHoverColor={barChartHoverColors}
 				></lens-chart>
 			</div>
 
@@ -163,10 +158,10 @@
 					title="Age Distribution"
 					catalogueGroupCode="age_at_diagnosis"
 					chartType="bar"
-					groupRange="{10}"
+					groupRange={10}
 					filterRegex="^(1*[12]*[0-9])"
-					backgroundColor="{barChartBackgroundColors}"
-					backgroundHoverColor="{barChartHoverColors}"
+					backgroundColor={barChartBackgroundColors}
+					backgroundHoverColor={barChartHoverColors}
 				></lens-chart>
 			</div>
 
@@ -175,8 +170,8 @@
 					title="Specimens"
 					catalogueGroupCode="sample_kind"
 					chartType="bar"
-					backgroundColor="{barChartBackgroundColors}"
-					backgroundHoverColor="{barChartHoverColors}"
+					backgroundColor={barChartBackgroundColors}
+					backgroundHoverColor={barChartHoverColors}
 				>
 				</lens-chart>
 			</div>
@@ -188,8 +183,8 @@
 					chartType="bar"
 					groupingDivider="."
 					groupingLabel=".%"
-					backgroundColor="{barChartBackgroundColors}"
-					backgroundHoverColor="{barChartHoverColors}"
+					backgroundColor={barChartBackgroundColors}
+					backgroundHoverColor={barChartHoverColors}
 				></lens-chart>
 			</div>
 		</div>
@@ -198,7 +193,9 @@
 	{/await}
 </main>
 
-<lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
+<error-toasts></error-toasts>
+
+<lens-data-passer bind:this={dataPasser}></lens-data-passer>
 
 <footer class="footer">
 	<div>

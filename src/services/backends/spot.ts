@@ -7,6 +7,7 @@ import type {
     SiteData,
     BeamResult,
 } from "@samply/lens"
+import { showErrorToast, translate } from "@samply/lens"
 
 export class Spot {
 
@@ -79,7 +80,7 @@ export class Spot {
                     data: body,
                 });
                 updateResponse(parsedResponse);
-            });            
+            });
 
             // read error events from beam
             eventSource.addEventListener("error", (message) => {
@@ -99,6 +100,7 @@ export class Spot {
                 console.log(`Aborting request ${this.currentTask}`);
             } else {
                 console.error(err);
+                showErrorToast(translate("network_error"));
             }
         }
     }

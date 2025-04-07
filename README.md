@@ -1,42 +1,13 @@
-# Lens2 Demo Project
+# BBMRI-ERIC Locator
 
-This repository provides the most fundamental building blocks needed to build your very own interface using the Lens2 library.
+Production: https://locator.bbmri-eric.eu/search/  
+Test: https://locator-dev.bbmri-eric.eu/search/
+Acceptance: https://locator-acc.bbmri-eric.eu/search/
 
----
+## Environment variables
 
-## Implementation Guide 
-
-#### Catalogue
-<!-- TODO -->
-
-#### CQL Parsing 
-<!-- TODO -->
-
-#### Integrate Data Structure 
-<!-- TODO -->
-
----
-
-## Quickstart Instructions 
-
-To start a development server, run the command:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-
-
-```
-To create a production version of your application:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
----
-
-*Made with ♥ using [samply/lens-core](https://github.com/samply/lens)*
+| Variable                | Description                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `PUBLIC_ENVIRONMENT`    | Can be either `production`, `acceptance` or `test` (default: `production`)                     |
+| `PUBLIC_BACKEND_URL`    | Overwrites the Spot URL (optional)                                                             |
+| `PUBLIC_BACKEND_FORMAT` | If set to `cql`, queries are not sent as AST but converted to CQL before they are sent to Spot |
