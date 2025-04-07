@@ -42,6 +42,9 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "eric-test",
             "prague-uhkt-test",
         ];
+    } else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+        backendUrl = "https://locator-acc.bbmri-eric.eu/backend/";
+        siteList = [];
     } else { // production
         backendUrl = "https://locator.bbmri-eric.eu/backend/";
         siteList = [
