@@ -24,6 +24,8 @@
 
 	if (env.PUBLIC_ENVIRONMENT === 'test') {
 		optionsFilePath = 'config/options-test.json';
+	} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+		optionsFilePath = 'config/options-acceptance.json';
 	} else {
 		// production
 		optionsFilePath = 'config/options.json';
