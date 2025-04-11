@@ -11,6 +11,7 @@
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
 	import { env } from '$env/dynamic/public';
+	import { onMount } from 'svelte';
 
 	let catalogueopen = false;
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
@@ -57,6 +58,20 @@
 	let durationNum: string = '1';
 	let range = (size: number, startAt = 0) =>
 		[...Array(size).keys()].map((i) => i + startAt);
+
+	onMount(() => {
+		// This is a workaround to ensure that the dataPasser functions are available
+		setTimeout(() => {
+			requestBackend(
+				dataPasser.getAstAPI(),
+				// @ts-expect-error: There is a typo in the type definition of the function, should be fixed in the next lens release https://github.com/samply/lens/pull/350
+				dataPasser.updateResponseStoreAPI,
+				new AbortController(),
+				measures,
+				dataPasser.getCriteriaAPI('diagnosis')
+			);
+		}, 10);
+	});
 </script>
 
 <header class="header">
