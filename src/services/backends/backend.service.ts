@@ -38,6 +38,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     if (env.PUBLIC_ENVIRONMENT === 'test') {
         backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
         siteList = [
+            "lodz-test",
             "uppsala-test",
             "eric-test",
             "prague-uhkt-test",
