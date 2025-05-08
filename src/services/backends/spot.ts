@@ -5,9 +5,9 @@
 import type {
     ResponseStore,
     SiteData,
-    Status,
     BeamResult,
 } from "@samply/lens"
+import { showErrorToast, translate } from "@samply/lens"
 
 export class Spot {
 
@@ -69,7 +69,7 @@ export class Spot {
                 const response: BeamResult = JSON.parse(message.data);
                 if (response.task !== this.currentTask) return;
                 const site: string = response.from.split(".")[1];
-                const status: Status = response.status;
+                const status = response.status;
                 const body: SiteData =
                     status === "succeeded"
                         ? JSON.parse(atob(response.body))
@@ -100,6 +100,7 @@ export class Spot {
                 console.log(`Aborting request ${this.currentTask}`);
             } else {
                 console.error(err);
+                showErrorToast(translate("network_error"));
             }
         }
     }

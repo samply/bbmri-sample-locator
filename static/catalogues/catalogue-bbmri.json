@@ -2,6 +2,7 @@
     {
         "key": "donor",
         "name": "Donor/Clinical Information",
+        "fieldType": "group",
         "childCategories": [
             {
                 "key": "gender",
@@ -47370,8 +47371,7 @@
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "The donor age at diagnosis criterion represents the age of the patient at the time of diagnosis, calculated as the difference between the date of disease onset and the patient's date of birth. That's why the age stratifier, which shows today's age, also shows some ages that are outside the selected range."
-                ],
-                "criteria": []
+                ]
             },
             {
                 "key": "date_of_diagnosis",
@@ -47381,14 +47381,14 @@
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "Date of diagnosis represents the date when the donor was diagnosed."
-                ],
-                "criteria": []
+                ]
             }
         ]
     },
     {
         "key": "sample",
         "name": "Sample",
+        "fieldType": "group",
         "childCategories": [
             {
                 "key": "donor_age",
@@ -47398,8 +47398,7 @@
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "The donor age criterion represents the patient's age today"
-                ],
-                "criteria": []
+                ]
             },
             {
                 "key": "sample_kind",
@@ -47521,8 +47520,7 @@
                 "type": "BETWEEN",
                 "infoButtonText": [
                     "If a sampling date range is selected, only those samples collected within that date range will be displayed. Samples that don't have this information will not be displayed."
-                ],
-                "criteria": []
+                ]
             },
             {
                 "key": "storage_temperature",

@@ -1,11 +1,11 @@
 {
     "iconOptions": {
         "infoUrl": "info-circle-svgrepo-com.svg",
-        "selectAll": {
-            "text": "Add all"
-        }
+        "toggleIconUrl": "right-arrow-svgrepo-com.svg",
+        "addIconUrl": "long-right-arrow-svgrepo-com.svg"
     },
     "siteMappings": {
+        "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
         "eric-test": "ERIC-Test",
         "prague-uhkt-test": "Prague-UHKT-Test"
@@ -99,7 +99,14 @@
     },
     "negotiateOptions": {
         "url": "https://negotiator.acc.bbmri-eric.eu/api/v3/requests",
+        "authorizationHeader": "Basic YmJtcmktZGlyZWN0b3J5Omw5RFJLVUROcTBTbDAySXhaUGQ2",
         "siteMappings": [
+            {
+                "site": "Łódź-test",
+                "collection": "bbmri-eric:ID:PL_BLUL:collection:POPULOUS_BLUL",
+                "site_id": "bbmri-eric:ID:PL_BLUL",
+                "collection_name": "Lodz UniverSity Biobank Collection"
+            },
             {
                 "site": "ERIC-Test",
                 "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",

@@ -1,4 +1,3 @@
-version: '3.8'
 # TODO: BBMRI expects Traefik to already exist
 services:
   traefik-forward-auth:
@@ -46,11 +45,14 @@ services:
 
   lens:
     image: samply/bbmri-sample-locator:main
+    environment:
+      PUBLIC_ENVIRONMENT: ${PUBLIC_ENVIRONMENT}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.lens.rule=Host(`${GUI_HOST}`) && PathPrefix(`/search/`)"
       - "traefik.http.routers.lens.tls=true"
       - "traefik.http.routers.lens.middlewares=traefik-forward-auth"
+      - "traefik.http.services.lens.loadbalancer.server.port=3000"
     networks:
       - traefik
       - default
@@ -71,9 +73,9 @@ services:
       BIND_ADDR: 0.0.0.0:8055
       PRISM_URL: http://prism:8066
       RUST_LOG: "info"
-      LOG_FILE: /requests.log
+      LOG_FILE: /logs/requests.log
     volumes:
-      - ./requests.log:/requests.log
+      - ./logs:/logs
     depends_on:
       - "beam-proxy"
     labels:
@@ -93,7 +95,7 @@ services:
       - default
 
   beam-proxy:
-    image: docker.verbis.dkfz.de/cache/samply/beam-proxy:develop
+    image: samply/beam-proxy:main
     platform: linux/amd64
     environment:
       BROKER_URL: https://${BROKER_HOST}
@@ -115,7 +117,7 @@ services:
       # TODO: Autogenerate this
       API_KEY: "${LOCAL_BEAM_SECRET_PRISM}"
       BEAM_PROXY_URL: http://beam-proxy:8081
-      BEAM_APP_ID_LONG: ${LOCAL_BEAM_PRISM_ID_LONG}
+      BEAM_APP_ID_LONG: "prism.${LOCAL_BEAM_ID}.${BROKER_HOST}"
       CORS_ORIGIN: "https://${GUI_HOST}"
       SITES: ${SITES}
       PROJECT: ${PROJECT}
