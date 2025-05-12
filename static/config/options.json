@@ -29,6 +29,7 @@
         "pilsen": "Pilsen",
         "prague-ffm": "Prague-FFM",
         "prague-ior": "Prague-IoR",
+        "prague-uhkt": "Prague-UHKT",
         "regensburg": "Regensburg",
         "rome": "Rome-BBIRE",
         "rome-opbg": "Rome-OPBG",
@@ -275,6 +276,12 @@
                 "site_id": "bbmri-eric:ID:CZ_REVMA",
                 "collection": "bbmri-eric:ID:CZ_REVMA:collection:M45",
                 "collection_name": "Main collection of samples for ankylosing spondylitis (AS) from Institute of Rheumatology in Prague"
+            },
+            {
+                "site": "Prague-UHKT",
+                "site_id": "bbmri-eric:ID:CZ_IHBT",
+                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
+                "collection_name": "Oncohematology Plasma"
             },
             {
                 "site": "Brno-RECETOX",
