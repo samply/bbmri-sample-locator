@@ -8,11 +8,13 @@ export const fetchData = async (
 	catalogueUrl: string,
 	optionsUrl: string
 ): Promise<{ catalogueJSON: string; optionsJSON: string }> => {
-	const cataloguePromise: string = await fetch(catalogueUrl).then((response) =>
+	const cacheBuster = `?cb=${Date.now()}`;
+
+	const cataloguePromise: string = await fetch(catalogueUrl + cacheBuster, { cache: 'reload' }).then((response) =>
 		response.text()
 	);
 
-	const optionsPromise: string = await fetch(optionsUrl).then((response) =>
+	const optionsPromise: string = await fetch(optionsUrl + cacheBuster, { cache: 'reload' }).then((response) =>
 		response.text()
 	);
 
