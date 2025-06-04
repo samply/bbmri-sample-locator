@@ -9,14 +9,12 @@ export const fetchData = async (
 	optionsUrl: string
 ): Promise<{ catalogueJSON: string; optionsJSON: string }> => {
 	const cacheBuster = `?cb=${Date.now()}`;
-	const catUrl = catalogueUrl + cacheBuster;
-	const optUrl = optionsUrl + cacheBuster;
 
-	const cataloguePromise: string = await fetch(catUrl, { cache: 'reload' }).then((response) =>
+	const cataloguePromise: string = await fetch(catalogueUrl + cacheBuster, { cache: 'reload' }).then((response) =>
 		response.text()
 	);
 
-	const optionsPromise: string = await fetch(optUrl, { cache: 'reload' }).then((response) =>
+	const optionsPromise: string = await fetch(optionsUrl + cacheBuster, { cache: 'reload' }).then((response) =>
 		response.text()
 	);
 
