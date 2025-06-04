@@ -9,6 +9,7 @@
         "augsburg": "Augsburg",
         "berlin": "Berlin",
         "brno": "Brno-MMCI",
+        "bonn": "Bonn",
         "brno-recetox": "Brno-RECETOX",
         "cyprus": "Cyprus",
         "dresden": "Dresden",
@@ -144,6 +145,12 @@
                 "collection": "bbmri-eric:ID:DE_ZeBanC:collection:COVID19",
                 "site_id": "bbmri-eric:ID:DE_ZeBanC",
                 "collection_name": "Existing collection of COVID-19 cases"
+            },
+            {
+                "site": "Bonn",
+                "site_id": "bbmri-eric:ID:DE_BBB",
+                "collection": "bbmri-eric:ID:DE_BBB:collection:MainCollection",
+                "collection_name": "Main collection BioBank Bonn"
             },
             {
                 "site": "Brno-MMCI",
