@@ -1,4 +1,4 @@
-import type { MeasureItem, Measure, AstTopLayer, Site, MeasureGroup } from "@samply/lens";
+import { type MeasureItem, type Measure, type AstTopLayer, type Site, type MeasureGroup, resolveAstSubCategories } from "@samply/lens";
 import { buildLibrary, buildMeasure } from "./cql-measure";
 import { translateAstToCql } from "./ast-to-cql-translator";
 import { Spot } from "./spot";
@@ -14,9 +14,12 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     const queryId = uuidv4();
     let query = {};
 
+    const newAst = resolveAstSubCategories(ast)
+
+
     if (env.PUBLIC_BACKEND_FORMAT === "cql") {
         const cql = translateAstToCql(
-            ast,
+            newAst,
             false,
             "BBMRI_STRAT_DEF_IN_INITIAL_POPULATION",
             measureGroups[0].measures,
@@ -28,7 +31,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
         query = { lang: "cql", lib: library, measure: measure };
     } else {
         // Fallback to AST
-        query = { lang: "ast", payload: btoa(decodeURI(JSON.stringify({ast: ast, id: queryId.concat("__search__").concat(queryId) }))) };
+        query = { lang: "ast", payload: btoa(decodeURI(JSON.stringify({ast: newAst, id: queryId.concat("__search__").concat(queryId) }))) };
     }
 
 
