@@ -45,6 +45,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "uppsala-test",
             "eric-test",
             "prague-uhkt-test",
+            "dnb-test"
         ];
     } else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
         backendUrl = "https://locator-acc.bbmri-eric.eu/backend/";

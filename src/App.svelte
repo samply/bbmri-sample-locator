@@ -79,7 +79,7 @@
 	<menu class="menu">
 		<a href="https://www.bbmri-eric.eu/about/">About Us</a>
 		<a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-		<a href={logoutUrl}>Logout</a>
+		<a href="{logoutUrl}">Logout</a>
 	</menu>
 </header>
 <div class="banner">
@@ -100,9 +100,9 @@
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" on:click={toggleCatalogue}>
+	<button class="catalogue-toggle-button" on:click="{toggleCatalogue}">
 		<img
-			class={catalogueopen ? 'open' : ''}
+			class="{catalogueopen ? 'open' : ''}"
 			src="/search/right-arrow-svgrepo-com.svg"
 			alt="catalogue toggle button icon"
 		/>
@@ -110,15 +110,15 @@
 	</button>
 	<div class="catalogue-info-button">
 		<lens-info-button
-			message={[
+			message="{[
 				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}
+			]}"
 		></lens-info-button>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<lens-catalogue
-			texts={JSON.stringify(catalogueText)}
-			toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
+			texts="{JSON.stringify(catalogueText)}"
+			toggle="{JSON.stringify({ collapsable: false, open: catalogueopen })}"
 		></lens-catalogue>
 	</div>
 	{#await jsonPromises}
@@ -131,7 +131,7 @@
 				{#each range(5, 1) as version}
 					<div
 						class="rect"
-						class:pause-animation={pause}
+						class:pause-animation="{pause}"
 						style="animation-delay: {(version - 1) * (+durationNum / 12)}{durationUnit}"
 					></div>
 				{/each}
@@ -161,10 +161,10 @@
 					title="Gender Distribution"
 					catalogueGroupCode="gender"
 					chartType="pie"
-					displayLegends={true}
-					headers={genderHeaders}
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
+					displayLegends="{true}"
+					headers="{genderHeaders}"
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
 				></lens-chart>
 			</div>
 
@@ -173,10 +173,10 @@
 					title="Age Distribution"
 					catalogueGroupCode="age_at_diagnosis"
 					chartType="bar"
-					groupRange={10}
+					groupRange="{10}"
 					filterRegex="^(1*[12]*[0-9])"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
 				></lens-chart>
 			</div>
 
@@ -185,8 +185,8 @@
 					title="Specimens"
 					catalogueGroupCode="sample_kind"
 					chartType="bar"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
 				>
 				</lens-chart>
 			</div>
@@ -198,8 +198,8 @@
 					chartType="bar"
 					groupingDivider="."
 					groupingLabel=".%"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
+					backgroundColor="{barChartBackgroundColors}"
+					backgroundHoverColor="{barChartHoverColors}"
 				></lens-chart>
 			</div>
 		</div>
@@ -210,7 +210,7 @@
 
 <error-toasts></error-toasts>
 
-<lens-data-passer bind:this={dataPasser}></lens-data-passer>
+<lens-data-passer bind:this="{dataPasser}"></lens-data-passer>
 
 <footer class="footer">
 	<div>
