@@ -24,13 +24,3 @@ export const fetchData = async (
 		}
 	);
 };
-
-export const catalogueText = {
-	group: 'Group',
-	collapseButtonTitle: 'Collapse Tree',
-	expandButtonTitle: 'Expand Tree',
-	numberInput: {
-		labelFrom: 'von',
-		labelTo: 'bis'
-	}
-};

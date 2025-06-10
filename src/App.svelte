@@ -7,7 +7,7 @@
 		genderHeaders,
 		measures
 	} from './config/environment';
-	import { fetchData, catalogueText } from './services/catalogue.service';
+	import { fetchData } from './services/catalogue.service';
 	import { requestBackend } from './services/backends/backend.service';
 	import type { LensDataPasser } from '@samply/lens';
 	import { env } from '$env/dynamic/public';
@@ -115,9 +115,8 @@
 		></lens-info-button>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
-		<lens-catalogue
-			texts={JSON.stringify(catalogueText)}
-			toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
+		<!-- we are implementing our own collapsable toggle -->
+		<lens-catalogue toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
 		></lens-catalogue>
 	</div>
 	{#await jsonPromises}
