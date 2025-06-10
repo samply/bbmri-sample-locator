@@ -5,6 +5,21 @@ import { Spot } from "./spot";
 import { env } from '$env/dynamic/public';
 import { v4 as uuidv4 } from "uuid";
 
+export function getBackendUrl(): string {
+    let backendUrl;
+    if (env.PUBLIC_ENVIRONMENT === 'test') {
+        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
+    } else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+        backendUrl = "https://locator-acc.bbmri-eric.eu/backend/";
+    } else { // production
+        backendUrl = "https://locator.bbmri-eric.eu/backend/";
+    }
+    if (env.PUBLIC_BACKEND_URL) {
+        backendUrl = env.PUBLIC_BACKEND_URL;
+    }
+    return backendUrl;
+}
+
 export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<string, Site>) => void, abortController: AbortController, measureGroups: MeasureGroup[], criteria: string[]) => {
 
     const measures: Measure[] = measureGroups[0].measures.map(
@@ -35,11 +50,10 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
     }
 
 
-    let backendUrl: string = "";
+    const backendUrl = getBackendUrl();
     let siteList: string[] = [];
 
     if (env.PUBLIC_ENVIRONMENT === 'test') {
-        backendUrl = "https://locator-dev.bbmri-eric.eu/backend";
         siteList = [
             "lodz-test",
             "uppsala-test",
@@ -47,10 +61,8 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "prague-uhkt-test",
         ];
     } else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-        backendUrl = "https://locator-acc.bbmri-eric.eu/backend/";
         siteList = [];
     } else { // production
-        backendUrl = "https://locator.bbmri-eric.eu/backend/";
         siteList = [
             "aachen",
             "augsburg",
@@ -81,10 +93,6 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "uppsala",
             "wuerzburg",
         ];
-    }
-
-    if (env.PUBLIC_BACKEND_URL) {
-        backendUrl = env.PUBLIC_BACKEND_URL;
     }
 
     const backend = new Spot(new URL(backendUrl), siteList, queryId);

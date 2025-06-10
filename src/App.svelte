@@ -7,7 +7,7 @@
 		genderHeaders,
 		measures
 	} from './config/environment';
-	import { requestBackend } from './services/backends/backend.service';
+	import { requestBackend, getBackendUrl } from './services/backends/backend.service';
 	import type { LensDataPasser, LensOptions, Catalogue } from '@samply/lens';
 	import { setOptions, setCatalogue, setMeasures } from '@samply/lens';
 	import { env } from '$env/dynamic/public';
@@ -34,6 +34,10 @@
 		const options: LensOptions = await fetch(optionsUrl + cacheBuster).then((response) =>
 			response.json()
 		);
+		if (options.facetCount) {
+			// Get backend URL from environment variables
+			options.facetCount.backendUrl = getBackendUrl().replace(/\/$/, '') + '/prism';
+		}
 		setOptions(options);
 	}
 
