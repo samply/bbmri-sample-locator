@@ -30,7 +30,8 @@
 			optionsUrl = 'config/options.json'; // production
 		}
 
-		const options: LensOptions = await fetch(optionsUrl).then((response) =>
+		const cacheBuster = `?cb=${Date.now()}`;
+		const options: LensOptions = await fetch(optionsUrl + cacheBuster).then((response) =>
 			response.json()
 		);
 		setOptions(options);
@@ -39,8 +40,9 @@
 	async function fetchCatalogue() {
 		const catalogueUrl = 'catalogues/catalogue-bbmri.json';
 
-		const catalogue: Catalogue = await fetch(catalogueUrl).then((response) =>
-			response.json()
+		const cacheBuster = `?cb=${Date.now()}`;
+		const catalogue: Catalogue = await fetch(catalogueUrl + cacheBuster).then(
+			(response) => response.json()
 		);
 		setCatalogue(catalogue);
 	}
