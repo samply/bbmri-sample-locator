@@ -13,7 +13,7 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 
-	let catalogueopen = false;
+	let catalogueopen = $state(false);
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
 
 	const toggleCatalogue = () => {
@@ -99,7 +99,7 @@
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" on:click={toggleCatalogue}>
+	<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
 		<img
 			class={catalogueopen ? 'open' : ''}
 			src="/search/right-arrow-svgrepo-com.svg"
