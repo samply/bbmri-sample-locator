@@ -64,7 +64,6 @@
 		setTimeout(() => {
 			requestBackend(
 				dataPasser.getAstAPI(),
-				// @ts-expect-error: There is a typo in the type definition of the function, should be fixed in the next lens release https://github.com/samply/lens/pull/350
 				dataPasser.updateResponseStoreAPI,
 				new AbortController(),
 				measures,
