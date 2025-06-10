@@ -7,38 +7,53 @@
 		genderHeaders,
 		measures
 	} from './config/environment';
-	import { fetchData, catalogueText } from './services/catalogue.service';
-	import { requestBackend } from './services/backends/backend.service';
-	import type { LensDataPasser } from '@samply/lens';
+	import { requestBackend, getBackendUrl } from './services/backends/backend.service';
+	import type { LensDataPasser, LensOptions, Catalogue } from '@samply/lens';
+	import { setOptions, setCatalogue, setMeasures } from '@samply/lens';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 
-	let catalogueopen = false;
+	let catalogueopen = $state(false);
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
 
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
 
-	const catalogueUrl: string = 'catalogues/catalogue-bbmri.json';
-	let optionsFilePath: string = '';
+	async function fetchOptions() {
+		let optionsUrl;
+		if (env.PUBLIC_ENVIRONMENT === 'test') {
+			optionsUrl = 'config/options-test.json';
+		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+			optionsUrl = 'config/options-acceptance.json';
+		} else {
+			optionsUrl = 'config/options.json'; // production
+		}
 
-	if (env.PUBLIC_ENVIRONMENT === 'test') {
-		optionsFilePath = 'config/options-test.json';
-	} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-		optionsFilePath = 'config/options-acceptance.json';
-	} else {
-		// production
-		optionsFilePath = 'config/options.json';
+		const cacheBuster = `?cb=${Date.now()}`;
+		const options: LensOptions = await fetch(optionsUrl + cacheBuster).then((response) =>
+			response.json()
+		);
+		if (options.facetCount) {
+			// Get backend URL from environment variables
+			options.facetCount.backendUrl = getBackendUrl().replace(/\/$/, '') + '/prism';
+		}
+		setOptions(options);
 	}
 
-	const jsonPromises: Promise<{
-		catalogueJSON: string;
-		optionsJSON: string;
-	}> = fetchData(catalogueUrl, optionsFilePath);
+	async function fetchCatalogue() {
+		const catalogueUrl = 'catalogues/catalogue-bbmri.json';
+
+		const cacheBuster = `?cb=${Date.now()}`;
+		const catalogue: Catalogue = await fetch(catalogueUrl + cacheBuster).then(
+			(response) => response.json()
+		);
+		setCatalogue(catalogue);
+	}
 
 	let dataPasser: LensDataPasser;
 
+	// Listen for search event emitted by Lens when the user clicks the search button
 	window.addEventListener('emit-lens-query', (e) => {
 		if (!dataPasser) return;
 
@@ -49,22 +64,16 @@
 		requestBackend(ast, updateResponse, abortController, measures, criteria);
 	});
 
-	let color: string = '#e95713';
-	let unit: string = 'px';
-	let duration: string = '1.2s';
-	let size: string = '90';
-	let pause: boolean = false;
-	let durationUnit: string = duration.match('/[a-zA-Z]/')?.[0] ?? 's';
-	let durationNum: string = '1';
-	let range = (size: number, startAt = 0) =>
-		[...Array(size).keys()].map((i) => i + startAt);
-
 	onMount(() => {
-		// This is a workaround to ensure that the dataPasser functions are available
+		fetchOptions();
+		fetchCatalogue();
+		setMeasures(measures);
+
+		// setTimeout is a workaround to ensure that the dataPasser functions are available
 		setTimeout(() => {
+			// Run empty query on initial load
 			requestBackend(
 				dataPasser.getAstAPI(),
-				// @ts-expect-error: There is a typo in the type definition of the function, should be fixed in the next lens release https://github.com/samply/lens/pull/350
 				dataPasser.updateResponseStoreAPI,
 				new AbortController(),
 				measures,
@@ -100,7 +109,7 @@
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" on:click={toggleCatalogue}>
+	<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
 		<img
 			class={catalogueopen ? 'open' : ''}
 			src="/search/right-arrow-svgrepo-com.svg"
@@ -116,96 +125,74 @@
 		></lens-info-button>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
-		<lens-catalogue
-			texts={JSON.stringify(catalogueText)}
-			toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
+		<!-- we are implementing our own collapsable toggle -->
+		<lens-catalogue toggle={JSON.stringify({ collapsable: false, open: catalogueopen })}
 		></lens-catalogue>
 	</div>
-	{#await jsonPromises}
-		<div class="stretch-loading-animation">
-			<div
-				class="wrapper"
-				style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
+
+	<div class="charts">
+		<div class="chart-wrapper result-summary">
+			<lens-result-summary></lens-result-summary>
+		</div>
+		<div class="chart-wrapper result-table">
+			<lens-result-table pageSize="10">
+				<div slot="beneath-pagination">
+					<lens-negotiate-button class="negotiate" type="Negotiator"
+					></lens-negotiate-button>
+					<lens-search-modified-display>
+						<div>Search has been modified!</div>
+					</lens-search-modified-display>
+				</div>
+			</lens-result-table>
+		</div>
+
+		<div class="chart-wrapper">
+			<lens-chart
+				title="Gender Distribution"
+				catalogueGroupCode="gender"
+				chartType="pie"
+				displayLegends={true}
+				headers={genderHeaders}
+				backgroundColor={barChartBackgroundColors}
+				backgroundHoverColor={barChartHoverColors}
+			></lens-chart>
+		</div>
+
+		<div class="chart-wrapper chart-age-distribution">
+			<lens-chart
+				title="Age Distribution"
+				catalogueGroupCode="age_at_diagnosis"
+				chartType="bar"
+				groupRange={10}
+				filterRegex="^(1*[12]*[0-9])"
+				backgroundColor={barChartBackgroundColors}
+				backgroundHoverColor={barChartHoverColors}
+			></lens-chart>
+		</div>
+
+		<div class="chart-wrapper chart-sample-kind">
+			<lens-chart
+				title="Specimens"
+				catalogueGroupCode="sample_kind"
+				chartType="bar"
+				backgroundColor={barChartBackgroundColors}
+				backgroundHoverColor={barChartHoverColors}
 			>
-				<!-- eslint-disable-next-line svelte/require-each-key -->
-				{#each range(5, 1) as version}
-					<div
-						class="rect"
-						class:pause-animation={pause}
-						style="animation-delay: {(version - 1) * (+durationNum / 12)}{durationUnit}"
-					></div>
-				{/each}
-			</div>
-			<p>Loading data...</p>
+			</lens-chart>
 		</div>
-	{:then { optionsJSON, catalogueJSON }}
-		<lens-options {catalogueJSON} {optionsJSON} {measures}></lens-options>
-		<div class="charts">
-			<div class="chart-wrapper result-summary">
-				<lens-result-summary></lens-result-summary>
-			</div>
-			<div class="chart-wrapper result-table">
-				<lens-result-table pageSize="10">
-					<div slot="beneath-pagination">
-						<lens-negotiate-button class="negotiate" type="Negotiator"
-						></lens-negotiate-button>
-						<lens-search-modified-display>
-							<div>Search has been modified!</div>
-						</lens-search-modified-display>
-					</div>
-				</lens-result-table>
-			</div>
 
-			<div class="chart-wrapper">
-				<lens-chart
-					title="Gender Distribution"
-					catalogueGroupCode="gender"
-					chartType="pie"
-					displayLegends={true}
-					headers={genderHeaders}
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
-				></lens-chart>
-			</div>
-
-			<div class="chart-wrapper chart-age-distribution">
-				<lens-chart
-					title="Age Distribution"
-					catalogueGroupCode="age_at_diagnosis"
-					chartType="bar"
-					groupRange={10}
-					filterRegex="^(1*[12]*[0-9])"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
-				></lens-chart>
-			</div>
-
-			<div class="chart-wrapper chart-sample-kind">
-				<lens-chart
-					title="Specimens"
-					catalogueGroupCode="sample_kind"
-					chartType="bar"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
-				>
-				</lens-chart>
-			</div>
-
-			<div class="chart-wrapper chart-diagnosis">
-				<lens-chart
-					title="Diagnosis"
-					catalogueGroupCode="diagnosis"
-					chartType="bar"
-					groupingDivider="."
-					groupingLabel=".%"
-					backgroundColor={barChartBackgroundColors}
-					backgroundHoverColor={barChartHoverColors}
-				></lens-chart>
-			</div>
+		<div class="chart-wrapper chart-diagnosis">
+			<lens-chart
+				title="Diagnosis"
+				catalogueGroupCode="diagnosis"
+				chartType="bar"
+				groupingDivider="."
+				groupingLabel=".%"
+				backgroundColor={barChartBackgroundColors}
+				backgroundHoverColor={barChartHoverColors}
+			></lens-chart>
 		</div>
-	{:catch someError}
-		System error: {someError.message}
-	{/await}
+	</div>
 </main>
 
 <error-toasts></error-toasts>
