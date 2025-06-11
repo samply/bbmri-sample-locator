@@ -125,15 +125,6 @@ services:
       RUST_LOG: "debug,hyper=info"
     depends_on:
       - "beam-proxy"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.prism.loadbalancer.server.port=8066"
-      - "traefik.http.routers.prism.rule=Host(`${GUI_HOST}`) && PathPrefix(`/prism`)"
-      - "traefik.http.routers.prism.tls=true"
-      - "traefik.http.middlewares.prism-stripprefix.stripprefix.prefixes=/prism"
-      - "traefik.http.routers.prism.middlewares=corsheaders,traefik-forward-auth,prism-stripprefix"
-    networks:
-      - traefik
       - default
 
 secrets:
