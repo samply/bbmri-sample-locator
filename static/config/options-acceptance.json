@@ -13,35 +13,7 @@
         "addIconUrl": "long-right-arrow-svgrepo-com.svg"
     },
     "siteMappings": {
-        "aachen": "Aachen",
-        "augsburg": "Augsburg",
-        "berlin": "Berlin",
-        "brno": "Brno-MMCI",
-        "brno-recetox": "Brno-RECETOX",
-        "cyprus": "Cyprus",
-        "dresden": "Dresden",
-        "essen": "Essen",
-        "frankfurt": "Frankfurt",
-        "goettingen": "Göttingen",
-        "hannover": "Hannover",
-        "heidelberg": "Heidelberg",
-        "hradec-kralove": "Hradec Králové",
-        "leipzig": "Leipzig",
-        "luebeck": "Lübeck",
-        "mannheim": "Mannheim",
-        "marburg": "Marburg",
-        "muenchen-hmgu": "München-HMGU",
-        "muenster": "Münster",
-        "naples-pascale": "Naples-Pascale",
-        "olomouc": "Olomouc",
-        "pilsen": "Pilsen",
-        "prague-ffm": "Prague-FFM",
-        "prague-ior": "Prague-IoR",
-        "regensburg": "Regensburg",
-        "rome": "Rome-BBIRE",
-        "rome-opbg": "Rome-OPBG",
-        "uppsala": "Uppsala",
-        "wuerzburg": "Würzburg"
+        "eric-acc": "Eric Acceptance"
     },
     "catalogueKeyToResponseKeyMap": [
         [
