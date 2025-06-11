@@ -69,7 +69,6 @@ services:
       BEAM_PROXY_URL: http://beam-proxy:8081
       BEAM_APP_ID: "spot.${LOCAL_BEAM_ID}.${BROKER_HOST}"
       CORS_ORIGIN: "https://${GUI_HOST}"
-      CATALOGUE_URL: "${CATALOGUE_URL}"
       BIND_ADDR: 0.0.0.0:8055
       PRISM_URL: http://prism:8066
       RUST_LOG: "info"
