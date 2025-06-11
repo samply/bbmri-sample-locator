@@ -119,8 +119,8 @@ services:
       BEAM_PROXY_URL: http://beam-proxy:8081
       BEAM_APP_ID_LONG: "prism.${LOCAL_BEAM_ID}.${BROKER_HOST}"
       CORS_ORIGIN: "https://${GUI_HOST}"
-      SITES: aachen;augsburg;berlin;brno;bonn;brno-recetox;cyprus;dresden;essen;frankfurt;goettingen;hannover;heidelberg;hradec-kralove;leipzig;luebeck;mannheim;marburg;muenchen-hmgu;muenster;naples-pascale;olomouc;pilsen;prague-ffm;prague-ior;prague-uhkt;regensburg;rome;rome-opbg;uppsala;wuerzburg
-      PROJECT: bbmri
+      SITES: ${SITES}
+      PROJECT: ${PROJECT}
       BIND_ADDR: 0.0.0.0:8066
       RUST_LOG: "debug,hyper=info"
     depends_on:

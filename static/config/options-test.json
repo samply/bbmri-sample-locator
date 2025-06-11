@@ -15,8 +15,7 @@
     "siteMappings": {
         "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
-        "eric-test": "ERIC-Test",
-        "prague-uhkt-test": "Prague-UHKT-Test"
+        "eric-test": "ERIC-Test"
     },
     "catalogueKeyToResponseKeyMap": [
         [
@@ -120,12 +119,6 @@
                 "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
                 "site_id": "bbmri-eric:ID:DE_IBM",
                 "collection_name": "Biostroke Collection"
-            },
-            {
-                "site": "Prague-UHKT-Test",
-                "collection": "bbmri-eric:ID:CZ_IHBT:collection:Oncohematology_Plasma",
-                "site_id": "bbmri-eric:ID:CZ_IHBT",
-                "collection_name": "Oncohematology Plasma"
             },
             {
                 "site": "Uppsala-Test",
