@@ -15,7 +15,7 @@
     "siteMappings": {
         "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
-        "eric-test": "ERIC-Test",
+        "eric-test": "ERIC-Test"
     },
     "catalogueKeyToResponseKeyMap": [
         [
