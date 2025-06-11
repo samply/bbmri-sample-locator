@@ -125,6 +125,7 @@ services:
       RUST_LOG: "debug,hyper=info"
     depends_on:
       - "beam-proxy"
+    networks:
       - default
 
 secrets:
