@@ -135,7 +135,7 @@
 			<lens-result-summary></lens-result-summary>
 		</div>
 		<div class="chart-wrapper result-table">
-			<lens-result-table pageSize="10">
+			<lens-result-table pageSize="10" pageSizeSwitcher={true}>
 				<div slot="beneath-pagination">
 					<lens-negotiate-button class="negotiate" type="Negotiator"
 					></lens-negotiate-button>
