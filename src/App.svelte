@@ -4,12 +4,25 @@
 	import {
 		barChartBackgroundColors,
 		barChartHoverColors,
-		genderHeaders,
-		measures
+		genderHeaders
 	} from './config/environment';
-	import { requestBackend, getBackendUrl } from './services/backends/backend.service';
-	import type { LensDataPasser, LensOptions, Catalogue } from '@samply/lens';
-	import { setOptions, setCatalogue, setMeasures } from '@samply/lens';
+	import type {
+		LensDataPasser,
+		LensOptions,
+		Catalogue,
+		BeamResult,
+		AstTopLayer
+	} from '@samply/lens';
+	import {
+		setOptions,
+		setCatalogue,
+		markSiteClaimed,
+		setSiteResult,
+		measureReportToSiteResult,
+		clearSiteResults,
+		getAst,
+		createBeamTask
+	} from '@samply/lens';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 
@@ -19,6 +32,62 @@
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
+
+	export function getBackendUrl(): string {
+		let backendUrl;
+		if (env.PUBLIC_ENVIRONMENT === 'test') {
+			backendUrl = 'https://locator-dev.bbmri-eric.eu/backend';
+		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+			backendUrl = 'https://locator-acc.bbmri-eric.eu/backend/';
+		} else {
+			// production
+			backendUrl = 'https://locator.bbmri-eric.eu/backend/';
+		}
+		if (env.PUBLIC_BACKEND_URL) {
+			backendUrl = env.PUBLIC_BACKEND_URL;
+		}
+		return backendUrl;
+	}
+
+	function getSiteList(): string[] {
+		if (env.PUBLIC_ENVIRONMENT === 'test') {
+			return ['lodz-test', 'uppsala-test', 'eric-test', 'DNB-Test'];
+		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+			return ['eric-acc'];
+		} else {
+			// production
+			return [
+				'aachen',
+				'augsburg',
+				'berlin',
+				'brno',
+				'bonn',
+				'brno-recetox',
+				'cyprus',
+				'dresden',
+				'frankfurt',
+				'goettingen',
+				'hannover',
+				'heidelberg',
+				'hradec-kralove',
+				'luebeck',
+				'mannheim',
+				'marburg',
+				'muenchen-hmgu',
+				'naples-pascale',
+				'olomouc',
+				'pilsen',
+				'prague-ffm',
+				'prague-ior',
+				'prague-uhkt',
+				'regensburg',
+				'rome',
+				'rome-opbg',
+				'uppsala',
+				'wuerzburg'
+			];
+		}
+	}
 
 	async function fetchOptions() {
 		let optionsUrl;
@@ -53,33 +122,50 @@
 
 	let dataPasser: LensDataPasser;
 
-	// Listen for search event emitted by Lens when the user clicks the search button
-	window.addEventListener('emit-lens-query', (e) => {
-		if (!dataPasser) return;
+	let abortController = new AbortController();
+	function sendQuery(ast: AstTopLayer) {
+		abortController.abort();
+		abortController = new AbortController();
+		clearSiteResults();
 
-		const event = e as CustomEvent;
-		const { ast, updateResponse, abortController } = event.detail;
-		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
+		const query = btoa(
+			JSON.stringify({
+				lang: 'ast',
+				payload: btoa(JSON.stringify({ ast, id: 'this cannot be empty' }))
+			})
+		);
+		createBeamTask(
+			getBackendUrl(),
+			getSiteList(),
+			query,
+			abortController.signal,
+			(result: BeamResult) => {
+				const site = result.from.split('.')[1];
+				if (result.status === 'claimed') {
+					markSiteClaimed(site);
+				} else if (result.status === 'succeeded') {
+					const measureReport = JSON.parse(atob(result.body));
+					setSiteResult(site, measureReportToSiteResult(measureReport));
+				} else {
+					console.error(`Site ${site} failed with status ${result.status}:`, result.body);
+				}
+			}
+		);
+	}
 
-		requestBackend(ast, updateResponse, abortController, measures, criteria);
+	window.addEventListener('lens-search-triggered', () => {
+		sendQuery(getAst());
 	});
 
 	onMount(() => {
 		fetchOptions();
 		fetchCatalogue();
-		setMeasures(measures);
 
-		// setTimeout is a workaround to ensure that the dataPasser functions are available
-		setTimeout(() => {
-			// Run empty query on initial load
-			requestBackend(
-				dataPasser.getAstAPI(),
-				dataPasser.updateResponseStoreAPI,
-				new AbortController(),
-				measures,
-				dataPasser.getCriteriaAPI('diagnosis')
-			);
-		}, 10);
+		// Run empty query on initial load
+		sendQuery({
+			operand: 'OR',
+			children: []
+		});
 	});
 </script>
 
@@ -98,31 +184,34 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			<lens-search-bar-multiple
-				noMatchesFoundMessage="We couldn't find any matches for your search"
-			></lens-search-bar-multiple>
-			<lens-info-button
-				noQueryMessage="An empty search will return all results"
-				showQuery="true"
-			></lens-info-button>
+			<div class="search-bar-wrapper">
+				<lens-search-bar-multiple
+					noMatchesFoundMessage="We couldn't find any matches for your search"
+				></lens-search-bar-multiple>
+			</div>
+			<lens-query-explain-button noQueryMessage="An empty search will return all results"
+			></lens-query-explain-button>
 			<lens-search-button title="Search"></lens-search-button>
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
-		<img
-			class={catalogueopen ? 'open' : ''}
-			src="/search/right-arrow-svgrepo-com.svg"
-			alt="catalogue toggle button icon"
-		/>
-		<span>Full Parameter Search</span>
-	</button>
-	<div class="catalogue-info-button">
-		<lens-info-button
-			message={[
-				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}
-		></lens-info-button>
+	<div class="catalogue-toggle-wrapper">
+		<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
+			<img
+				class={catalogueopen ? 'open' : ''}
+				src="/search/right-arrow-svgrepo-com.svg"
+				alt="catalogue toggle button icon"
+			/>
+			<span>Full Parameter Search</span>
+		</button>
+		<div class="catalogue-info-button">
+			<lens-info-button
+				message={[
+					`The queries are patient-centered: The patients are selected first and then the samples of these patients`
+				]}
+				buttonSize="18px"
+			></lens-info-button>
+		</div>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<!-- we are implementing our own collapsable toggle -->
@@ -216,3 +305,22 @@
 		</div>
 	</div>
 </footer>
+
+<style>
+	.catalogue-toggle-wrapper {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-s);
+		margin-bottom: var(--gap-s);
+	}
+
+	.search {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-s);
+	}
+
+	.search-bar-wrapper {
+		flex-grow: 1;
+	}
+</style>
