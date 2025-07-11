@@ -7,11 +7,6 @@
             "sample_kind": "Matching samples for this criterion only"
         }
     },
-    "iconOptions": {
-        "infoUrl": "info-circle-svgrepo-com.svg",
-        "toggleIconUrl": "right-arrow-svgrepo-com.svg",
-        "addIconUrl": "long-right-arrow-svgrepo-com.svg"
-    },
     "siteMappings": {
         "eric-acc": "Eric Acceptance"
     },
