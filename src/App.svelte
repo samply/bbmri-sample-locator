@@ -131,7 +131,7 @@
 		const query = btoa(
 			JSON.stringify({
 				lang: 'ast',
-				payload: btoa(JSON.stringify({ ast, id: 'this cannot be empty' }))
+				payload: btoa(JSON.stringify({ ast, id: crypto.randomUUID() }))
 			})
 		);
 		createBeamTask(
