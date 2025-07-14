@@ -25,6 +25,7 @@
 	} from '@samply/lens';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
 
 	let catalogueopen = $state(false);
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
@@ -131,7 +132,7 @@
 		const query = btoa(
 			JSON.stringify({
 				lang: 'ast',
-				payload: btoa(JSON.stringify({ ast, id: crypto.randomUUID() }))
+				payload: btoa(JSON.stringify({ ast, id: uuidv4() }))
 			})
 		);
 		createBeamTask(
