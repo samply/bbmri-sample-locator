@@ -16,7 +16,7 @@
         "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
         "eric-test": "ERIC-Test",
-        "dnb-test": "Danish-National-Biobank-Test"
+        "DNB-Test": "Danish-National-Biobank-Test"
     },
     "catalogueKeyToResponseKeyMap": [
         [
