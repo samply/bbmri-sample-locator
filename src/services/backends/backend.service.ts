@@ -58,7 +58,7 @@ export const requestBackend = (ast: AstTopLayer, updateResponse: (response: Map<
             "lodz-test",
             "uppsala-test",
             "eric-test",
-            "dnb-test",
+            "DNB-Test",
         ];
     } else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
         siteList = [
