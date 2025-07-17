@@ -10,7 +10,7 @@
 		LensDataPasser,
 		LensOptions,
 		Catalogue,
-		BeamResult,
+		SpotResult,
 		AstTopLayer
 	} from '@samply/lens';
 	import {
@@ -18,10 +18,10 @@
 		setCatalogue,
 		markSiteClaimed,
 		setSiteResult,
-		measureReportToSiteResult,
+		measureReportToLensResult,
 		clearSiteResults,
 		getAst,
-		createBeamTask
+		querySpot
 	} from '@samply/lens';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
@@ -135,18 +135,18 @@
 				payload: btoa(JSON.stringify({ ast, id: uuidv4() }))
 			})
 		);
-		createBeamTask(
+		querySpot(
 			getBackendUrl(),
 			getSiteList(),
 			query,
 			abortController.signal,
-			(result: BeamResult) => {
+			(result: SpotResult) => {
 				const site = result.from.split('.')[1];
 				if (result.status === 'claimed') {
 					markSiteClaimed(site);
 				} else if (result.status === 'succeeded') {
 					const measureReport = JSON.parse(atob(result.body));
-					setSiteResult(site, measureReportToSiteResult(measureReport));
+					setSiteResult(site, measureReportToLensResult(measureReport));
 				} else {
 					console.error(`Site ${site} failed with status ${result.status}:`, result.body);
 				}
