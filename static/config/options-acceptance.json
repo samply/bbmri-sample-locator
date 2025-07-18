@@ -10,25 +10,6 @@
     "siteMappings": {
         "eric-acc": "Eric Acceptance"
     },
-    "catalogueKeyToResponseKeyMap": [
-        [
-            "gender",
-            "gender"
-        ],
-        [
-            "age_at_diagnosis",
-            "Age"
-        ],
-        [
-            "diagnosis",
-            "diagnosis"
-        ],
-        [
-            "sample_kind",
-            "sample_kind"
-        ]
-        
-    ],
     "chartOptions": {
         "gender": {
             "legendMapping": {

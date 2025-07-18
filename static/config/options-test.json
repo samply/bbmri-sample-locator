@@ -12,25 +12,6 @@
         "uppsala-test": "Uppsala-Test",
         "eric-test": "ERIC-Test"
     },
-    "catalogueKeyToResponseKeyMap": [
-        [
-            "gender",
-            "gender"
-        ],
-        [
-            "age_at_diagnosis",
-            "Age"
-        ],
-        [
-            "diagnosis",
-            "diagnosis"
-        ],
-        [
-            "sample_kind",
-            "sample_kind"
-        ]
-        
-    ],
     "chartOptions": {
         "gender": {
             "legendMapping": {
