@@ -251,7 +251,7 @@
 		<div class="chart-wrapper chart-age-distribution">
 			<lens-chart
 				title="Age Distribution"
-				catalogueGroupCode="age_at_diagnosis"
+				catalogueGroupCode="donor_age"
 				chartType="bar"
 				groupRange={10}
 				filterRegex="^(1*[12]*[0-9])"
