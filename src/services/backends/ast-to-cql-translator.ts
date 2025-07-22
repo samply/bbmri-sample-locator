@@ -6,7 +6,7 @@ import type {
     AstBottomLayerValue,
     AstElement,
     AstTopLayer,
-    MeasureItem,
+    FhirMeasureItem,
 } from "@samply/lens";
 import {
     alias as aliasMap,
@@ -21,7 +21,7 @@ export const translateAstToCql = (
     query: AstTopLayer,
     returnOnlySingeltons: boolean = true,
     backendMeasures: string,
-    measures: MeasureItem[],
+    measures: FhirMeasureItem[],
     criterionList: string[],
 ): string => {
     criteria = criterionList;
@@ -59,7 +59,7 @@ export const translateAstToCql = (
         cqlHeader +
         getCodesystems() +
         "context Patient\n" +
-        measures.map((measureItem: MeasureItem) => measureItem.cql).join("") +
+        measures.map((measureItem: FhirMeasureItem) => measureItem.cql).join("") +
         "\n" +
         singletons +
         "\n"

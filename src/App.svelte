@@ -6,13 +6,7 @@
 		barChartHoverColors,
 		genderHeaders
 	} from './config/environment';
-	import type {
-		LensDataPasser,
-		LensOptions,
-		Catalogue,
-		SpotResult,
-		AstTopLayer
-	} from '@samply/lens';
+	import type { LensOptions, Catalogue, SpotResult, AstTopLayer } from '@samply/lens';
 	import {
 		setOptions,
 		setCatalogue,
@@ -120,8 +114,6 @@
 		);
 		setCatalogue(catalogue);
 	}
-
-	let dataPasser: LensDataPasser;
 
 	let abortController = new AbortController();
 	function sendQuery(ast: AstTopLayer) {
@@ -286,8 +278,6 @@
 </main>
 
 <error-toasts></error-toasts>
-
-<lens-data-passer bind:this={dataPasser}></lens-data-passer>
 
 <footer class="footer">
 	<div>
