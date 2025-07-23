@@ -57,7 +57,6 @@
 				markSiteClaimed(site);
 			} else if (result.status === 'succeeded') {
 				const siteResult = JSON.parse(atob(result.body));
-				console.log(`Site ${site} succeeded with result:`, siteResult);
 				setSiteResult(site, siteResult);
 			} else {
 				console.error(`Site ${site} failed with status ${result.status}:`, result.body);
