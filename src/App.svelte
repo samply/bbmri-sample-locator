@@ -1,18 +1,11 @@
 <script lang="ts">
 	import './app.css';
-
-	import {
-		barChartBackgroundColors,
-		barChartHoverColors,
-		genderHeaders
-	} from './config/environment';
 	import type { LensOptions, Catalogue, SpotResult, AstTopLayer } from '@samply/lens';
 	import {
 		setOptions,
 		setCatalogue,
 		markSiteClaimed,
 		setSiteResult,
-		measureReportToLensResult,
 		clearSiteResults,
 		getAst,
 		querySpot
@@ -20,6 +13,24 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import { v4 as uuidv4 } from 'uuid';
+	import optionsProd from './config/options.json';
+	import optionsTest from './config/options-test.json';
+	import optionsAcceptance from './config/options-acceptance.json';
+	import catalogue from './config/catalogue-bbmri.json';
+
+	const barChartBackgroundColors: string[] = [
+		'#052c65',
+		'#073d8b',
+		'#094db1',
+		'#0b5ed7',
+		'#0d6efd',
+		'#3b8afd',
+		'#69a5fe',
+		'#97c1fe',
+		'#c5dcff'
+	];
+
+	const barChartHoverColors: string[] = ['#E95713'];
 
 	let catalogueopen = $state(false);
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
@@ -27,93 +38,6 @@
 	const toggleCatalogue = () => {
 		catalogueopen = !catalogueopen;
 	};
-
-	export function getBackendUrl(): string {
-		let backendUrl;
-		if (env.PUBLIC_ENVIRONMENT === 'test') {
-			backendUrl = 'https://locator-dev.bbmri-eric.eu/backend';
-		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-			backendUrl = 'https://locator-acc.bbmri-eric.eu/backend/';
-		} else {
-			// production
-			backendUrl = 'https://locator.bbmri-eric.eu/backend/';
-		}
-		if (env.PUBLIC_BACKEND_URL) {
-			backendUrl = env.PUBLIC_BACKEND_URL;
-		}
-		return backendUrl;
-	}
-
-	function getSiteList(): string[] {
-		if (env.PUBLIC_ENVIRONMENT === 'test') {
-			return ['lodz-test', 'uppsala-test', 'eric-test', 'DNB-Test'];
-		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-			return ['eric-acc'];
-		} else {
-			// production
-			return [
-				'aachen',
-				'augsburg',
-				'berlin',
-				'brno',
-				'bonn',
-				'brno-recetox',
-				'cyprus',
-				'dresden',
-				'frankfurt',
-				'goettingen',
-				'hannover',
-				'heidelberg',
-				'hradec-kralove',
-				'luebeck',
-				'mannheim',
-				'marburg',
-				'muenchen-hmgu',
-				'naples-pascale',
-				'olomouc',
-				'pilsen',
-				'prague-ffm',
-				'prague-ior',
-				'prague-uhkt',
-				'regensburg',
-				'rome',
-				'rome-opbg',
-				'uppsala',
-				'wuerzburg'
-			];
-		}
-	}
-
-	async function fetchOptions() {
-		let optionsUrl;
-		if (env.PUBLIC_ENVIRONMENT === 'test') {
-			optionsUrl = 'config/options-test.json';
-		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-			optionsUrl = 'config/options-acceptance.json';
-		} else {
-			optionsUrl = 'config/options.json'; // production
-		}
-
-		const cacheBuster = `?cb=${Date.now()}`;
-		const options: LensOptions = await fetch(optionsUrl + cacheBuster).then((response) =>
-			response.json()
-		);
-		if (options.facetCount) {
-			// Get backend URL from environment variables
-			options.facetCount.backendUrl = getBackendUrl().replace(/\/$/, '') + '/prism';
-		}
-		setOptions(options);
-	}
-
-	async function fetchCatalogue() {
-		const catalogueUrl = 'catalogues/catalogue-bbmri.json';
-
-		const cacheBuster = `?cb=${Date.now()}`;
-		const catalogue: Catalogue = await fetch(catalogueUrl + cacheBuster).then(
-			(response) => response.json()
-		);
-		setCatalogue(catalogue);
-	}
 
 	let abortController = new AbortController();
 	function sendQuery(ast: AstTopLayer) {
@@ -127,23 +51,18 @@
 				payload: btoa(JSON.stringify({ ast, id: uuidv4() }))
 			})
 		);
-		querySpot(
-			getBackendUrl(),
-			getSiteList(),
-			query,
-			abortController.signal,
-			(result: SpotResult) => {
-				const site = result.from.split('.')[1];
-				if (result.status === 'claimed') {
-					markSiteClaimed(site);
-				} else if (result.status === 'succeeded') {
-					const measureReport = JSON.parse(atob(result.body));
-					setSiteResult(site, measureReportToLensResult(measureReport));
-				} else {
-					console.error(`Site ${site} failed with status ${result.status}:`, result.body);
-				}
+		querySpot(query, abortController.signal, (result: SpotResult) => {
+			const site = result.from.split('.')[1];
+			if (result.status === 'claimed') {
+				markSiteClaimed(site);
+			} else if (result.status === 'succeeded') {
+				const siteResult = JSON.parse(atob(result.body));
+				console.log(`Site ${site} succeeded with result:`, siteResult);
+				setSiteResult(site, siteResult);
+			} else {
+				console.error(`Site ${site} failed with status ${result.status}:`, result.body);
 			}
-		);
+		});
 	}
 
 	window.addEventListener('lens-search-triggered', () => {
@@ -151,8 +70,20 @@
 	});
 
 	onMount(() => {
-		fetchOptions();
-		fetchCatalogue();
+		// Set the options based on the environment
+		let options: LensOptions = optionsProd;
+		if (env.PUBLIC_ENVIRONMENT === 'test') {
+			options = optionsTest;
+		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+			options = optionsAcceptance;
+		}
+		if (env.PUBLIC_SPOT_URL) {
+			options.spotUrl = env.PUBLIC_SPOT_URL;
+		}
+		setOptions(options);
+
+		// Set the catalogue
+		setCatalogue(catalogue as Catalogue);
 
 		// Run empty query on initial load
 		sendQuery({
@@ -231,10 +162,9 @@
 		<div class="chart-wrapper">
 			<lens-chart
 				title="Gender Distribution"
-				catalogueGroupCode="gender"
+				dataKey="gender"
 				chartType="pie"
 				displayLegends={true}
-				headers={genderHeaders}
 				backgroundColor={barChartBackgroundColors}
 				backgroundHoverColor={barChartHoverColors}
 			></lens-chart>
@@ -243,7 +173,7 @@
 		<div class="chart-wrapper chart-age-distribution">
 			<lens-chart
 				title="Age Distribution"
-				catalogueGroupCode="donor_age"
+				dataKey="donor_age"
 				chartType="bar"
 				groupRange={10}
 				filterRegex="^(1*[12]*[0-9])"
@@ -255,7 +185,7 @@
 		<div class="chart-wrapper chart-sample-kind">
 			<lens-chart
 				title="Specimens"
-				catalogueGroupCode="sample_kind"
+				dataKey="sample_kind"
 				chartType="bar"
 				backgroundColor={barChartBackgroundColors}
 				backgroundHoverColor={barChartHoverColors}
@@ -266,7 +196,7 @@
 		<div class="chart-wrapper chart-diagnosis">
 			<lens-chart
 				title="Diagnosis"
-				catalogueGroupCode="diagnosis"
+				dataKey="diagnosis"
 				chartType="bar"
 				groupingDivider="."
 				groupingLabel=".%"

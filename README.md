@@ -8,5 +8,5 @@ Acceptance: https://locator-acc.bbmri-eric.eu/search/
 
 | Variable                | Description                                                                                    |
 | ----------------------- | ---------------------------------------------------------------------------------------------- |
-| `PUBLIC_ENVIRONMENT`    | Can be either `production`, `acceptance` or `test` (default: `production`)                     |
-| `PUBLIC_BACKEND_URL`    | Overwrites the Spot URL (optional)                                                             |
+| `PUBLIC_ENVIRONMENT`    | Can be either `production`, `test` or `acceptance` (default: `production`)                     |
+| `PUBLIC_SPOT_URL`    | Overwrites the Spot URL (optional)                                                             |

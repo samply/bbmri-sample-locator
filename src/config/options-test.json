@@ -1,6 +1,6 @@
 {
+    "spotUrl": "https://locator-dev.bbmri-eric.eu/backend",
     "facetCount": {
-        "backendUrl": "THIS PLACEHOLDER IS REPLACED BY THE APPLICATION",
         "hoverText": {
             "gender": "Matching patients for this criterion only",
             "diagnosis": "Total number of this diagnosis across all patients",
