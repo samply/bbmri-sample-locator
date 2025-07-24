@@ -10,7 +10,8 @@
     "siteMappings": {
         "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
-        "eric-test": "ERIC-Test"
+        "eric-test": "ERIC-Test",
+        "DNB-Test": "DNB-Test"
     },
     "chartOptions": {
         "gender": {
