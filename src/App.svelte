@@ -1,17 +1,36 @@
 <script lang="ts">
 	import './app.css';
-
+	import type { LensOptions, Catalogue, SpotResult, AstTopLayer } from '@samply/lens';
 	import {
-		barChartBackgroundColors,
-		barChartHoverColors,
-		genderHeaders,
-		measures
-	} from './config/environment';
-	import { requestBackend, getBackendUrl } from './services/backends/backend.service';
-	import type { LensDataPasser, LensOptions, Catalogue } from '@samply/lens';
-	import { setOptions, setCatalogue, setMeasures } from '@samply/lens';
+		setOptions,
+		setCatalogue,
+		markSiteClaimed,
+		setSiteResult,
+		clearSiteResults,
+		getAst,
+		querySpot
+	} from '@samply/lens';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
+	import { v4 as uuidv4 } from 'uuid';
+	import optionsProd from './config/options.json';
+	import optionsTest from './config/options-test.json';
+	import optionsAcceptance from './config/options-acceptance.json';
+	import catalogue from './config/catalogue-bbmri.json';
+
+	const barChartBackgroundColors: string[] = [
+		'#052c65',
+		'#073d8b',
+		'#094db1',
+		'#0b5ed7',
+		'#0d6efd',
+		'#3b8afd',
+		'#69a5fe',
+		'#97c1fe',
+		'#c5dcff'
+	];
+
+	const barChartHoverColors: string[] = ['#E95713'];
 
 	let catalogueopen = $state(false);
 	let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
@@ -20,66 +39,56 @@
 		catalogueopen = !catalogueopen;
 	};
 
-	async function fetchOptions() {
-		let optionsUrl;
-		if (env.PUBLIC_ENVIRONMENT === 'test') {
-			optionsUrl = 'config/options-test.json';
-		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
-			optionsUrl = 'config/options-acceptance.json';
-		} else {
-			optionsUrl = 'config/options.json'; // production
-		}
+	let abortController = new AbortController();
+	function sendQuery(ast: AstTopLayer) {
+		abortController.abort();
+		abortController = new AbortController();
+		clearSiteResults();
 
-		const cacheBuster = `?cb=${Date.now()}`;
-		const options: LensOptions = await fetch(optionsUrl + cacheBuster).then((response) =>
-			response.json()
+		const query = btoa(
+			JSON.stringify({
+				lang: 'ast',
+				payload: btoa(JSON.stringify({ ast, id: uuidv4() }))
+			})
 		);
-		if (options.facetCount) {
-			// Get backend URL from environment variables
-			options.facetCount.backendUrl = getBackendUrl().replace(/\/$/, '') + '/prism';
-		}
-		setOptions(options);
+		querySpot(query, abortController.signal, (result: SpotResult) => {
+			const site = result.from.split('.')[1];
+			if (result.status === 'claimed') {
+				markSiteClaimed(site);
+			} else if (result.status === 'succeeded') {
+				const siteResult = JSON.parse(atob(result.body));
+				setSiteResult(site, siteResult);
+			} else {
+				console.error(`Site ${site} failed with status ${result.status}:`, result.body);
+			}
+		});
 	}
 
-	async function fetchCatalogue() {
-		const catalogueUrl = 'catalogues/catalogue-bbmri.json';
-
-		const cacheBuster = `?cb=${Date.now()}`;
-		const catalogue: Catalogue = await fetch(catalogueUrl + cacheBuster).then(
-			(response) => response.json()
-		);
-		setCatalogue(catalogue);
-	}
-
-	let dataPasser: LensDataPasser;
-
-	// Listen for search event emitted by Lens when the user clicks the search button
-	window.addEventListener('emit-lens-query', (e) => {
-		if (!dataPasser) return;
-
-		const event = e as CustomEvent;
-		const { ast, updateResponse, abortController } = event.detail;
-		const criteria: string[] = dataPasser.getCriteriaAPI('diagnosis');
-
-		requestBackend(ast, updateResponse, abortController, measures, criteria);
+	window.addEventListener('lens-search-triggered', () => {
+		sendQuery(getAst());
 	});
 
 	onMount(() => {
-		fetchOptions();
-		fetchCatalogue();
-		setMeasures(measures);
+		// Set the options based on the environment
+		let options: LensOptions = optionsProd;
+		if (env.PUBLIC_ENVIRONMENT === 'test') {
+			options = optionsTest;
+		} else if (env.PUBLIC_ENVIRONMENT === 'acceptance') {
+			options = optionsAcceptance;
+		}
+		if (env.PUBLIC_SPOT_URL) {
+			options.spotUrl = env.PUBLIC_SPOT_URL;
+		}
+		setOptions(options);
 
-		// setTimeout is a workaround to ensure that the dataPasser functions are available
-		setTimeout(() => {
-			// Run empty query on initial load
-			requestBackend(
-				dataPasser.getAstAPI(),
-				dataPasser.updateResponseStoreAPI,
-				new AbortController(),
-				measures,
-				dataPasser.getCriteriaAPI('diagnosis')
-			);
-		}, 10);
+		// Set the catalogue
+		setCatalogue(catalogue as Catalogue);
+
+		// Run empty query on initial load
+		sendQuery({
+			operand: 'OR',
+			children: []
+		});
 	});
 </script>
 
@@ -98,31 +107,34 @@
 <main>
 	<div class="search-wrapper">
 		<div class="search">
-			<lens-search-bar-multiple
-				noMatchesFoundMessage="We couldn't find any matches for your search"
-			></lens-search-bar-multiple>
-			<lens-info-button
-				noQueryMessage="An empty search will return all results"
-				showQuery="true"
-			></lens-info-button>
+			<div class="search-bar-wrapper">
+				<lens-search-bar-multiple
+					noMatchesFoundMessage="We couldn't find any matches for your search"
+				></lens-search-bar-multiple>
+			</div>
+			<lens-query-explain-button noQueryMessage="An empty search will return all results"
+			></lens-query-explain-button>
 			<lens-search-button title="Search"></lens-search-button>
 		</div>
 	</div>
 
-	<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
-		<img
-			class={catalogueopen ? 'open' : ''}
-			src="/search/right-arrow-svgrepo-com.svg"
-			alt="catalogue toggle button icon"
-		/>
-		<span>Full Parameter Search</span>
-	</button>
-	<div class="catalogue-info-button">
-		<lens-info-button
-			message={[
-				`The queries are patient-centered: The patients are selected first and then the samples of these patients`
-			]}
-		></lens-info-button>
+	<div class="catalogue-toggle-wrapper">
+		<button class="catalogue-toggle-button" onclick={toggleCatalogue}>
+			<img
+				class={catalogueopen ? 'open' : ''}
+				src="/search/right-arrow-svgrepo-com.svg"
+				alt="catalogue toggle button icon"
+			/>
+			<span>Full Parameter Search</span>
+		</button>
+		<div class="catalogue-info-button">
+			<lens-info-button
+				message={[
+					`The queries are patient-centered: The patients are selected first and then the samples of these patients`
+				]}
+				buttonSize="18px"
+			></lens-info-button>
+		</div>
 	</div>
 	<div class="catalogue {catalogueopen ? 'open' : ''}">
 		<!-- we are implementing our own collapsable toggle -->
@@ -149,10 +161,9 @@
 		<div class="chart-wrapper">
 			<lens-chart
 				title="Gender Distribution"
-				catalogueGroupCode="gender"
+				dataKey="gender"
 				chartType="pie"
 				displayLegends={true}
-				headers={genderHeaders}
 				backgroundColor={barChartBackgroundColors}
 				backgroundHoverColor={barChartHoverColors}
 			></lens-chart>
@@ -161,7 +172,7 @@
 		<div class="chart-wrapper chart-age-distribution">
 			<lens-chart
 				title="Age Distribution"
-				catalogueGroupCode="age_at_diagnosis"
+				dataKey="donor_age"
 				chartType="bar"
 				groupRange={10}
 				filterRegex="^(1*[12]*[0-9])"
@@ -173,7 +184,7 @@
 		<div class="chart-wrapper chart-sample-kind">
 			<lens-chart
 				title="Specimens"
-				catalogueGroupCode="sample_kind"
+				dataKey="sample_kind"
 				chartType="bar"
 				backgroundColor={barChartBackgroundColors}
 				backgroundHoverColor={barChartHoverColors}
@@ -184,7 +195,7 @@
 		<div class="chart-wrapper chart-diagnosis">
 			<lens-chart
 				title="Diagnosis"
-				catalogueGroupCode="diagnosis"
+				dataKey="diagnosis"
 				chartType="bar"
 				groupingDivider="."
 				groupingLabel=".%"
@@ -196,8 +207,6 @@
 </main>
 
 <error-toasts></error-toasts>
-
-<lens-data-passer bind:this={dataPasser}></lens-data-passer>
 
 <footer class="footer">
 	<div>
@@ -216,3 +225,22 @@
 		</div>
 	</div>
 </footer>
+
+<style>
+	.catalogue-toggle-wrapper {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-s);
+		margin-bottom: var(--gap-s);
+	}
+
+	.search {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-s);
+	}
+
+	.search-bar-wrapper {
+		flex-grow: 1;
+	}
+</style>

@@ -16,23 +16,19 @@
                 "criteria": [
                     {
                         "key": "male",
-                        "name": "male",
-                        "description": "male"
+                        "name": "male"
                     },
                     {
                         "key": "female",
-                        "name": "female",
-                        "description": "female"
+                        "name": "female"
                     },
                     {
                         "key": "other",
-                        "name": "other",
-                        "description": "other"
+                        "name": "other"
                     },
                     {
                         "key": "sex_uncharted",
-                        "name": "unknown",
-                        "description": "unknown"
+                        "name": "unknown"
                     }
                 ]
             },
@@ -56501,103 +56497,83 @@
                 "criteria": [
                     {
                         "key": "blood-serum",
-                        "name": "Serum",
-                        "description": "Serum"
+                        "name": "Serum"
                     },
                     {
                         "key": "tissue-frozen",
-                        "name": "Tissue snap frozen",
-                        "description": "Tissue snap frozen"
+                        "name": "Tissue snap frozen"
                     },
                     {
                         "key": "whole-blood",
-                        "name": "Whole Blood",
-                        "description": "Whole Blood"
+                        "name": "Whole Blood"
                     },
                     {
                         "key": "blood-plasma",
-                        "name": "Plasma",
-                        "description": "Plasma"
+                        "name": "Plasma"
                     },
                     {
                         "key": "derivative-other",
-                        "name": "Other derivative",
-                        "description": "Other derivative"
+                        "name": "Other derivative"
                     },
                     {
                         "key": "tissue-other",
-                        "name": "Other tissue storage",
-                        "description": "Other tissue storage"
+                        "name": "Other tissue storage"
                     },
                     {
                         "key": "peripheral-blood-cells-vital",
-                        "name": "Peripheral blood cells",
-                        "description": "Peripheral blood cells"
+                        "name": "Peripheral blood cells"
                     },
                     {
                         "key": "urine",
-                        "name": "Urine",
-                        "description": "Urine"
+                        "name": "Urine"
                     },
                     {
                         "key": "rna",
-                        "name": "RNA",
-                        "description": "RNA"
+                        "name": "RNA"
                     },
                     {
                         "key": "liquid-other",
-                        "name": "Other liquid biosample",
-                        "description": "Other liquid biosample"
+                        "name": "Other liquid biosample"
                     },
                     {
                         "key": "buffy-coat",
-                        "name": "Buffy coat",
-                        "description": "Buffy coat"
+                        "name": "Buffy coat"
                     },
                     {
                         "key": "dna",
-                        "name": "DNA",
-                        "description": "DNA"
+                        "name": "DNA"
                     },
                     {
                         "key": "csf-liquor",
-                        "name": "Liquor/CSF",
-                        "description": "Liquor/CSF"
+                        "name": "Liquor/CSF"
                     },
                     {
                         "key": "stool-faeces",
-                        "name": "Faeces",
-                        "description": "Faeces"
+                        "name": "Faeces"
                     },
                     {
                         "key": "bone-marrow",
-                        "name": "Bone marrow",
-                        "description": "Bone marrow"
+                        "name": "Bone marrow"
                     },
                     {
                         "key": "tissue-ffpe",
-                        "name": "Tissue (FFPE)",
-                        "description": "Tissue (FFPE)"
+                        "name": "Tissue (FFPE)"
                     },
                     {
                         "key": "saliva",
-                        "name": "Saliva",
-                        "description": "Saliva"
+                        "name": "Saliva"
                     },
                     {
                         "key": "ascites",
-                        "name": "Ascites",
-                        "description": "Ascites"
+                        "name": "Ascites"
                     },
                     {
                         "key": "swab",
-                        "name": "Swab",
-                        "description": "Swab"
+                        "name": "Swab"
                     },
                     {
                         "key": "dried-whole-blood",
-                        "name": "Dried whole blood",
-                        "description": "Dried whole blood"
+                        "name": "Dried whole blood"
                     }
                 ]
             },
@@ -56623,48 +56599,39 @@
                 "criteria": [
                     {
                         "key": "temperatureRoom",
-                        "name": "RT",
-                        "description": "RT"
+                        "name": "RT"
                     },
                     {
                         "key": "temperature2to10",
-                        "name": "2°C to 10°C",
-                        "description": "2°C to 10°C"
+                        "name": "2°C to 10°C"
                     },
                     {
                         "key": "four_degrees",
-                        "name": "4°C",
-                        "description": "4°C"
+                        "name": "4°C"
                     },
                     {
                         "key": "temperature-18to-35",
-                        "name": "Minus 18°C to minus 35°C",
-                        "description": "Minus 18°C to minus 35°C"
+                        "name": "Minus 18°C to minus 35°C"
                     },
                     {
                         "key": "temperature-60to-85",
-                        "name": "Minus 60°C to minus 85°C",
-                        "description": "Minus 60°C to minus 85°C"
+                        "name": "Minus 60°C to minus 85°C"
                     },
                     {
                         "key": "temperatureGN",
-                        "name": "Gaseous nitrogen",
-                        "description": "Gaseous nitrogen"
+                        "name": "Gaseous nitrogen"
                     },
                     {
                         "key": "temperatureLN",
-                        "name": "Liquid nitrogen",
-                        "description": "Liquid nitrogen"
+                        "name": "Liquid nitrogen"
                     },
                     {
                         "key": "temperatureOther",
-                        "name": "Other storage temperature",
-                        "description": "Other storage temperature"
+                        "name": "Other storage temperature"
                     },
                     {
                         "key": "storage_temperature_uncharted",
-                        "name": "Uncharted storage temperature",
-                        "description": "Uncharted storage temperature"
+                        "name": "Uncharted storage temperature"
                     }
                 ]
             }

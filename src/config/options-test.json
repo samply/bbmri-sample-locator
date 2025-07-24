@@ -1,41 +1,17 @@
 {
+    "spotUrl": "https://locator-dev.bbmri-eric.eu/backend",
     "facetCount": {
-        "backendUrl": "THIS PLACEHOLDER IS REPLACED BY THE APPLICATION",
         "hoverText": {
             "gender": "Matching patients for this criterion only",
             "diagnosis": "Total number of this diagnosis across all patients",
             "sample_kind": "Matching samples for this criterion only"
         }
     },
-    "iconOptions": {
-        "infoUrl": "info-circle-svgrepo-com.svg",
-        "toggleIconUrl": "right-arrow-svgrepo-com.svg",
-        "addIconUrl": "long-right-arrow-svgrepo-com.svg"
-    },
     "siteMappings": {
         "lodz-test": "Łódź-test",
         "uppsala-test": "Uppsala-Test",
         "eric-test": "ERIC-Test"
     },
-    "catalogueKeyToResponseKeyMap": [
-        [
-            "gender",
-            "gender"
-        ],
-        [
-            "age_at_diagnosis",
-            "Age"
-        ],
-        [
-            "diagnosis",
-            "diagnosis"
-        ],
-        [
-            "sample_kind",
-            "sample_kind"
-        ]
-        
-    ],
     "chartOptions": {
         "gender": {
             "legendMapping": {

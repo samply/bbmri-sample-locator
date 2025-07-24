@@ -411,41 +411,6 @@ lens-search-bar-multiple::part(lens-searchbar-chip) {
     padding: var(--gap-xxs) var(--gap-xs);
 }
 
-lens-search-bar-multiple::part(info-button) {
-    background-color: var(--blue);
-    border-color: var(--blue);
-    position: relative;
-    border: 0;
-    margin-left: -10px;
-	padding-top: 10px;
-    display: inline-flex;
-    width: 30px;
-}
-
-lens-search-bar-multiple::part(info-button-icon) {
-    filter: brightness(0) invert(1);
-    cursor: pointer;
-    width: 20px;
-    position: absolute;
-    top: -19px;
-    left: 5px;
-}
-
-lens-search-bar-multiple::part(info-button-dialogue) {
-    position: absolute;
-    border: none;
-    background-color: var(--white);
-    width: max-content;
-    max-width: 200px;
-    z-index: 100;
-    padding: var(--gap-s);
-    top: calc(var(--gap-m) + 4px);
-    right: -20px;
-    border: solid 1px var(--light-blue);
-    border-radius: var(--border-radius-small);
-    text-align: left;
-}
-
 lens-search-bar-multiple::part(query-delete-button-item) {
     border-color: var(--white);
 }
@@ -462,12 +427,6 @@ lens-search-bar-multiple::part(query-delete-button-value) {
     width: 16px;
     margin: 0 var(--gap-xxs) 0 0;
 
-}
-
-.search-wrapper lens-info-button {
-    height: 40px;
-    align-self: center;
-    justify-self: end;
 }
 
 lens-search-bar-multiple::part(query-delete-button-value):hover {
@@ -551,39 +510,6 @@ lens-search-button::part(lens-search-button) {
     height: 100%;
     padding-top: 0;
     padding-bottom: 0;
-}
-
-lens-info-button::part(info-button-icon) {
-    width: 18px;
-}
-
-lens-info-button::part(info-button) {
-    height: 100%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.catalogue-info-button {
-    display: inline-flex;
-	vertical-align: middle;
-	padding-bottom: 5px;
-}
-
-.catalogue-info-button lens-info-button::part(info-button) {
-    height: 38px;
-    width: 38px;
-	margin-top: 5px;
-    padding: 0;
-    border: none;
-}
-.catalogue-info-button lens-info-button::part(info-button-dialogue) {
-    max-width: 200px;
-}
-lens-catalogue::part(info-button-dialogue) {
-    max-width: 200px;
-    border: solid 1px var(--blue);
 }
 
 .result-table-hint-text {
