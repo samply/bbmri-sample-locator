@@ -1,56 +1,57 @@
 export const patientsMeasureBbmri = {
-	key: 'bbmri-patients',
-	measure: {
-		code: {
-			text: 'patients'
-		},
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'InInitialPopulation'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'Age'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'AgeClass'
-				}
-			},
-			{
-				code: {
-					text: 'Gender'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'Gender'
-				}
-			},
-			{
-				code: {
-					text: 'Custodian'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'Custodian'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-patients",
+  measure: {
+    code: {
+      text: "patients",
+    },
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "InInitialPopulation",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "Age",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "AgeClass",
+        },
+      },
+      {
+        code: {
+          text: "Gender",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "Gender",
+        },
+      },
+      {
+        code: {
+          text: "Custodian",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "Custodian",
+        },
+      },
+    ],
+  },
+  cql: `
 define AgeClass:
 if (Patient.birthDate is null) then 'unknown' else ToString((AgeInYears() div 10) * 10)
 
@@ -61,111 +62,113 @@ define Custodian:
     First(from Specimen.extension E
     where E.url = 'https://fhir.bbmri.de/StructureDefinition/Custodian'
     return (E.value as Reference).identifier.value)
-`
+`,
 };
 
 export const patientsMeasureBbmriProd = {
-	key: 'bbmri-patients',
-	measure: {
-		code: {
-			text: 'patients'
-		},
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'InInitialPopulation'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'Age'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'AgeClass'
-				}
-			},
-			{
-				code: {
-					text: 'Gender'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'Gender'
-				}
-			},
-			{
-				code: {
-					text: 'Custodian'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'Custodian'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-patients",
+  measure: {
+    code: {
+      text: "patients",
+    },
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "InInitialPopulation",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "Age",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "AgeClass",
+        },
+      },
+      {
+        code: {
+          text: "Gender",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "Gender",
+        },
+      },
+      {
+        code: {
+          text: "Custodian",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "Custodian",
+        },
+      },
+    ],
+  },
+  cql: `
 BBMRI_STRAT_AGE_STRATIFIER
 
 BBMRI_STRAT_GENDER_STRATIFIER
 
 BBMRI_STRAT_CUSTODIAN_STRATIFIER
-`
+`,
 };
 
 export const diagnosisMeasureBbmri = {
-	key: 'bbmri-diagnosis',
-	measure: {
-		code: {
-			text: 'diagnosis'
-		},
-		extension: [
-			{
-				url: 'http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis',
-				valueCode: 'Condition'
-			}
-		],
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'Diagnosis'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'diagnosis'
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'DiagnosisCode'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-diagnosis",
+  measure: {
+    code: {
+      text: "diagnosis",
+    },
+    extension: [
+      {
+        url: "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+        valueCode: "Condition",
+      },
+    ],
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "Diagnosis",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "diagnosis",
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "DiagnosisCode",
+        },
+      },
+    ],
+  },
+  cql: `
 define Diagnosis:
 if InInitialPopulation then [Condition] else {} as List<Condition>
 
@@ -179,95 +182,97 @@ Coalesce(
   specimen.extension.where(url='https://fhir.bbmri.de/StructureDefinition/SampleDiagnosis').value.coding.code.first(),
   condition.code.coding.where(system = 'http://fhir.de/CodeSystem/bfarm/icd-10-gm').code.first()
   )
-`
+`,
 };
 
 export const diagnosisMeasureBbmriProd = {
-	key: 'bbmri-diagnosis',
-	measure: {
-		code: {
-			text: 'diagnosis'
-		},
-		extension: [
-			{
-				url: 'http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis',
-				valueCode: 'Condition'
-			}
-		],
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'Diagnosis'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'diagnosis'
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'DiagnosisCode'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-diagnosis",
+  measure: {
+    code: {
+      text: "diagnosis",
+    },
+    extension: [
+      {
+        url: "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+        valueCode: "Condition",
+      },
+    ],
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "Diagnosis",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "diagnosis",
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "DiagnosisCode",
+        },
+      },
+    ],
+  },
+  cql: `
 BBMRI_STRAT_DIAGNOSIS_STRATIFIER
-`
+`,
 };
 
 export const specimenMeasureBbmri = {
-	key: 'bbmri-specimen',
-	measure: {
-		code: {
-			text: 'specimen'
-		},
-		extension: [
-			{
-				url: 'http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis',
-				valueCode: 'Specimen'
-			}
-		],
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'Specimen'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'sample_kind'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'SampleType'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-specimen",
+  measure: {
+    code: {
+      text: "specimen",
+    },
+    extension: [
+      {
+        url: "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+        valueCode: "Specimen",
+      },
+    ],
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "Specimen",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "sample_kind",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "SampleType",
+        },
+      },
+    ],
+  },
+  cql: `
 define function SampleType(specimen FHIR.Specimen):
     case FHIRHelpers.ToCode(specimen.type.coding.where(system = 'https://fhir.bbmri.de/CodeSystem/SampleMaterialType').first())
        when Code 'plasma-edta' from SampleMaterialType then 'blood-plasma'
@@ -314,54 +319,55 @@ define function SampleType(specimen FHIR.Specimen):
        else 'Unknown'
    end
 define Specimen:
-`
+`,
 };
 
 export const specimenMeasureBbmriProd = {
-	key: 'bbmri-specimen',
-	measure: {
-		code: {
-			text: 'specimen'
-		},
-		extension: [
-			{
-				url: 'http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis',
-				valueCode: 'Specimen'
-			}
-		],
-		population: [
-			{
-				code: {
-					coding: [
-						{
-							system: 'http://terminology.hl7.org/CodeSystem/measure-population',
-							code: 'initial-population'
-						}
-					]
-				},
-				criteria: {
-					language: 'text/cql-identifier',
-					expression: 'Specimen'
-				}
-			}
-		],
-		stratifier: [
-			{
-				code: {
-					text: 'sample_kind'
-				},
-				criteria: {
-					language: 'text/cql',
-					expression: 'SampleType'
-				}
-			}
-		]
-	},
-	cql: `
+  key: "bbmri-specimen",
+  measure: {
+    code: {
+      text: "specimen",
+    },
+    extension: [
+      {
+        url: "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+        valueCode: "Specimen",
+      },
+    ],
+    population: [
+      {
+        code: {
+          coding: [
+            {
+              system:
+                "http://terminology.hl7.org/CodeSystem/measure-population",
+              code: "initial-population",
+            },
+          ],
+        },
+        criteria: {
+          language: "text/cql-identifier",
+          expression: "Specimen",
+        },
+      },
+    ],
+    stratifier: [
+      {
+        code: {
+          text: "sample_kind",
+        },
+        criteria: {
+          language: "text/cql",
+          expression: "SampleType",
+        },
+      },
+    ],
+  },
+  cql: `
 BBMRI_STRAT_SAMPLE_TYPE_STRATIFIER
 
 BBMRI_STRAT_DEF_SPECIMEN
     if InInitialPopulation then [Specimen] else {} as List<Specimen>
 
-`
+`,
 };

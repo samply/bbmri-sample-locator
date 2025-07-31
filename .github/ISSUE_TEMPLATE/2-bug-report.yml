@@ -2,7 +2,7 @@ name: Bug Report
 description: Report a bug to improve Lens
 title: "[Bug]: "
 body:
-  - type: textarea 
+  - type: textarea
     id: summary
     attributes:
       label: General Summary
@@ -10,7 +10,7 @@ body:
       placeholder: e.g. "The main issue is that..."
     validations:
       required: true
-  - type: textarea 
+  - type: textarea
     id: expected
     attributes:
       label: Expected Behavior
@@ -18,7 +18,7 @@ body:
       placeholder: e.g. "The feature should do a, then b when you click c."
     validations:
       required: true
-  - type: textarea 
+  - type: textarea
     id: current
     attributes:
       label: Current Behavior
@@ -48,11 +48,11 @@ body:
       description: Provide context on the setting and environment
       placeholder: e.g. "This bug happened on a Windows 10 PC running the newest Google Chrome."
     validations:
-      required: false 
+      required: false
   - type: textarea
     id: description
     attributes:
       label: Detailed Description
       description: Please provide a more detailed description
     validations:
-      required: false 
+      required: false
