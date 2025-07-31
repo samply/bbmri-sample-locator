@@ -2,7 +2,7 @@ name: Feature request
 description: Suggest an idea for this project
 title: "[Feature]: "
 body:
-  - type: textarea 
+  - type: textarea
     id: summary
     attributes:
       label: General Summary
@@ -11,7 +11,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: change 
+    id: change
     attributes:
       label: Suggested Change
       description: Provide details on the suggested change
@@ -28,7 +28,7 @@ body:
         - "No"
     validations:
       required: true
-  - type: textarea 
+  - type: textarea
     id: current_behavior
     attributes:
       label: Current Behavior
@@ -48,4 +48,4 @@ body:
       label: Detailed Description
       description: Please provide a more detailed description
     validations:
-      required: false 
+      required: false

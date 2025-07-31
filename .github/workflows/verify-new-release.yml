@@ -16,7 +16,7 @@ jobs:
       - run: git checkout --track origin/develop
       - name: "Ensure Package Version changed"
         run: |
-            if [ "$(git diff main develop -- package.json | grep version | wc -l)" -eq 0 ]; then \
-              echo "::error:: Please run `npm run version` before merging to main!"; \
-              exit 1; \
-            fi
+          if [ "$(git diff main develop -- package.json | grep version | wc -l)" -eq 0 ]; then \
+            echo "::error:: Please run `npm run version` before merging to main!"; \
+            exit 1; \
+          fi
