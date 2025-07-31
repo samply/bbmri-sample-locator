@@ -1,0 +1,108 @@
+{
+  "spotUrl": "https://locator-dev.bbmri-eric.eu/backend",
+  "facetCount": {
+    "hoverText": {
+      "gender": "Matching patients for this criterion only",
+      "diagnosis": "Total number of this diagnosis across all patients",
+      "sample_kind": "Matching samples for this criterion only"
+    }
+  },
+  "siteMappings": {
+    "lodz-test": "Łódź-test",
+    "uppsala-test": "Uppsala-Test",
+    "eric-test": "ERIC-Test",
+    "DNB-Test": "DNB-Test"
+  },
+  "chartOptions": {
+    "gender": {
+      "legendMapping": {
+        "male": "Male",
+        "female": "Female",
+        "unknown": "Unknown",
+        "other": "Divers / intersex"
+      }
+    },
+    "sample_kind": {
+      "tooltips": {
+        "tissue-ffpe": "Tissue (FFPE)",
+        "tissue-frozen": "Tissue snap frozen",
+        "tissue-other": "Other tissue storage",
+        "whole-blood": "Whole blood",
+        "blood-serum": "Serum",
+        "blood-plasma": "Plasma",
+        "buffy-coat": "Buffy coat",
+        "peripheral-blood-cells-vitals": "Peripheral blood cells",
+        "dried-whole-blood": "Dried whole blood",
+        "swab": "Swab",
+        "ascites": "Ascites",
+        "stool-faeces": "Faeces",
+        "urine": "Urine",
+        "csf-liquor": "Liquor/CSF",
+        "bone-marrow": "Bone marrow",
+        "saliva": "Saliva",
+        "liquid-other": "Other liquid biosample",
+        "dna": "DNA",
+        "rna": "RNA",
+        "derivative-other": "Other derivative"
+      }
+    }
+  },
+  "tableOptions": {
+    "headerData": [
+      {
+        "title": "Sites",
+        "dataKey": "site"
+      },
+      {
+        "title": "Patients",
+        "dataKey": "patient"
+      },
+      {
+        "title": "Specimens",
+        "dataKey": "specimen"
+      }
+    ]
+  },
+  "resultSummaryOptions": {
+    "title": "Results",
+    "infoButtonText": "To make re-identification more difficult, results of each site are modified slightly and rounded. If a location reports no match, zero is displayed for that location.",
+    "dataTypes": [
+      {
+        "title": "Sites",
+        "dataKey": "collections"
+      },
+      {
+        "title": "Patients",
+        "dataKey": "patient"
+      },
+      {
+        "title": "Specimens",
+        "dataKey": "specimen"
+      }
+    ]
+  },
+  "negotiateOptions": {
+    "url": "https://negotiator.acc.bbmri-eric.eu/api/v3/requests",
+    "authorizationHeader": "Basic YmJtcmktZGlyZWN0b3J5Omw5RFJLVUROcTBTbDAySXhaUGQ2",
+    "siteMappings": [
+      {
+        "site": "Łódź-test",
+        "collection": "bbmri-eric:ID:PL_BLUL:collection:POPULOUS_BLUL",
+        "site_id": "bbmri-eric:ID:PL_BLUL",
+        "collection_name": "Lodz UniverSity Biobank Collection"
+      },
+      {
+        "site": "ERIC-Test",
+        "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
+        "site_id": "bbmri-eric:ID:DE_IBM",
+        "collection_name": "Biostroke Collection"
+      },
+      {
+        "site": "Uppsala-Test",
+        "collection": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
+        "site_id": "bbmri-eric:ID:SE_827",
+        "collection_name": "U-CAN"
+      }
+    ]
+  }
+}
