@@ -113,6 +113,7 @@
       >Tutorial</a
     >
     <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
+    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
     <a href={logoutUrl}>Logout</a>
   </menu>
 </header>
