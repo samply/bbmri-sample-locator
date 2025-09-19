@@ -108,7 +108,12 @@
   />
   <menu class="menu">
     <a href="https://www.bbmri-eric.eu/about/">About Us</a>
+    <a
+      href="https://bbmrieric.sharepoint.com/sites/BBMRI-ERICPublicDocuments/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FBBMRI%2DERICPublicDocuments%2FShared%20Documents%2FTutorials%20and%20FAQ%2FLocator%20tutorial%2Dscreen%20shots%2Epdf&parent=%2Fsites%2FBBMRI%2DERICPublicDocuments%2FShared%20Documents%2FTutorials%20and%20FAQ&p=true&ga=1"
+      >Tutorial</a
+    >
     <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
+    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
     <a href={logoutUrl}>Logout</a>
   </menu>
 </header>
@@ -161,7 +166,7 @@
       <lens-result-summary></lens-result-summary>
     </div>
     <div class="chart-wrapper result-table">
-      <lens-result-table pageSize="10" pageSizeSwitcher={true}>
+      <lens-result-table pageSize={50} pageSizeSwitcher={true}>
         <div slot="beneath-pagination">
           <lens-negotiate-button class="negotiate" type="Negotiator"
           ></lens-negotiate-button>

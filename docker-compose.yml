@@ -75,6 +75,7 @@ services:
       PRISM_URL: http://prism:8066
       RUST_LOG: "info"
       LOG_FILE: /logs/requests.log
+      ALLOWED_LANG: "ast"
     volumes:
       - ./logs:/logs
     depends_on:
