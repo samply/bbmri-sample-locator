@@ -16,7 +16,7 @@
     "prelint": "npm run format",
     "test:integration": "playwright test",
     "test:unit": "vitest",
-    "prepare": "husky install",
+    "prepare": "svelte-kit sync && husky install",
     "security:check": "npm audit",
     "version": "npm version -m \"build: release version %s\""
   },
