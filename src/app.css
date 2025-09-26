@@ -267,10 +267,6 @@ lens-result-summary::part(result-summary-content) {
   gap: var(--gap-l);
 }
 
-.negotiate {
-  margin: 0 50px;
-}
-
 @media screen and (min-width: 768px) {
   .chart-diagnosis {
     grid-column: 1/-1;
