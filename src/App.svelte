@@ -14,6 +14,7 @@
     clearSiteResults,
     getAst,
     querySpot,
+    hideFailedSite,
   } from "@samply/lens";
   import { env } from "$env/dynamic/public";
   import { onMount } from "svelte";
@@ -50,10 +51,14 @@
     abortController = new AbortController();
     clearSiteResults();
 
-    const query = btoa(
+    /** Helper function to base64 encode a UTF-8 string */
+    const base64Encode = (utf8String: string) =>
+      btoa(String.fromCharCode(...new TextEncoder().encode(utf8String)));
+
+    const query = base64Encode(
       JSON.stringify({
         lang: "ast",
-        payload: btoa(JSON.stringify({ ast, id: uuidv4() })),
+        payload: base64Encode(JSON.stringify({ ast, id: uuidv4() })),
       }),
     );
     querySpot(query, abortController.signal, (result: SpotResult) => {
@@ -64,6 +69,7 @@
         const siteResult = JSON.parse(atob(result.body));
         setSiteResult(site, siteResult);
       } else {
+        hideFailedSite(site);
         console.error(
           `Site ${site} failed with status ${result.status}:`,
           result.body,
@@ -166,15 +172,10 @@
       <lens-result-summary></lens-result-summary>
     </div>
     <div class="chart-wrapper result-table">
-      <lens-result-table pageSize={50} pageSizeSwitcher={true}>
-        <div slot="beneath-pagination">
-          <lens-negotiate-button class="negotiate" type="Negotiator"
-          ></lens-negotiate-button>
-          <lens-search-modified-display>
-            <div>Search has been modified!</div>
-          </lens-search-modified-display>
-        </div>
-      </lens-result-table>
+      <lens-result-table></lens-result-table>
+      <lens-search-modified-display></lens-search-modified-display>
+      <lens-negotiate-button class="negotiate" type="Negotiator"
+      ></lens-negotiate-button>
     </div>
 
     <div class="chart-wrapper">
@@ -225,7 +226,7 @@
   </div>
 </main>
 
-<error-toasts></error-toasts>
+<lens-toast></lens-toast>
 
 <footer class="footer">
   <div>
