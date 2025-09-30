@@ -44,7 +44,7 @@ services:
       - default
 
   lens:
-    image: samply/bbmri-sample-locator:main
+    image: samply/bbmri-sample-locator:latest
     environment:
       PUBLIC_ENVIRONMENT: ${PUBLIC_ENVIRONMENT}
     labels:
