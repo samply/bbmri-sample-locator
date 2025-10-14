@@ -56497,11 +56497,43 @@
         "criteria": [
           {
             "key": "blood-serum",
-            "name": "Serum"
+            "name": "Serum",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "blood-serum"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "serum"
+                }
+              ]
+            ]
           },
           {
             "key": "tissue-frozen",
-            "name": "Tissue snap frozen"
+            "name": "Tissue snap frozen",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "tissue-frozen"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "tumor-tissue-frozen"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "normal-tissue-frozen"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "other-tissue-frozen"
+                }
+              ]
+            ]
           },
           {
             "key": "whole-blood",
@@ -56509,15 +56541,75 @@
           },
           {
             "key": "blood-plasma",
-            "name": "Plasma"
+            "name": "Plasma",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "blood-plasma"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma-edta"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma-citrat"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma-heparin"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma-cell-free"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma-other"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "plasma"
+                }
+              ]
+            ]
           },
           {
             "key": "derivative-other",
-            "name": "Other derivative"
+            "name": "Other derivative",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "derivative-other"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "derivative"
+                }
+              ]
+            ]
           },
           {
             "key": "tissue-other",
-            "name": "Other tissue storage"
+            "name": "Other tissue storage",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "tissue-other"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "tissue-paxgene-or-else"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "tissue"
+                }
+              ]
+            ]
           },
           {
             "key": "peripheral-blood-cells-vital",
@@ -56533,7 +56625,19 @@
           },
           {
             "key": "liquid-other",
-            "name": "Other liquid biosample"
+            "name": "Other liquid biosample",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "liquid-other"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "liquid"
+                }
+              ]
+            ]
           },
           {
             "key": "buffy-coat",
@@ -56541,7 +56645,23 @@
           },
           {
             "key": "dna",
-            "name": "DNA"
+            "name": "DNA",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "dna"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "cf-dna"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "g-dna"
+                }
+              ]
+            ]
           },
           {
             "key": "csf-liquor",
@@ -56557,7 +56677,31 @@
           },
           {
             "key": "tissue-ffpe",
-            "name": "Tissue (FFPE)"
+            "name": "Tissue (FFPE)",
+            "aggregatedValue": [
+              [
+                {
+                  "value": "sample_kind",
+                  "name": "tissue-ffpe"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "tumor-tissue-ffpe"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "normal-tissue-ffpe"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "other-tissue-ffpe"
+                },
+                {
+                  "value": "sample_kind",
+                  "name": "tissue-formalin"
+                }
+              ]
+            ]
           },
           {
             "key": "saliva",
