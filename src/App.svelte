@@ -174,7 +174,10 @@
     <div class="chart-wrapper result-table">
       <lens-result-table></lens-result-table>
       <lens-search-modified-display></lens-search-modified-display>
-      <lens-negotiate-button class="negotiate" type="Negotiator"
+      <lens-negotiate-button
+        class="negotiate"
+        type="Negotiator"
+        title="Negotiate with biobanks"
       ></lens-negotiate-button>
     </div>
 
