@@ -58,7 +58,7 @@ services:
       - default
 
   spot:
-    image: samply/rustyspot:main
+    image: samply/rustyspot:latest
     ports:
       - "8055:8055"
     environment:
