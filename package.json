@@ -21,8 +21,6 @@
     "version": "npm version -m \"build: release version %s\""
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/compat": "^1.4.0",
     "@playwright/test": "^1.55.1",
     "@sveltejs/adapter-auto": "^6.1.1",
