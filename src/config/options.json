@@ -11,6 +11,7 @@
     "dresden": "Dresden",
     "essen": "Essen",
     "frankfurt": "Frankfurt",
+    "freiburg": "Freiburg",
     "goettingen": "Göttingen",
     "hannover": "Hannover",
     "heidelberg": "Heidelberg",
@@ -164,6 +165,12 @@
         "site_id": "bbmri-eric:ID:DE_iBDF",
         "collection": "bbmri-eric:ID:DE_iBDF:collection:UCT",
         "collection_name": "UCT Biobank Frankfurt"
+      },
+      {
+        "site": "Freiburg",
+        "site_id": "bbmri-eric:ID:DE_FREEZE-Biobank",
+        "collection": "bbmri-eric:ID:DE_FREEZE-Biobank:collection:FREEZE-Liquid",
+        "collection_name": "FREEZE-Liquid"
       },
       {
         "site": "Hannover",
