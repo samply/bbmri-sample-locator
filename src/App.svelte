@@ -23,6 +23,7 @@
   import optionsTest from "./config/options-test.json";
   import optionsAcceptance from "./config/options-acceptance.json";
   import catalogue from "./config/catalogue-bbmri.json";
+  import { base, resolve } from "$app/paths";
 
   const barChartBackgroundColors: string[] = [
     "#052c65",
@@ -114,10 +115,7 @@
   />
   <menu class="menu">
     <a href="https://www.bbmri-eric.eu/about/">About Us</a>
-    <a
-      href="https://bbmrieric.sharepoint.com/sites/BBMRI-ERICPublicDocuments/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FBBMRI%2DERICPublicDocuments%2FShared%20Documents%2FTutorials%20and%20FAQ%2FLocator%20tutorial%2Dscreen%20shots%2Epdf&parent=%2Fsites%2FBBMRI%2DERICPublicDocuments%2FShared%20Documents%2FTutorials%20and%20FAQ&p=true&ga=1"
-      >Tutorial</a
-    >
+    <a href={resolve(`/how-to`)}>Tutorial</a>
     <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
     <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
     <a href={logoutUrl}>Logout</a>
