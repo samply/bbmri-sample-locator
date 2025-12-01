@@ -7,7 +7,6 @@
       {
         "key": "gender",
         "name": "Gender",
-        "system": "",
         "fieldType": "single-select",
         "type": "EQUALS",
         "infoButtonText": [
@@ -35,7 +34,6 @@
       {
         "key": "diagnosis",
         "name": "Diagnosis ICD-10",
-        "system": "http://fhir.de/CodeSystem/dimdi/icd-10-gm",
         "fieldType": "autocomplete",
         "type": "EQUALS",
         "infoButtonText": [
@@ -56451,7 +56449,6 @@
       {
         "key": "diagnosis_age_donor",
         "name": "Diagnosis age donor (years)",
-        "system": "",
         "fieldType": "number",
         "type": "BETWEEN",
         "infoButtonText": [
@@ -56461,7 +56458,6 @@
       {
         "key": "date_of_diagnosis",
         "name": "Date of diagnosis",
-        "system": "",
         "fieldType": "date",
         "type": "BETWEEN",
         "infoButtonText": [
@@ -56478,7 +56474,6 @@
       {
         "key": "donor_age",
         "name": "Donor Age",
-        "system": "",
         "fieldType": "number",
         "type": "BETWEEN",
         "infoButtonText": [
@@ -56488,7 +56483,6 @@
       {
         "key": "sample_kind",
         "name": "Sample type",
-        "system": "",
         "fieldType": "single-select",
         "type": "EQUALS",
         "infoButtonText": [
@@ -56580,7 +56574,6 @@
       {
         "key": "sampling_date",
         "name": "Sampling date",
-        "system": "",
         "fieldType": "date",
         "type": "BETWEEN",
         "infoButtonText": [
@@ -56590,7 +56583,6 @@
       {
         "key": "storage_temperature",
         "name": "Storage temperature",
-        "system": "",
         "fieldType": "single-select",
         "type": "EQUALS",
         "infoButtonText": [
