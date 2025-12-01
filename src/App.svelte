@@ -1,11 +1,6 @@
 <script lang="ts">
   import "./app.css";
-  import type {
-    LensOptions,
-    Catalogue,
-    SpotResult,
-    AstTopLayer,
-  } from "@samply/lens";
+  import type { LensOptions, Catalogue, SpotResult } from "@samply/lens";
   import {
     setOptions,
     setCatalogue,
@@ -14,7 +9,7 @@
     clearSiteResults,
     getAst,
     querySpot,
-    hideFailedSite,
+    removeFailedSite,
   } from "@samply/lens";
   import { env } from "$env/dynamic/public";
   import { onMount } from "svelte";
@@ -46,7 +41,7 @@
   };
 
   let abortController = new AbortController();
-  function sendQuery(ast: AstTopLayer) {
+  function sendQuery() {
     abortController.abort();
     abortController = new AbortController();
     clearSiteResults();
@@ -58,7 +53,7 @@
     const query = base64Encode(
       JSON.stringify({
         lang: "ast",
-        payload: base64Encode(JSON.stringify({ ast, id: uuidv4() })),
+        payload: base64Encode(JSON.stringify({ ast: getAst(), id: uuidv4() })),
       }),
     );
     querySpot(query, abortController.signal, (result: SpotResult) => {
@@ -69,7 +64,7 @@
         const siteResult = JSON.parse(atob(result.body));
         setSiteResult(site, siteResult);
       } else {
-        hideFailedSite(site);
+        removeFailedSite(site);
         console.error(
           `Site ${site} failed with status ${result.status}:`,
           result.body,
@@ -79,10 +74,10 @@
   }
 
   window.addEventListener("lens-search-triggered", () => {
-    sendQuery(getAst());
+    sendQuery();
   });
 
-  onMount(() => {
+  onMount(async () => {
     // Set the options based on the environment
     let options: LensOptions = optionsProd;
     if (env.PUBLIC_ENVIRONMENT === "test") {
@@ -98,11 +93,9 @@
     // Set the catalogue
     setCatalogue(catalogue as Catalogue);
 
-    // Run empty query on initial load
-    sendQuery({
-      operand: "OR",
-      children: [],
-    });
+    // Wait for the search bar component to load the query from the URL, then send the query
+    await customElements.whenDefined("lens-search-bar-multiple");
+    sendQuery();
   });
 </script>
 
@@ -156,7 +149,7 @@
         message={[
           `The queries are patient-centered: The patients are selected first and then the samples of these patients`,
         ]}
-        buttonSize="18px"
+        buttonSize={18}
       ></lens-info-button>
     </div>
   </div>
@@ -169,10 +162,10 @@
 
   <div class="charts">
     <div class="chart-wrapper result-summary">
-      <lens-result-summary></lens-result-summary>
+      <lens-result-summary indicateApproximation={true}></lens-result-summary>
     </div>
     <div class="chart-wrapper result-table">
-      <lens-result-table></lens-result-table>
+      <lens-result-table indicateApproximation={true}></lens-result-table>
       <lens-search-modified-display></lens-search-modified-display>
       <lens-negotiate-button
         class="negotiate"
@@ -189,6 +182,7 @@
         displayLegends={true}
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
+        enableSorting={false}
       ></lens-chart>
     </div>
 
@@ -201,6 +195,7 @@
         filterRegex="^(1*[12]*[0-9])"
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
+        enableSorting={false}
       ></lens-chart>
     </div>
 
@@ -211,6 +206,7 @@
         chartType="bar"
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
+        enableSorting={false}
       >
       </lens-chart>
     </div>
@@ -224,6 +220,7 @@
         groupingLabel=".%"
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
+        enableSorting={false}
       ></lens-chart>
     </div>
   </div>
@@ -243,9 +240,7 @@
   </div>
   <div>
     <a href="https://www.bbmri-eric.eu/privacy-notice/">Privacy Policy</a>
-    <div>
-      Made with ♥ and <a href="https://github.com/samply/lens">samply/lens</a>.
-    </div>
+    <lens-about></lens-about>
   </div>
 </footer>
 
