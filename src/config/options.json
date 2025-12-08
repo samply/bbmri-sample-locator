@@ -86,7 +86,7 @@
   },
   "resultSummaryOptions": {
     "title": "Results",
-    "infoButtonText": "To make re-identification more difficult, results of each site are modified slightly and rounded. If a location reports no match, zero is displayed for that location.",
+    "infoButtonText": "To make re-identification more difficult, results of each site are modified slightly and rounded. If a location reports no match, zero is displayed for that location. Values between 1 and 9 are rounded to 10.",
     "dataTypes": [
       {
         "title": "Sites",
