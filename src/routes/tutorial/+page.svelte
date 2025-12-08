@@ -19,6 +19,20 @@
 </div>
 
 <main>
+  <section id="video-tutorial">
+    <div class="video-wrapper">
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/sXcxRYXAZQQ"
+        title="BBMRI-ERIC Locator Tutorial Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
   <article class="tutorial-content">
     <section id="accessing-the-locator">
       <h2>1. Accessing the Locator</h2>
@@ -442,5 +456,30 @@
 
   #authors p {
     line-height: 1.8;
+  }
+
+  #video-tutorial {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: var(--gap-l) 0;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 </style>
