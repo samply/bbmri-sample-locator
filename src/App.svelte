@@ -144,7 +144,7 @@
 
   <div class="charts">
     <div class="chart-wrapper result-summary">
-      <lens-result-summary indicateApproximation={true}></lens-result-summary>
+      <lens-result-summary></lens-result-summary>
     </div>
     <div class="chart-wrapper result-table">
       <lens-result-table indicateApproximation={true}></lens-result-table>
