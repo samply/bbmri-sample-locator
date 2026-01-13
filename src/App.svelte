@@ -92,9 +92,9 @@
     // Set the catalogue
     setCatalogue(catalogue as Catalogue);
 
-    // Wait for the search bar component to load the query from the URL, then send the query
-    await customElements.whenDefined("lens-search-bar-multiple");
-    sendQuery();
+    // Wait for the search bar to initialize (load query from URL) before sending the initial query.
+    // Using setTimeout to ensure the custom element's onMount has completed.
+    setTimeout(() => sendQuery(), 0);
   });
 </script>
 
