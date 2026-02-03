@@ -1,8 +1,9 @@
 <script lang="ts">
   import "../app.css";
   import { resolve } from "$app/paths";
+  import { page } from "$app/state";
 
-  let logoutUrl = `/oauth2/sign_out?rd=${window.location.protocol}%2F%2F${window.location.hostname}%2Flogout`;
+  const logoutUrl = `/oauth2/sign_out?rd=${page.url.protocol}%2F%2F${page.url.hostname}%2Flogout`;
 </script>
 
 <header>
@@ -17,8 +18,7 @@
     <a href="https://www.bbmri-eric.eu/about/">About Us</a>
     <a href={resolve("/tutorial")}>Tutorial</a>
     <a href="mailto:locator@helpdesk.bbmri-eric.eu">Contact</a>
-    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-    <a href={logoutUrl}>Logout</a>
+    <a href={logoutUrl} rel="external">Logout</a>
   </menu>
 </header>
 
