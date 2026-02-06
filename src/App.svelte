@@ -87,6 +87,23 @@
     if (env.PUBLIC_SPOT_URL) {
       options.spotUrl = env.PUBLIC_SPOT_URL;
     }
+
+    // Check if prism URL parameter is set
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("prism")) {
+      // Add facetCount option from options-test.json
+      options = {
+        ...options,
+        facetCount: {
+          hoverText: {
+            gender: "Matching patients for this criterion only",
+            diagnosis: "Total number of this diagnosis across all patients",
+            sample_kind: "Matching samples for this criterion only"
+          }
+        }
+      };
+    }
+
     setOptions(options);
 
     // Set the catalogue
