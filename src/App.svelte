@@ -98,9 +98,9 @@
           hoverText: {
             gender: "Matching patients for this criterion only",
             diagnosis: "Total number of this diagnosis across all patients",
-            sample_kind: "Matching samples for this criterion only"
-          }
-        }
+            sample_kind: "Matching samples for this criterion only",
+          },
+        },
       };
     }
 
