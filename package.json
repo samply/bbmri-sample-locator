@@ -1,6 +1,6 @@
 {
   "name": "bbmri-sample-locator",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -47,7 +47,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@samply/lens": "^0.6.4",
+    "@samply/lens": "^0.6.6",
     "uuid": "^13.0.0"
   }
 }

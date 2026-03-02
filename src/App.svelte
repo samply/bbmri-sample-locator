@@ -164,7 +164,15 @@
       <lens-result-summary></lens-result-summary>
     </div>
     <div class="chart-wrapper result-table">
-      <lens-result-table indicateApproximation={true}></lens-result-table>
+      <lens-result-table
+        showRoundedTo={env.PUBLIC_ENVIRONMENT !== "test" &&
+        env.PUBLIC_ENVIRONMENT !== "acceptance"
+          ? (value: number) =>
+              value == 0
+                ? "Exact value"
+                : `Rounded to the nearest multiple of ${Math.pow(10, Math.ceil(String(value).length / 2))}`
+          : undefined}
+      ></lens-result-table>
       <lens-search-modified-display></lens-search-modified-display>
       <lens-negotiate-button
         class="negotiate"
