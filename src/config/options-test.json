@@ -7,6 +7,7 @@
       "sample_kind": "Matching samples for this criterion only"
     }
   },
+  "collectionBaseUrl": "https://directory.bbmri-eric.eu/ERIC/directory/#/collection/",
   "siteMappings": {
     "lodz-test": "Łódź-test",
     "uppsala-test": "Uppsala-Test",
@@ -83,26 +84,6 @@
   },
   "negotiateOptions": {
     "url": "https://negotiator.acc.bbmri-eric.eu/api/v3/requests",
-    "authorizationHeader": "Basic YmJtcmktZGlyZWN0b3J5Omw5RFJLVUROcTBTbDAySXhaUGQ2",
-    "siteMappings": [
-      {
-        "site": "Łódź-test",
-        "collection": "bbmri-eric:ID:PL_BLUL:collection:POPULOUS_BLUL",
-        "site_id": "bbmri-eric:ID:PL_BLUL",
-        "collection_name": "Lodz UniverSity Biobank Collection"
-      },
-      {
-        "site": "ERIC-Test",
-        "collection": "bbmri-eric:ID:DE_IBM:collection:Biostroke",
-        "site_id": "bbmri-eric:ID:DE_IBM",
-        "collection_name": "Biostroke Collection"
-      },
-      {
-        "site": "Uppsala-Test",
-        "collection": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala",
-        "site_id": "bbmri-eric:ID:SE_827",
-        "collection_name": "U-CAN"
-      }
-    ]
+    "authorizationHeader": "Basic YmJtcmktZGlyZWN0b3J5Omw5RFJLVUROcTBTbDAySXhaUGQ2"
   }
 }
