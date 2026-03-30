@@ -10,6 +10,10 @@
       "displayName": "Augsburg",
       "collectionId": "bbmri-eric:ID:DE_ACBB:collection:LIQUID"
     },
+    "aviano-cro": {
+      "displayName": "Aviano-CRO",
+      "collectionId": "bbmri-eric:ID:IT_138555353610847:collection:Principia"
+    },
     "berlin": {
       "displayName": "Berlin",
       "collectionId": "bbmri-eric:ID:DE_ZeBanC:collection:COVID19"
