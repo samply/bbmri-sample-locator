@@ -170,7 +170,7 @@
           ? (value: number) =>
               value == 0
                 ? "Exact value"
-                : `Rounded to the nearest multiple of ${Math.pow(10, Math.floor(String(value).length / 2))}`
+                : `Rounded to the nearest multiple of ${Math.pow(10, Math.ceil(Math.log10(value) / 2))}`
           : undefined}
       ></lens-result-table>
       <lens-search-modified-display></lens-search-modified-display>
