@@ -31,7 +31,7 @@
       alt="German Cancer Research Center"
       height="40"
     />
-    <img src="/search/GBN_logo.svg" alt="German Biobank Node" height="45" />
+    <img src="/search/GBN-LOGO-POS-EN-RGB_Schutzzone.png" alt="German Biobank Network" height="75" />
     <img src="/search/logo_ce-en-rvb-lr.jpg" alt="EU" height="50" />
   </div>
   <div>
