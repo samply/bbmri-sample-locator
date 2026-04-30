@@ -52,7 +52,7 @@
     },
     "goettingen": {
       "displayName": "Göttingen",
-      "collectionId": "bbmri-eric:ID:DE_UMGB:collection:UMG-startegy"
+      "collectionId": "bbmri-eric:ID:DE_UMGB:collection:UMG-Sammlung"
     },
     "hannover": {
       "displayName": "Hannover",
@@ -92,7 +92,7 @@
     },
     "naples-pascale": {
       "displayName": "Naples-Pascale",
-      "collectionId": "bbmri-eric:ID:IT_1384167838447460:collection:1b5e16d30bc64e2"
+      "collectionId": "bbmri-eric:ID:IT_1384167838447460:collection:1ac06c58356648219c9af819166353c4"
     },
     "olomouc": {
       "displayName": "Olomouc",
@@ -100,7 +100,7 @@
     },
     "pilsen": {
       "displayName": "Pilsen",
-      "collectionId": "bbmri-eric:ID:CZ_CUNI_PILS:collection:serum_plasma"
+      "collectionId": "bbmri-eric:ID:CZ_CUNI_PILS:collection:main_collection"
     },
     "prague-ffm": {
       "displayName": "Prague-FFM",
