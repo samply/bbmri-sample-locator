@@ -70,6 +70,10 @@
       "displayName": "Leipzig",
       "collectionId": "bbmri-eric:ID:DE_LMB:collection:LIFE_ADULT"
     },
+    "lodz": {
+      "displayName": "Łódź",
+      "collectionId": "bbmri-eric:ID:PL_BLUL:collection:POPULOUS_BLUL"
+    },
     "luebeck": {
       "displayName": "Lübeck",
       "collectionId": "bbmri-eric:ID:DE_ICBL:collection:ICBL"
