@@ -38,6 +38,10 @@
       "displayName": "Dresden",
       "collectionId": "bbmri-eric:ID:DE_BBD:collection:DILB"
     },
+    "el-palmar-imib": {
+      "displayName": "El-Palmar-IMIB",
+      "collectionId": "bbmri-eric:ID:ES_IMIB:collection:BMS_045-20"
+    },
     "essen": {
       "displayName": "Essen",
       "collectionId": "bbmri-eric:ID:DE_BMBN:collection:Main_collection"
