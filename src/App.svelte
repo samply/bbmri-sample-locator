@@ -74,6 +74,7 @@
 
   window.addEventListener("lens-search-triggered", () => {
     sendQuery();
+    scrollToResults();
   });
 
   onMount(async () => {
@@ -113,6 +114,12 @@
     // Using setTimeout to ensure the custom element's onMount has completed.
     setTimeout(() => sendQuery(), 0);
   });
+
+  let results: HTMLElement;
+
+  function scrollToResults() {
+    results.scrollIntoView({ behavior: "smooth" });
+  }
 </script>
 
 <div class="banner">
@@ -159,7 +166,7 @@
     ></lens-catalogue>
   </div>
 
-  <div class="charts">
+  <div class="charts" bind:this={results}>
     <div class="chart-wrapper result-summary">
       <lens-result-summary></lens-result-summary>
     </div>
