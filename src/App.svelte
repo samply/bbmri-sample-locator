@@ -11,9 +11,14 @@
     querySpot,
     removeFailedSite,
   } from "@samply/lens";
+  import { base } from "$app/paths";
   import { env } from "$env/dynamic/public";
   import { onMount } from "svelte";
   import { v4 as uuidv4 } from "uuid";
+  import {
+    cloneLensOptions,
+    loadOptionsWithDirectoryBiobankNames,
+  } from "$lib/directoryBiobankNames";
   import optionsProd from "./config/options.json";
   import optionsTest from "./config/options-test.json";
   import optionsAcceptance from "./config/options-acceptance.json";
@@ -77,16 +82,79 @@
     scrollToResults();
   });
 
-  onMount(async () => {
+  const setupResultTableNameTooltips = () => {
+    let animationFrameId: number | undefined;
+    let tableObserver: MutationObserver | undefined;
+
+    const updateTooltips = (resultTable: HTMLElement) => {
+      const rows = resultTable.shadowRoot?.querySelectorAll<HTMLElement>(
+        '[part~="lens-result-table-item-body-row"]',
+      );
+
+      rows?.forEach((row) => {
+        const cells = row.querySelectorAll<HTMLElement>(
+          '[part~="lens-result-table-item-body-cell"]',
+        );
+        const siteCell = cells[1];
+        const siteName = siteCell?.textContent?.replace(/\s+/g, " ").trim();
+
+        if (!siteCell || !siteName) {
+          return;
+        }
+
+        siteCell.title = siteName;
+        siteCell
+          .querySelector<HTMLElement>(
+            '[part~="lens-result-table-item-body-cell-link"]',
+          )
+          ?.setAttribute("title", siteName);
+      });
+    };
+
+    const observeResultTable = () => {
+      const resultTable =
+        document.querySelector<HTMLElement>("lens-result-table");
+
+      if (!resultTable?.shadowRoot) {
+        animationFrameId = window.requestAnimationFrame(observeResultTable);
+        return;
+      }
+
+      updateTooltips(resultTable);
+      tableObserver = new MutationObserver(() => updateTooltips(resultTable));
+      tableObserver.observe(resultTable.shadowRoot, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    };
+
+    observeResultTable();
+
+    return () => {
+      tableObserver?.disconnect();
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
+  };
+
+  const initializeLens = async () => {
     // Set the options based on the environment
-    let options: LensOptions = optionsProd;
+    let optionsSource: LensOptions = optionsProd;
     if (env.PUBLIC_ENVIRONMENT === "test") {
-      options = optionsTest;
+      optionsSource = optionsTest;
     } else if (env.PUBLIC_ENVIRONMENT === "acceptance") {
-      options = optionsAcceptance;
+      optionsSource = optionsAcceptance;
     }
+
+    let options = cloneLensOptions(optionsSource);
+
     if (env.PUBLIC_SPOT_URL) {
-      options.spotUrl = env.PUBLIC_SPOT_URL;
+      options = {
+        ...options,
+        spotUrl: env.PUBLIC_SPOT_URL,
+      };
     }
 
     // Check if prism URL parameter is set
@@ -105,6 +173,11 @@
       };
     }
 
+    options = await loadOptionsWithDirectoryBiobankNames(
+      options,
+      `${base}/api/directory-biobank-names`,
+    );
+
     setOptions(options);
 
     // Set the catalogue
@@ -113,6 +186,13 @@
     // Wait for the search bar to initialize (load query from URL) before sending the initial query.
     // Using setTimeout to ensure the custom element's onMount has completed.
     setTimeout(() => sendQuery(), 0);
+  };
+
+  onMount(() => {
+    const cleanupResultTableNameTooltips = setupResultTableNameTooltips();
+    void initializeLens();
+
+    return cleanupResultTableNameTooltips;
   });
 
   let results: HTMLElement;

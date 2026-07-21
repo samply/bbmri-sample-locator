@@ -263,6 +263,31 @@ lens-result-summary {
   display: block;
 }
 
+lens-result-table::part(lens-result-table) {
+  table-layout: fixed;
+}
+
+lens-result-table::part(lens-result-table-item-body-cell) {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+lens-result-table::part(lens-result-table-item-body-cell-checkbox) {
+  max-width: none;
+  overflow: visible;
+}
+
+lens-result-table::part(lens-result-table-item-body-cell-link) {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
 lens-result-summary::part(result-summary-content) {
   gap: var(--gap-l);
 }
