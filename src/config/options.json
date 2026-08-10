@@ -130,6 +130,10 @@
       "displayName": "Regensburg",
       "collectionId": "bbmri-eric:ID:DE_ZBR:collection:Tissue"
     },
+    "riga": {
+      "displayName": "Riga",
+      "collectionId": "bbmri-eric:ID:LV_LGDB:collection:all_samples"
+    },
     "rome": {
       "displayName": "Rome-BBIRE",
       "collectionId": "bbmri-eric:ID:IT_1504858990324590:collection:1606752281669494"
