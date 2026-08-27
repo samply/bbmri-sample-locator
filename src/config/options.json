@@ -146,6 +146,10 @@
       "displayName": "Uppsala",
       "collectionId": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala"
     },
+    "vienna": {
+      "displayName": "Vienna",
+      "collectionId": "bbmri-eric:ID:AT_MUW:collection:BB9484"
+    },
     "wuerzburg": {
       "displayName": "Würzburg",
       "collectionId": "bbmri-eric:ID:DE_ibdw:collection:bc"
