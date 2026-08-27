@@ -53584,6 +53584,21 @@
                     "description": "Emergency use of U07"
                   },
                   {
+                    "key": "U07.0",
+                    "name": "U07.0",
+                    "description": "Vaping-related disorder"
+                  },
+                  {
+                    "key": "U07.1",
+                    "name": "U07.1",
+                    "description": "COVID-19, virus identified"
+                  },
+                  {
+                    "key": "U07.2",
+                    "name": "U07.2",
+                    "description": "COVID-19, virus not identified"
+                  },
+                  {
                     "key": "U07.6",
                     "name": "U07.6",
                     "description": "Emergency use of U07.6"
