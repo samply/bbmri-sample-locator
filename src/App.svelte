@@ -107,7 +107,7 @@
           '[part~="lens-result-table-item-body-cell-link"]',
         );
         link?.setAttribute("title", siteName);
-        link?.querySelectorAll("svg.size-4").forEach((svg) => {
+        link?.querySelectorAll<SVGElement>("svg.size-4").forEach((svg) => {
           svg.style.display = "none";
         });
       });
