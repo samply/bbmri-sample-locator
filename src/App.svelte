@@ -103,11 +103,13 @@
         }
 
         siteCell.title = siteName;
-        siteCell
-          .querySelector<HTMLElement>(
-            '[part~="lens-result-table-item-body-cell-link"]',
-          )
-          ?.setAttribute("title", siteName);
+        const link = siteCell.querySelector<HTMLElement>(
+          '[part~="lens-result-table-item-body-cell-link"]',
+        );
+        link?.setAttribute("title", siteName);
+        link?.querySelectorAll<SVGElement>("svg.size-4").forEach((svg) => {
+          svg.style.display = "none";
+        });
       });
     };
 
