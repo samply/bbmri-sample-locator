@@ -284,7 +284,7 @@ lens-result-table::part(lens-result-table-item-body-cell-link) {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: bottom;
+  vertical-align: middle;
   white-space: nowrap;
 }
 

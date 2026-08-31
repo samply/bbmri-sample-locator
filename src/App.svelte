@@ -14,6 +14,7 @@
   import { base } from "$app/paths";
   import { env } from "$env/dynamic/public";
   import { onMount } from "svelte";
+  import { SvelteMap } from "svelte/reactivity";
   import { v4 as uuidv4 } from "uuid";
   import {
     cloneLensOptions,
@@ -45,6 +46,11 @@
   };
 
   let abortController = new AbortController();
+
+  const countryIsoBySiteName = new SvelteMap<string, string>();
+
+  const flagBaseUrl = "https://flagcdn.com/w40/";
+
   function sendQuery() {
     abortController.abort();
     abortController = new AbortController();
@@ -110,6 +116,20 @@
         link?.querySelectorAll<SVGElement>("svg.size-4").forEach((svg) => {
           svg.style.display = "none";
         });
+
+        const countryIso = countryIsoBySiteName.get(siteName);
+        if (countryIso && link && !link.querySelector(".lens-site-flag")) {
+          const flag = document.createElement("img");
+          flag.src = `${flagBaseUrl}${countryIso.toLowerCase()}.png`;
+          flag.alt = "";
+          flag.className = "lens-site-flag";
+          flag.style.display = "inline";
+          flag.style.width = "18px";
+          flag.style.height = "12px";
+          flag.style.verticalAlign = "0px";
+          flag.style.marginRight = "4px";
+          link.insertBefore(flag, link.firstChild);
+        }
       });
     };
 
@@ -175,10 +195,22 @@
       };
     }
 
-    options = await loadOptionsWithDirectoryBiobankNames(
-      options,
-      `${base}/api/directory-biobank-names`,
-    );
+    const { options: directoryOptions, countryIsoBySiteId } =
+      await loadOptionsWithDirectoryBiobankNames(
+        options,
+        `${base}/api/directory-biobank-names`,
+      );
+
+    options = directoryOptions;
+
+    for (const [site, siteInfo] of Object.entries(options.siteMappings ?? {})) {
+      const siteInfoObject =
+        typeof siteInfo === "object" ? siteInfo : { displayName: siteInfo };
+      const countryIso = countryIsoBySiteId.get(site);
+      if (countryIso && siteInfoObject.displayName) {
+        countryIsoBySiteName.set(siteInfoObject.displayName, countryIso);
+      }
+    }
 
     setOptions(options);
 

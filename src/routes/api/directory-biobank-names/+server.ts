@@ -8,6 +8,9 @@ type DirectoryCollection = {
   id?: string;
   biobank?: {
     name?: string;
+    country?: {
+      name?: string;
+    };
   };
 };
 
@@ -24,6 +27,9 @@ const query = `
       id
       biobank {
         name
+        country {
+          name
+        }
       }
     }
   }
@@ -48,18 +54,36 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
     return json({ names: [] });
   }
 
-  const response = await fetch(DIRECTORY_GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query,
-      variables: {
-        ids: collectionIds,
+  let response: Response;
+  try {
+    response = await fetch(DIRECTORY_GRAPHQL_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    }),
-  });
+      body: JSON.stringify({
+        query,
+        variables: {
+          ids: collectionIds,
+        },
+      }),
+    });
+  } catch (error) {
+    console.error(
+      "Failed to reach the BBMRI Directory GraphQL endpoint.",
+      error,
+    );
+    return json(
+      {
+        message: "Failed to reach the BBMRI Directory.",
+        detail:
+          error instanceof Error
+            ? error.message
+            : "Unknown network or TLS error",
+      },
+      { status: 502 },
+    );
+  }
 
   if (!response.ok) {
     return json(
@@ -68,7 +92,23 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
     );
   }
 
-  const payload = (await response.json()) as DirectoryGraphqlResponse;
+  let payload: DirectoryGraphqlResponse;
+  try {
+    payload = (await response.json()) as DirectoryGraphqlResponse;
+  } catch (error) {
+    console.error(
+      "Received an invalid response from the BBMRI Directory GraphQL endpoint.",
+      error,
+    );
+    return json(
+      {
+        message: "The BBMRI Directory returned an invalid response.",
+        detail:
+          error instanceof Error ? error.message : "Response was not JSON",
+      },
+      { status: 502 },
+    );
+  }
 
   if (payload.errors?.length) {
     return json(
@@ -90,6 +130,7 @@ export const POST: RequestHandler = async ({ request, fetch }) => {
               {
                 collectionId: collection.id,
                 biobankName: collection.biobank.name,
+                countryIso: collection.biobank.country?.name,
               },
             ]
           : [],
