@@ -86,6 +86,25 @@
     let animationFrameId: number | undefined;
     let tableObserver: MutationObserver | undefined;
 
+    // Make more space for site names
+    const injectResultTableColumnWidths = (resultTable: HTMLElement) => {
+      // Skip if the column-width style was already injected
+      if (
+        resultTable.shadowRoot?.querySelector("[data-lens-table-column-widths]")
+      ) {
+        return;
+      }
+
+      const style = document.createElement("style");
+      style.setAttribute("data-lens-table-column-widths", "");
+      style.textContent = `
+        [part~="lens-result-table-header-cell"][part~="lens-result-table-header-cell"]:nth-child(2) { width: 50%; }
+        [part~="lens-result-table-header-cell"][part~="lens-result-table-header-cell"]:nth-child(3) { width: 23%; }
+        [part~="lens-result-table-header-cell"][part~="lens-result-table-header-cell"]:nth-child(4) { width: 23%; }
+      `;
+      resultTable.shadowRoot?.prepend(style);
+    };
+
     const updateTooltips = (resultTable: HTMLElement) => {
       const rows = resultTable.shadowRoot?.querySelectorAll<HTMLElement>(
         '[part~="lens-result-table-item-body-row"]',
@@ -122,6 +141,7 @@
         return;
       }
 
+      injectResultTableColumnWidths(resultTable);
       updateTooltips(resultTable);
       tableObserver = new MutationObserver(() => updateTooltips(resultTable));
       tableObserver.observe(resultTable.shadowRoot, {
