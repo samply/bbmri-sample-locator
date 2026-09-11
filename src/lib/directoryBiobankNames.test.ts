@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { LensOptions } from "@samply/lens";
 import {
   getConfiguredCollectionIds,
-  getCountryIsoBySiteId,
+  getCountryIsoByCollectionId,
   mergeDirectoryBiobankNames,
 } from "./directoryBiobankNames";
 
@@ -16,6 +16,8 @@ describe("directory biobank names", () => {
       test: "Configured fallback",
     },
   };
+
+  const aachenCollectionId = "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC";
 
   it("gets configured collection ids from structured site mappings", () => {
     expect(getConfiguredCollectionIds(options)).toEqual([
@@ -44,11 +46,11 @@ describe("directory biobank names", () => {
     });
   });
 
-  it("returns country ISO codes keyed by site id from the Directory", () => {
+  it("returns country ISO codes keyed by collection id from the Directory", () => {
     expect(
-      getCountryIsoBySiteId(options, [
+      getCountryIsoByCollectionId(options, [
         {
-          collectionId: "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC",
+          collectionId: aachenCollectionId,
           biobankName:
             "Zentralisierte Biomaterialbank der RWTH Aachen University",
           countryIso: "DE",
@@ -59,25 +61,49 @@ describe("directory biobank names", () => {
           countryIso: "FR",
         },
       ]),
-    ).toEqual(new Map([["aachen", "DE"]]));
+    ).toEqual(new Map([[aachenCollectionId, "DE"]]));
   });
 
   it("falls back to the country derived from the collection ID when the Directory provides none", () => {
-    expect(getCountryIsoBySiteId(options, [])).toEqual(
-      new Map([["aachen", "DE"]]),
+    expect(getCountryIsoByCollectionId(options, [])).toEqual(
+      new Map([[aachenCollectionId, "DE"]]),
     );
   });
 
   it("prefers the Directory country over the collection-ID-derived country", () => {
     expect(
-      getCountryIsoBySiteId(options, [
+      getCountryIsoByCollectionId(options, [
         {
-          collectionId: "bbmri-eric:ID:DE_RWTHCBMB:collection:RWTHCBMB_BC",
+          collectionId: aachenCollectionId,
           biobankName: "Some biobank",
           countryIso: "FR",
         },
       ]),
-    ).toEqual(new Map([["aachen", "FR"]]));
+    ).toEqual(new Map([[aachenCollectionId, "FR"]]));
+  });
+
+  it("falls back to the derived country when the Directory returns a non-ISO country name", () => {
+    expect(
+      getCountryIsoByCollectionId(options, [
+        {
+          collectionId: aachenCollectionId,
+          biobankName: "Some biobank",
+          countryIso: "Germany",
+        },
+      ]),
+    ).toEqual(new Map([[aachenCollectionId, "DE"]]));
+  });
+
+  it("normalizes lowercase Directory country codes", () => {
+    expect(
+      getCountryIsoByCollectionId(options, [
+        {
+          collectionId: aachenCollectionId,
+          biobankName: "Some biobank",
+          countryIso: "de",
+        },
+      ]),
+    ).toEqual(new Map([[aachenCollectionId, "DE"]]));
   });
 
   it("skips sites whose collection ID is missing or yields a non-European country", () => {
@@ -95,6 +121,8 @@ describe("directory biobank names", () => {
       },
     };
 
-    expect(getCountryIsoBySiteId(optionsWithInvalidIds, [])).toEqual(new Map());
+    expect(getCountryIsoByCollectionId(optionsWithInvalidIds, [])).toEqual(
+      new Map(),
+    );
   });
 });

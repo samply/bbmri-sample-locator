@@ -14,7 +14,6 @@
   import { base } from "$app/paths";
   import { env } from "$env/dynamic/public";
   import { onMount } from "svelte";
-  import { SvelteMap } from "svelte/reactivity";
   import { v4 as uuidv4 } from "uuid";
   import {
     cloneLensOptions,
@@ -47,7 +46,9 @@
 
   let abortController = new AbortController();
 
-  const countryIsoBySiteName = new SvelteMap<string, string>();
+  let countryIsoByCollectionId: Map<string, string> | undefined;
+
+  let collectionBaseUrl = "";
 
   const flagBaseUrl = "https://flagcdn.com/w40/";
 
@@ -117,18 +118,29 @@
           svg.style.display = "none";
         });
 
-        const countryIso = countryIsoBySiteName.get(siteName);
-        if (countryIso && link && !link.querySelector(".lens-site-flag")) {
-          const flag = document.createElement("img");
-          flag.src = `${flagBaseUrl}${countryIso.toLowerCase()}.png`;
-          flag.alt = "";
-          flag.className = "lens-site-flag";
-          flag.style.display = "inline";
-          flag.style.width = "18px";
-          flag.style.height = "12px";
-          flag.style.verticalAlign = "0px";
-          flag.style.marginRight = "4px";
-          link.insertBefore(flag, link.firstChild);
+        if (link && !link.querySelector(".lens-site-flag")) {
+          const href = link.getAttribute("href");
+          const collectionId = href?.startsWith(collectionBaseUrl)
+            ? href.slice(collectionBaseUrl.length)
+            : undefined;
+          const countryIso = collectionId
+            ? countryIsoByCollectionId?.get(collectionId)
+            : undefined;
+
+          if (countryIso) {
+            const flag = document.createElement("img");
+            flag.src = `${flagBaseUrl}${countryIso.toLowerCase()}.png`;
+            flag.alt = "";
+            flag.className = "lens-site-flag";
+            Object.assign(flag.style, {
+              display: "inline",
+              width: "18px",
+              height: "12px",
+              verticalAlign: "0px",
+              marginRight: "4px",
+            });
+            link.insertBefore(flag, link.firstChild);
+          }
         }
       });
     };
@@ -195,22 +207,18 @@
       };
     }
 
-    const { options: directoryOptions, countryIsoBySiteId } =
-      await loadOptionsWithDirectoryBiobankNames(
-        options,
-        `${base}/api/directory-biobank-names`,
-      );
+    const {
+      options: directoryOptions,
+      countryIsoByCollectionId: directoryCountryIsoByCollectionId,
+    } = await loadOptionsWithDirectoryBiobankNames(
+      options,
+      `${base}/api/directory-biobank-names`,
+    );
 
     options = directoryOptions;
 
-    for (const [site, siteInfo] of Object.entries(options.siteMappings ?? {})) {
-      const siteInfoObject =
-        typeof siteInfo === "object" ? siteInfo : { displayName: siteInfo };
-      const countryIso = countryIsoBySiteId.get(site);
-      if (countryIso && siteInfoObject.displayName) {
-        countryIsoBySiteName.set(siteInfoObject.displayName, countryIso);
-      }
-    }
+    collectionBaseUrl = options.collectionBaseUrl ?? "";
+    countryIsoByCollectionId = directoryCountryIsoByCollectionId;
 
     setOptions(options);
 

@@ -88,6 +88,20 @@ const deriveCountryIsoFromCollectionId = (
   return country && EUROPEAN_COUNTRY_CODES.has(country) ? country : undefined;
 };
 
+/**
+ * Normalizes a country code returned by the BBMRI Directory to an ISO 3166-1
+ * alpha-2 code. The Directory exposes the country as `biobank.country.name`,
+ * which returns ISO codes (e.g. "DE"), but normalizing keeps the flag lookup
+ * robust even if the Directory ever returns full country names or lowercase
+ * codes. Returns `undefined` if the value is not a known European country code.
+ */
+const normalizeCountryCode = (code: string | undefined): string | undefined => {
+  const normalized = code?.trim().toUpperCase();
+  return normalized && EUROPEAN_COUNTRY_CODES.has(normalized)
+    ? normalized
+    : undefined;
+};
+
 export const cloneLensOptions = (options: LensOptions): LensOptions => ({
   ...options,
   siteMappings: options.siteMappings
@@ -145,7 +159,7 @@ export const mergeDirectoryBiobankNames = (
   };
 };
 
-export const getCountryIsoBySiteId = (
+export const getCountryIsoByCollectionId = (
   options: LensOptions,
   directoryNames: DirectoryBiobankName[],
 ): Map<string, string> => {
@@ -157,34 +171,44 @@ export const getCountryIsoBySiteId = (
       .map(({ collectionId, countryIso }) => [collectionId, countryIso]),
   );
 
-  const countryIsoBySiteId = new Map<string, string>();
+  const sitesWithoutDirectoryCountry: string[] = [];
+  const countryIsoByConfiguredCollectionId = new Map<string, string>();
+
   for (const [site, siteInfo] of Object.entries(options.siteMappings ?? {})) {
     const collectionId = isSiteInfo(siteInfo)
       ? siteInfo.collectionId
       : undefined;
     if (!collectionId) continue;
 
-    const directoryCountry = countryIsoByCollectionId.get(collectionId);
+    const directoryCountry = normalizeCountryCode(
+      countryIsoByCollectionId.get(collectionId),
+    );
     if (directoryCountry) {
-      countryIsoBySiteId.set(site, directoryCountry);
+      countryIsoByConfiguredCollectionId.set(collectionId, directoryCountry);
       continue;
     }
 
     const derivedCountry = deriveCountryIsoFromCollectionId(collectionId);
     if (derivedCountry) {
-      console.warn(
-        `Country for site "${site}" derived from collection ID "${collectionId}" (${derivedCountry}) because the BBMRI Directory lookup did not provide one.`,
-      );
-      countryIsoBySiteId.set(site, derivedCountry);
+      sitesWithoutDirectoryCountry.push(site);
+      countryIsoByConfiguredCollectionId.set(collectionId, derivedCountry);
     }
   }
 
-  return countryIsoBySiteId;
+  if (sitesWithoutDirectoryCountry.length) {
+    console.warn(
+      `Country codes for site(s) ${sitesWithoutDirectoryCountry.join(
+        ", ",
+      )} were derived from their collection IDs because the BBMRI Directory provided no valid European country code.`,
+    );
+  }
+
+  return countryIsoByConfiguredCollectionId;
 };
 
 export type DirectoryBiobankNames = {
   options: LensOptions;
-  countryIsoBySiteId: Map<string, string>;
+  countryIsoByCollectionId: Map<string, string>;
 };
 
 export const loadOptionsWithDirectoryBiobankNames = async (
@@ -196,7 +220,7 @@ export const loadOptionsWithDirectoryBiobankNames = async (
   if (!collectionIds.length) {
     return {
       options,
-      countryIsoBySiteId: getCountryIsoBySiteId(options, []),
+      countryIsoByCollectionId: getCountryIsoByCollectionId(options, []),
     };
   }
 
@@ -217,7 +241,10 @@ export const loadOptionsWithDirectoryBiobankNames = async (
     const directoryNames = payload.names ?? [];
     return {
       options: mergeDirectoryBiobankNames(options, directoryNames),
-      countryIsoBySiteId: getCountryIsoBySiteId(options, directoryNames),
+      countryIsoByCollectionId: getCountryIsoByCollectionId(
+        options,
+        directoryNames,
+      ),
     };
   } catch (error) {
     console.warn(
@@ -226,7 +253,7 @@ export const loadOptionsWithDirectoryBiobankNames = async (
     );
     return {
       options,
-      countryIsoBySiteId: getCountryIsoBySiteId(options, []),
+      countryIsoByCollectionId: getCountryIsoByCollectionId(options, []),
     };
   }
 };
