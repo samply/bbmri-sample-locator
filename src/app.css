@@ -267,8 +267,17 @@ lens-result-table::part(lens-result-table) {
   table-layout: fixed;
 }
 
+lens-result-table::part(lens-result-table-header-row),
+lens-result-table::part(lens-result-table-item-body-row) {
+  display: grid;
+  grid-template-columns: 4% 50% 23% 23%;
+}
+
+lens-result-table::part(lens-result-table-header-cell) {
+  width: auto; /* needed to keep the sorting arrows in line, otherwise it will keep the 32% from the Lens table cell*/
+}
+
 lens-result-table::part(lens-result-table-item-body-cell) {
-  max-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
