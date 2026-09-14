@@ -106,7 +106,7 @@ describe("directory biobank names", () => {
     ).toEqual(new Map([[aachenCollectionId, "DE"]]));
   });
 
-  it("skips sites whose collection ID is missing or yields a non-European country", () => {
+  it("skips sites with a missing or malformed collection ID and accepts any 2-letter country", () => {
     const optionsWithInvalidIds: LensOptions = {
       siteMappings: {
         noCollectionId: { displayName: "No id" },
@@ -121,8 +121,8 @@ describe("directory biobank names", () => {
       },
     };
 
-    expect(getCountryIsoByCollectionId(optionsWithInvalidIds, [])).toEqual(
-      new Map(),
-    );
+    expect(
+      getCountryIsoByCollectionId(optionsWithInvalidIds, []),
+    ).toEqual(new Map([["bbmri-eric:ID:US_Harvard:collection:XYZ", "US"]]));
   });
 });

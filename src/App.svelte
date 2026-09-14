@@ -119,10 +119,9 @@
         });
 
         if (link && !link.querySelector(".lens-site-flag")) {
-          const href = link.getAttribute("href");
-          const collectionId = href?.startsWith(collectionBaseUrl)
-            ? href.slice(collectionBaseUrl.length)
-            : undefined;
+          const collectionId = link
+            .getAttribute("href")
+            ?.replace(collectionBaseUrl, "");
           const countryIso = collectionId
             ? countryIsoByCollectionId?.get(collectionId)
             : undefined;
@@ -133,11 +132,11 @@
             flag.alt = "";
             flag.className = "lens-site-flag";
             Object.assign(flag.style, {
-              display: "inline",
               width: "18px",
               height: "12px",
               verticalAlign: "0px",
               marginRight: "4px",
+              display: "inline",
             });
             link.insertBefore(flag, link.firstChild);
           }

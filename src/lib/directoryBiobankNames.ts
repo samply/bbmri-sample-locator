@@ -14,92 +14,12 @@ const isSiteInfo = (siteInfo: string | SiteInfo): siteInfo is SiteInfo =>
   typeof siteInfo === "object" && siteInfo !== null;
 
 /**
- * ISO 3166-1 alpha-2 codes for European countries. Used as an allowlist so that
- * a country code is only accepted when it derives from a real European country,
- * protecting against invalid collection IDs in the configuration.
+ * Normalizes a potential ISO 3166-1 alpha-2 country code (e.g. "de" -> "DE"),
+ * returning `undefined` unless the value is exactly two letters.
  */
-const EUROPEAN_COUNTRY_CODES = new Set([
-  "AD",
-  "AL",
-  "AT",
-  "AX",
-  "BA",
-  "BE",
-  "BG",
-  "BY",
-  "CH",
-  "CY",
-  "CZ",
-  "DE",
-  "DK",
-  "EE",
-  "ES",
-  "FI",
-  "FO",
-  "FR",
-  "GB",
-  "GG",
-  "GI",
-  "GR",
-  "HR",
-  "HU",
-  "IE",
-  "IM",
-  "IS",
-  "IT",
-  "JE",
-  "LI",
-  "LT",
-  "LU",
-  "LV",
-  "MC",
-  "MD",
-  "ME",
-  "MK",
-  "MT",
-  "NL",
-  "NO",
-  "PL",
-  "PT",
-  "RO",
-  "RS",
-  "RU",
-  "SE",
-  "SI",
-  "SJ",
-  "SK",
-  "SM",
-  "TR",
-  "UA",
-  "VA",
-  "XK",
-]);
-
-/**
- * Derives the ISO 3166-1 alpha-2 country code from a BBMRI collection ID of the
- * form `bbmri-eric:ID:<CC>_<...>`. Returns the code only if it is a valid
- * European country code; otherwise returns `undefined`.
- */
-const deriveCountryIsoFromCollectionId = (
-  collectionId: string,
-): string | undefined => {
-  const match = /^bbmri-eric:ID:([A-Z]{2})_/.exec(collectionId);
-  const country = match?.[1];
-  return country && EUROPEAN_COUNTRY_CODES.has(country) ? country : undefined;
-};
-
-/**
- * Normalizes a country code returned by the BBMRI Directory to an ISO 3166-1
- * alpha-2 code. The Directory exposes the country as `biobank.country.name`,
- * which returns ISO codes (e.g. "DE"), but normalizing keeps the flag lookup
- * robust even if the Directory ever returns full country names or lowercase
- * codes. Returns `undefined` if the value is not a known European country code.
- */
-const normalizeCountryCode = (code: string | undefined): string | undefined => {
-  const normalized = code?.trim().toUpperCase();
-  return normalized && EUROPEAN_COUNTRY_CODES.has(normalized)
-    ? normalized
-    : undefined;
+const toIsoCode = (value: string | undefined): string | undefined => {
+  const code = value?.trim().toUpperCase();
+  return code && /^[A-Z]{2}$/.test(code) ? code : undefined;
 };
 
 export const cloneLensOptions = (options: LensOptions): LensOptions => ({
@@ -180,7 +100,7 @@ export const getCountryIsoByCollectionId = (
       : undefined;
     if (!collectionId) continue;
 
-    const directoryCountry = normalizeCountryCode(
+    const directoryCountry = toIsoCode(
       countryIsoByCollectionId.get(collectionId),
     );
     if (directoryCountry) {
@@ -188,7 +108,9 @@ export const getCountryIsoByCollectionId = (
       continue;
     }
 
-    const derivedCountry = deriveCountryIsoFromCollectionId(collectionId);
+    const derivedCountry = toIsoCode(
+      /^bbmri-eric:ID:([A-Z]{2})_/.exec(collectionId)?.[1],
+    );
     if (derivedCountry) {
       sitesWithoutDirectoryCountry.push(site);
       countryIsoByConfiguredCollectionId.set(collectionId, derivedCountry);
@@ -199,7 +121,7 @@ export const getCountryIsoByCollectionId = (
     console.warn(
       `Country codes for site(s) ${sitesWithoutDirectoryCountry.join(
         ", ",
-      )} were derived from their collection IDs because the BBMRI Directory provided no valid European country code.`,
+      )} were derived from their collection IDs because the BBMRI Directory provided no valid ISO country code.`,
     );
   }
 
