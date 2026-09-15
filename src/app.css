@@ -288,7 +288,6 @@ lens-result-table::part(lens-result-table-item-body-cell-link) {
   white-space: nowrap;
 }
 
-
 lens-result-summary::part(result-summary-content) {
   gap: var(--gap-l);
 }

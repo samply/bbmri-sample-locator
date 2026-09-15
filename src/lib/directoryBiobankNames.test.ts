@@ -121,8 +121,8 @@ describe("directory biobank names", () => {
       },
     };
 
-    expect(
-      getCountryIsoByCollectionId(optionsWithInvalidIds, []),
-    ).toEqual(new Map([["bbmri-eric:ID:US_Harvard:collection:XYZ", "US"]]));
+    expect(getCountryIsoByCollectionId(optionsWithInvalidIds, [])).toEqual(
+      new Map([["bbmri-eric:ID:US_Harvard:collection:XYZ", "US"]]),
+    );
   });
 });
