@@ -9,8 +9,14 @@
   },
   "collectionBaseUrl": "https://directory.bbmri-eric.eu/ERIC/directory/#/collection/",
   "siteMappings": {
-    "lodz-test": "Łódź-test",
-    "uppsala-test": "Uppsala-Test",
+    "lodz-test": {
+      "displayName": "Łódź-test",
+      "collectionId": "bbmri-eric:ID:PL_BLUL:collection:POPULOUS_BLUL"
+    },
+    "uppsala-test": {
+      "displayName": "Uppsala-test",
+      "collectionId": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala"
+    },
     "eric-test": "ERIC-Test",
     "DNB-Test": "DNB-Test"
   },
