@@ -45,6 +45,13 @@
   };
 
   let abortController = new AbortController();
+
+  let countryIsoByCollectionId: Map<string, string> | undefined;
+
+  let collectionBaseUrl = "";
+
+  const flagBaseUrl = "https://flagcdn.com/w40/";
+
   function sendQuery() {
     abortController.abort();
     abortController = new AbortController();
@@ -110,6 +117,30 @@
         link?.querySelectorAll<SVGElement>("svg.size-4").forEach((svg) => {
           svg.style.display = "none";
         });
+
+        if (link && !link.querySelector(".lens-site-flag")) {
+          const collectionId = link
+            .getAttribute("href")
+            ?.replace(collectionBaseUrl, "");
+          const countryIso = collectionId
+            ? countryIsoByCollectionId?.get(collectionId)
+            : undefined;
+
+          if (countryIso) {
+            const flag = document.createElement("img");
+            flag.src = `${flagBaseUrl}${countryIso.toLowerCase()}.png`;
+            flag.alt = "";
+            flag.className = "lens-site-flag";
+            Object.assign(flag.style, {
+              width: "18px",
+              height: "12px",
+              verticalAlign: "0px",
+              marginRight: "4px",
+              display: "inline",
+            });
+            link.insertBefore(flag, link.firstChild);
+          }
+        }
       });
     };
 
@@ -175,10 +206,18 @@
       };
     }
 
-    options = await loadOptionsWithDirectoryBiobankNames(
+    const {
+      options: directoryOptions,
+      countryIsoByCollectionId: directoryCountryIsoByCollectionId,
+    } = await loadOptionsWithDirectoryBiobankNames(
       options,
       `${base}/api/directory-biobank-names`,
     );
+
+    options = directoryOptions;
+
+    collectionBaseUrl = options.collectionBaseUrl ?? "";
+    countryIsoByCollectionId = directoryCountryIsoByCollectionId;
 
     setOptions(options);
 
