@@ -278,9 +278,13 @@ lens-result-table::part(lens-result-table-header-cell) {
 }
 
 lens-result-table::part(lens-result-table-item-body-cell) {
+  overflow: visible;
+  white-space: nowrap;
+}
+
+lens-result-table::part(lens-result-table-item-body-cell-site) {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 lens-result-table::part(lens-result-table-item-body-cell-checkbox) {

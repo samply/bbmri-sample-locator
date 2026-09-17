@@ -102,6 +102,8 @@
           return;
         }
 
+        siteCell.part.add("lens-result-table-item-body-cell-site");
+
         siteCell.title = siteName;
         const link = siteCell.querySelector<HTMLElement>(
           '[part~="lens-result-table-item-body-cell-link"]',
