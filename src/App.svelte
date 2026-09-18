@@ -38,7 +38,11 @@
 
   const barChartHoverColors: string[] = ["#E95713"];
 
+  const diagnosisLimit = 20;
+
   let catalogueopen = $state(false);
+  let showAllDiagnoses = $state(false);
+  let diagnosisChart: HTMLElement;
 
   const toggleCatalogue = () => {
     catalogueopen = !catalogueopen;
@@ -174,6 +178,33 @@
     };
   };
 
+  const setDefaultDiagnosisSort = () => {
+    let animationFrameId: number | undefined;
+
+    const selectValueDescending = () => {
+      const valueSortButton = diagnosisChart?.shadowRoot?.querySelector(
+        'button[title="Sort by value"]',
+      ) as HTMLButtonElement | null;
+
+      if (!valueSortButton) {
+        animationFrameId = window.requestAnimationFrame(selectValueDescending);
+        return;
+      }
+
+      // The first click selects value/ascending; the second changes it to descending.
+      valueSortButton.click();
+      valueSortButton.click();
+    };
+
+    selectValueDescending();
+
+    return () => {
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
+  };
+
   const initializeLens = async () => {
     // Set the options based on the environment
     let optionsSource: LensOptions = optionsProd;
@@ -233,9 +264,13 @@
 
   onMount(() => {
     const cleanupResultTableNameTooltips = setupResultTableNameTooltips();
+    const cleanupDefaultDiagnosisSort = setDefaultDiagnosisSort();
     void initializeLens();
 
-    return cleanupResultTableNameTooltips;
+    return () => {
+      cleanupResultTableNameTooltips();
+      cleanupDefaultDiagnosisSort();
+    };
   });
 
   let results: HTMLElement;
@@ -350,6 +385,7 @@
 
     <div class="chart-wrapper chart-diagnosis">
       <lens-chart
+        bind:this={diagnosisChart}
         title="Diagnosis"
         dataKey="diagnosis"
         chartType="bar"
@@ -357,8 +393,20 @@
         groupingLabel=".%"
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
-        enableSorting={false}
-      ></lens-chart>
+        enableSorting={true}
+        topN={showAllDiagnoses ? undefined : diagnosisLimit}
+      >
+        <button
+          class="diagnosis-chart-toggle"
+          type="button"
+          aria-expanded={showAllDiagnoses}
+          onclick={() => (showAllDiagnoses = !showAllDiagnoses)}
+        >
+          {showAllDiagnoses
+            ? `Show top ${diagnosisLimit}`
+            : "Show all diagnoses"}
+        </button>
+      </lens-chart>
     </div>
   </div>
 </main>

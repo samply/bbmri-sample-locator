@@ -253,6 +253,22 @@ lens-search-bar-multiple {
   display: grid;
 }
 
+.diagnosis-chart-toggle {
+  justify-self: center;
+  margin-top: var(--gap-xs);
+  padding: var(--gap-xs) var(--gap-s);
+  color: var(--white);
+  background-color: var(--blue);
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  font-size: var(--font-size-m);
+}
+
+.diagnosis-chart-toggle:hover {
+  background-color: var(--light-blue);
+}
+
 .result-summary {
   grid-column: 1/-1;
   border: none;
