@@ -13,7 +13,7 @@
   } from "@samply/lens";
   import { base } from "$app/paths";
   import { env } from "$env/dynamic/public";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { v4 as uuidv4 } from "uuid";
   import {
     cloneLensOptions,
@@ -41,8 +41,11 @@
   const diagnosisLimit = 20;
 
   let catalogueopen = $state(false);
-  let showAllDiagnoses = $state(false);
-  let diagnosisChart: HTMLElement;
+  let showDiagnosisDialog = $state(false);
+  let diagnosisDialog = $state<HTMLDialogElement>();
+  let allDiagnosesChart = $state<HTMLElement>();
+  let diagnosisDialogOpening = false;
+  let stopDiagnosisSortObservation: (() => void) | undefined;
 
   const toggleCatalogue = () => {
     catalogueopen = !catalogueopen;
@@ -178,31 +181,79 @@
     };
   };
 
-  const setDefaultDiagnosisSort = () => {
-    let animationFrameId: number | undefined;
+  const observeDiagnosisSort = () => {
+    const chartRoot = allDiagnosesChart?.shadowRoot;
+    if (!chartRoot) {
+      return () => {};
+    }
+
+    let observer: MutationObserver | undefined;
+    let timeoutId: number | undefined;
+
+    const stop = () => {
+      observer?.disconnect();
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+    };
 
     const selectValueDescending = () => {
-      const valueSortButton = diagnosisChart?.shadowRoot?.querySelector(
-        'button[title="Sort by value"]',
-      ) as HTMLButtonElement | null;
+      const valueSortButton = chartRoot.querySelector<HTMLButtonElement>(
+        'button[aria-label^="Sort by value"]',
+      );
 
       if (!valueSortButton) {
-        animationFrameId = window.requestAnimationFrame(selectValueDescending);
         return;
       }
 
-      // The first click selects value/ascending; the second changes it to descending.
-      valueSortButton.click();
+      const sortState = valueSortButton.getAttribute("aria-label") ?? "";
+      if (sortState.includes("descending")) {
+        stop();
+        return;
+      }
+
       valueSortButton.click();
     };
 
+    observer = new MutationObserver(selectValueDescending);
+    observer.observe(chartRoot, {
+      attributes: true,
+      attributeFilter: ["aria-label"],
+      childList: true,
+      subtree: true,
+    });
+    timeoutId = window.setTimeout(stop, 1000);
     selectValueDescending();
 
-    return () => {
-      if (animationFrameId) {
-        window.cancelAnimationFrame(animationFrameId);
+    return stop;
+  };
+
+  const closeDiagnosisDialog = () => {
+    stopDiagnosisSortObservation?.();
+    stopDiagnosisSortObservation = undefined;
+    diagnosisDialogOpening = false;
+    showDiagnosisDialog = false;
+  };
+
+  const openDiagnosisDialog = async () => {
+    if (diagnosisDialogOpening || diagnosisDialog?.open) {
+      return;
+    }
+
+    diagnosisDialogOpening = true;
+    try {
+      showDiagnosisDialog = true;
+      await tick();
+
+      if (!diagnosisDialog?.open) {
+        diagnosisDialog?.showModal();
       }
-    };
+
+      stopDiagnosisSortObservation?.();
+      stopDiagnosisSortObservation = observeDiagnosisSort();
+    } finally {
+      diagnosisDialogOpening = false;
+    }
   };
 
   const initializeLens = async () => {
@@ -264,12 +315,11 @@
 
   onMount(() => {
     const cleanupResultTableNameTooltips = setupResultTableNameTooltips();
-    const cleanupDefaultDiagnosisSort = setDefaultDiagnosisSort();
     void initializeLens();
 
     return () => {
       cleanupResultTableNameTooltips();
-      cleanupDefaultDiagnosisSort();
+      stopDiagnosisSortObservation?.();
     };
   });
 
@@ -385,7 +435,6 @@
 
     <div class="chart-wrapper chart-diagnosis">
       <lens-chart
-        bind:this={diagnosisChart}
         title="Diagnosis"
         dataKey="diagnosis"
         chartType="bar"
@@ -393,22 +442,51 @@
         groupingLabel=".%"
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
-        enableSorting={true}
-        topN={showAllDiagnoses ? undefined : diagnosisLimit}
+        enableSorting={false}
+        topN={diagnosisLimit}
       >
         <button
           class="diagnosis-chart-toggle"
           type="button"
-          aria-expanded={showAllDiagnoses}
-          onclick={() => (showAllDiagnoses = !showAllDiagnoses)}
+          aria-haspopup="dialog"
+          aria-controls="diagnosis-chart-dialog"
+          onclick={openDiagnosisDialog}
         >
-          {showAllDiagnoses
-            ? `Show top ${diagnosisLimit}`
-            : "Show all diagnoses"}
+          View all diagnoses
         </button>
       </lens-chart>
     </div>
   </div>
+
+  {#if showDiagnosisDialog}
+    <dialog
+      bind:this={diagnosisDialog}
+      id="diagnosis-chart-dialog"
+      class="diagnosis-chart-dialog"
+      aria-label="All diagnoses chart"
+      onclose={closeDiagnosisDialog}
+    >
+      <div class="diagnosis-chart-dialog-content">
+        <form method="dialog" class="diagnosis-chart-dialog-actions">
+          <button type="submit" class="diagnosis-chart-dialog-close">
+            Close
+          </button>
+        </form>
+
+        <lens-chart
+          bind:this={allDiagnosesChart}
+          title="All Diagnoses"
+          dataKey="diagnosis"
+          chartType="bar"
+          groupingDivider="."
+          groupingLabel=".%"
+          backgroundColor={barChartBackgroundColors}
+          backgroundHoverColor={barChartHoverColors}
+          enableSorting={true}
+        ></lens-chart>
+      </div>
+    </dialog>
+  {/if}
 </main>
 
 <lens-toast></lens-toast>
