@@ -435,7 +435,7 @@
 
     <div class="chart-wrapper chart-diagnosis">
       <lens-chart
-        title="Diagnosis"
+        title={`Top ${diagnosisLimit} Diagnoses`}
         dataKey="diagnosis"
         chartType="bar"
         groupingDivider="."
