@@ -13,7 +13,7 @@
   } from "@samply/lens";
   import { base } from "$app/paths";
   import { env } from "$env/dynamic/public";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { v4 as uuidv4 } from "uuid";
   import {
     cloneLensOptions,
@@ -38,7 +38,14 @@
 
   const barChartHoverColors: string[] = ["#E95713"];
 
+  const diagnosisLimit = 20;
+
   let catalogueopen = $state(false);
+  let showDiagnosisDialog = $state(false);
+  let diagnosisDialog = $state<HTMLDialogElement>();
+  let allDiagnosesChart = $state<HTMLElement>();
+  let diagnosisDialogOpening = false;
+  let stopDiagnosisSortObservation: (() => void) | undefined;
 
   const toggleCatalogue = () => {
     catalogueopen = !catalogueopen;
@@ -174,6 +181,81 @@
     };
   };
 
+  const observeDiagnosisSort = () => {
+    const chartRoot = allDiagnosesChart?.shadowRoot;
+    if (!chartRoot) {
+      return () => {};
+    }
+
+    let observer: MutationObserver | undefined;
+    let timeoutId: number | undefined;
+
+    const stop = () => {
+      observer?.disconnect();
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+
+    const selectValueDescending = () => {
+      const valueSortButton = chartRoot.querySelector<HTMLButtonElement>(
+        'button[aria-label^="Sort by value"]',
+      );
+
+      if (!valueSortButton) {
+        return;
+      }
+
+      const sortState = valueSortButton.getAttribute("aria-label") ?? "";
+      if (sortState.includes("descending")) {
+        stop();
+        return;
+      }
+
+      valueSortButton.click();
+    };
+
+    observer = new MutationObserver(selectValueDescending);
+    observer.observe(chartRoot, {
+      attributes: true,
+      attributeFilter: ["aria-label"],
+      childList: true,
+      subtree: true,
+    });
+    timeoutId = window.setTimeout(stop, 1000);
+    selectValueDescending();
+
+    return stop;
+  };
+
+  const closeDiagnosisDialog = () => {
+    stopDiagnosisSortObservation?.();
+    stopDiagnosisSortObservation = undefined;
+    diagnosisDialogOpening = false;
+    showDiagnosisDialog = false;
+  };
+
+  const openDiagnosisDialog = async () => {
+    if (diagnosisDialogOpening || diagnosisDialog?.open) {
+      return;
+    }
+
+    diagnosisDialogOpening = true;
+    try {
+      showDiagnosisDialog = true;
+      await tick();
+
+      if (!diagnosisDialog?.open) {
+        diagnosisDialog?.showModal();
+      }
+
+      stopDiagnosisSortObservation?.();
+      stopDiagnosisSortObservation = observeDiagnosisSort();
+    } finally {
+      diagnosisDialogOpening = false;
+    }
+  };
+
   const initializeLens = async () => {
     // Set the options based on the environment
     let optionsSource: LensOptions = optionsProd;
@@ -235,7 +317,10 @@
     const cleanupResultTableNameTooltips = setupResultTableNameTooltips();
     void initializeLens();
 
-    return cleanupResultTableNameTooltips;
+    return () => {
+      cleanupResultTableNameTooltips();
+      stopDiagnosisSortObservation?.();
+    };
   });
 
   let results: HTMLElement;
@@ -350,7 +435,7 @@
 
     <div class="chart-wrapper chart-diagnosis">
       <lens-chart
-        title="Diagnosis"
+        title={`Top ${diagnosisLimit} Diagnoses`}
         dataKey="diagnosis"
         chartType="bar"
         groupingDivider="."
@@ -358,9 +443,50 @@
         backgroundColor={barChartBackgroundColors}
         backgroundHoverColor={barChartHoverColors}
         enableSorting={false}
-      ></lens-chart>
+        topN={diagnosisLimit}
+      >
+        <button
+          class="diagnosis-chart-toggle"
+          type="button"
+          aria-haspopup="dialog"
+          aria-controls="diagnosis-chart-dialog"
+          onclick={openDiagnosisDialog}
+        >
+          View all diagnoses
+        </button>
+      </lens-chart>
     </div>
   </div>
+
+  {#if showDiagnosisDialog}
+    <dialog
+      bind:this={diagnosisDialog}
+      id="diagnosis-chart-dialog"
+      class="diagnosis-chart-dialog"
+      aria-label="All diagnoses chart"
+      onclose={closeDiagnosisDialog}
+    >
+      <div class="diagnosis-chart-dialog-content">
+        <form method="dialog" class="diagnosis-chart-dialog-actions">
+          <button type="submit" class="diagnosis-chart-dialog-close">
+            Close
+          </button>
+        </form>
+
+        <lens-chart
+          bind:this={allDiagnosesChart}
+          title="All Diagnoses"
+          dataKey="diagnosis"
+          chartType="bar"
+          groupingDivider="."
+          groupingLabel=".%"
+          backgroundColor={barChartBackgroundColors}
+          backgroundHoverColor={barChartHoverColors}
+          enableSorting={true}
+        ></lens-chart>
+      </div>
+    </dialog>
+  {/if}
 </main>
 
 <lens-toast></lens-toast>

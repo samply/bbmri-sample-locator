@@ -253,6 +253,64 @@ lens-search-bar-multiple {
   display: grid;
 }
 
+.diagnosis-chart-toggle,
+.diagnosis-chart-dialog-close {
+  justify-self: center;
+  margin-top: var(--gap-xs);
+  padding: var(--gap-xs) var(--gap-s);
+  color: var(--white);
+  background-color: var(--blue);
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  font-size: var(--font-size-m);
+}
+
+.diagnosis-chart-toggle:hover,
+.diagnosis-chart-dialog-close:hover {
+  background-color: var(--light-blue);
+}
+
+.diagnosis-chart-dialog {
+  width: min(96vw, 1600px);
+  height: 92vh;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  background-color: var(--white);
+  border: solid 1px var(--light-gray);
+  border-radius: var(--border-radius-small);
+}
+
+.diagnosis-chart-dialog::backdrop {
+  background-color: rgb(0 0 0 / 55%);
+}
+
+.diagnosis-chart-dialog-content {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100%;
+  padding: var(--gap-s);
+}
+
+.diagnosis-chart-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.diagnosis-chart-dialog-close {
+  margin-top: 0;
+}
+
+.diagnosis-chart-dialog lens-chart {
+  min-height: 0;
+}
+
+.diagnosis-chart-dialog lens-chart::part(lens-chart-canvas) {
+  height: calc(92vh - 10rem) !important;
+  max-height: none;
+}
+
 .result-summary {
   grid-column: 1/-1;
   border: none;
