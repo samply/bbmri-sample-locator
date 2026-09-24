@@ -410,8 +410,8 @@
 
     <div class="chart-wrapper chart-age-distribution">
       <lens-chart
-        title="Age Distribution"
-        dataKey="donor_age"
+        title="Age at Diagnosis"
+        dataKey="age_at_diagnosis"
         chartType="bar"
         groupRange={10}
         filterRegex="^(1*[12]*[0-9])"
