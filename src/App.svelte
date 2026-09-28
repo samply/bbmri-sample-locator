@@ -267,6 +267,18 @@
 
     let options = cloneLensOptions(optionsSource);
 
+    if (env.PUBLIC_LENS_OPTIONS?.trim()) {
+      const overrides = JSON.parse(env.PUBLIC_LENS_OPTIONS);
+      if (
+        !overrides ||
+        typeof overrides !== "object" ||
+        Array.isArray(overrides)
+      ) {
+        throw new Error("PUBLIC_LENS_OPTIONS must be a JSON object");
+      }
+      options = { ...options, ...overrides };
+    }
+
     if (env.PUBLIC_SPOT_URL) {
       options = {
         ...options,
