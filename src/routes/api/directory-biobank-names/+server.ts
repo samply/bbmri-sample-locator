@@ -1,6 +1,8 @@
 import { json, type RequestHandler } from "@sveltejs/kit";
+import { env } from "$env/dynamic/private";
 
 const DIRECTORY_GRAPHQL_ENDPOINT =
+  env.DIRECTORY_GRAPHQL_ENDPOINT?.trim() ||
   "https://directory.bbmri-eric.eu/ERIC/graphql";
 const MAX_COLLECTION_IDS = 200;
 
