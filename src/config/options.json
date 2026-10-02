@@ -142,6 +142,10 @@
       "displayName": "Rome-OPBG",
       "collectionId": "bbmri-eric:ID:IT_1547222650173780:collection:1548666951181832"
     },
+    "sofia-mmc": {
+      "displayName": "Sofia-MMC",
+      "collectionId": "bbmri-eric:ID:BG_MMC:collection:eyediseasesPROSPECTIVE"
+    },
     "uppsala": {
       "displayName": "Uppsala",
       "collectionId": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala"
