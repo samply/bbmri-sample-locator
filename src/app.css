@@ -328,7 +328,7 @@ lens-result-table::part(lens-result-table) {
 lens-result-table::part(lens-result-table-header-row),
 lens-result-table::part(lens-result-table-item-body-row) {
   display: grid;
-  grid-template-columns: 4% 50% 23% 23%;
+  grid-template-columns: 4% 70% 13% 13%;
 }
 
 lens-result-table::part(lens-result-table-header-cell) {
