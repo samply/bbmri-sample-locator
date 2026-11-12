@@ -100,6 +100,10 @@
     },
     "muenster": {
       "displayName": "Münster",
+      "collectionId": "bbmri-eric:ID:DE_CBBMR:collection:main"
+    },
+    "muenster-zbb-mfm": {
+      "displayName": "Münster-ZBB-MFM",
       "collectionId": "bbmri-eric:ID:DE_ZBBMFM:collection:zbb-mfm-full"
     },
     "naples-pascale": {
