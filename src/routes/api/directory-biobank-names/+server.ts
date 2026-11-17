@@ -37,7 +37,7 @@ const query = `
   }
 `;
 
-export const POST: RequestHandler = async ({ request, fetch }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const requestBody = (await request.json().catch(() => ({}))) as {
     collectionIds?: unknown;
   };
