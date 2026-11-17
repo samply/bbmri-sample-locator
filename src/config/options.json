@@ -98,10 +98,6 @@
       "displayName": "München-HMGU",
       "collectionId": "bbmri-eric:ID:DE_Helmholtz-MuenchenBiobank:collection:DE_KORA"
     },
-    "muenster": {
-      "displayName": "Münster",
-      "collectionId": "bbmri-eric:ID:DE_CBBMR:collection:main"
-    },
     "muenster-zbb-mfm": {
       "displayName": "Münster-ZBB-MFM",
       "collectionId": "bbmri-eric:ID:DE_ZBBMFM:collection:zbb-mfm-full"
