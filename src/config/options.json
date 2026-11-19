@@ -114,6 +114,10 @@
       "displayName": "Olomouc",
       "collectionId": "bbmri-eric:ID:CZ_UPOL_LF:collection:all_samples"
     },
+    "padova-aopd": {
+      "displayName": "Padova-AOPD",
+      "collectionId": "bbmri-eric:ID:IT_1382686156197551:collection:145484867305069"
+    },
     "pilsen": {
       "displayName": "Pilsen",
       "collectionId": "bbmri-eric:ID:CZ_CUNI_PILS:collection:main_collection"
