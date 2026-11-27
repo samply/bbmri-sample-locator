@@ -154,6 +154,10 @@
       "displayName": "Uppsala",
       "collectionId": "bbmri-eric:ID:SE_827:collection:UCAN_Uppsala"
     },
+    "valencia-lafe": {
+      "displayName": "Valencia-LaFe",
+      "collectionId": "bbmri-eric:ID:ES_BLAFE:collection:8"
+    },
     "vienna": {
       "displayName": "Vienna",
       "collectionId": "bbmri-eric:ID:AT_MUW:collection:985398549856-MECFSBiobankAustria"
